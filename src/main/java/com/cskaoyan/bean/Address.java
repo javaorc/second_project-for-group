@@ -13,6 +13,8 @@ public class Address {
 
     private Integer cityId;
 
+    private Region region;
+
     private Integer areaId;
 
     private String address;
