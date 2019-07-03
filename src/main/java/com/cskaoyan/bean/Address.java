@@ -13,6 +13,8 @@ public class Address {
 
     private Integer cityId;
 
+    private Region region;
+
     private Integer areaId;
 
     private String address;
@@ -28,6 +30,14 @@ public class Address {
     private Boolean deleted;
 
     private User user;
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
 
     public Boolean getDefault() {
         return isDefault;

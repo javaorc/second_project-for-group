@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.GoodsMapper">
+
+    <resultMap id="goodsMap" type="com.cskaoyan.bean.Goods">
+        <result column="id" property="id" />
+        <result column="goods_sn" property="goodsSn" />
+        <result column="name" property="name" />
+        <result column="category_id" property="categoryId" />
+        <result column="brand_id" property="brandId" />
+        <result column="gallery" property="gallery" />
+        <result column="keywords" property="keywords" />
+        <result column="brief" property="brief" />
+        <result column="is_on_sale" property="isOnSale" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="pic_url" property="picUrl" />
+        <result column="share_url" property="shareUrl" />
+        <result column="is_new" property="isNew" />
+        <result column="is_hot" property="isHot" />
+        <result column="unit" property="unit" />
+        <result column="counter_price" property="counterPrice" />
+        <result column="retail_price" property="retailPrice" />
+        <result column="detail" property="detail" />
+        <result column="add_time" property="addTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+    <select id="queryList" resultMap="goodsMap">
+        select
+          id,
+          goods_sn,
+          name,
+          category_id,
+          brand_id,
+          gallery,
+          keywords,
+          brief,
+          is_on_sale,
+          sort_order,
+          pic_url,
+          share_url,
+          is_new,
+          is_hot,
+          unit,
+          counter_price,
+          retail_price,
+          detail,
+          add_time,
+          update_time,
+          deleted
+        from  cskaoyan_mall_goods
+        <where>
+            <if test="goodsSn != null">
+                goods_sn = #{goodsSn}
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
+            </if>
+        </where>
+
+        order by #{sort} #{order}
+        limit #{limit} offset #{offset}
+    </select>
+
+
+    <select id="queryTotalRecords" resultType="_int">
+        select count(*)
+        from cskaoyan_mall_goods
+        <where>
+            <if test="goodsSn != null">
+                goods_sn = #{goodsSn}
+            </if>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

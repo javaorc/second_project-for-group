@@ -1,7 +1,7 @@
 package com.cskaoyan.controller.generalize;
 
 import com.cskaoyan.bean.Ad;
-import com.cskaoyan.bean.ResponseVO;
+import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.Storage;
 import com.cskaoyan.service.generalize.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
