@@ -1,4 +1,4 @@
-package com.cskaoyan.bean;
+package com.cskaoyan.bean.vo;
 
 public class ResponseVO<T> {
     private T data;

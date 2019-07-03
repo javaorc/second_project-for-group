@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.generalize.AdMapper">
+
+    <resultMap id="adResult" type="com.cskaoyan.bean.Ad">
+        <result column="id"             property="id"/>
+        <result column="name"           property="name"/>
+        <result column="link"           property="link"/>
+        <result column="url"            property="url"/>
+        <result column="POSITION"       property="position"/>
+        <result column="content"        property="content"/>
+        <result column="start_time"     property="startTime"/>
+        <result column="end_time"       property="endTime"/>
+        <result column="enabled"        property="enabled"/>
+        <result column="add_time"       property="addTime"/>
+        <result column="update_time"    property="updateTime"/>
+        <result column="deleted"        property="deleted"/>
+    </resultMap>
+    <select id="findAdList" resultMap="adResult">
+        SELECT
+        id,
+        NAME,
+        link,
+        url,
+        POSITION,
+        content,
+        start_time,
+        end_time,
+        enabled,
+        add_time,
+        update_time,
+        deleted
+        FROM cskaoyan_mall_ad
+        <where>
+            <if test="name!=null">
+                name like CONCAT(CONCAT('%',#{name}),'%')
+            </if>
+            <if test="content!=null">
+                and content like CONCAT(CONCAT('%',#{content}),'%')
+            </if>
+        </where>
+    </select>
+
+    <update id="updateAd">
+        UPDATE cskaoyan_mall_ad
+        SET
+        NAME = #{ad.name},
+        link= #{ad.link},
+        url= #{ad.url},
+        POSITION= #{ad.position},
+        content= #{ad.content},
+        start_time= #{ad.startTime},
+        end_time= #{ad.endTime},
+        enabled= #{ad.enabled},
+        add_time= #{ad.addTime},
+        update_time= #{ad.updateTime},
+        deleted= #{ad.deleted}
+        WHERE
+        id = #{ad.id}
+    </update>
+
+    <delete id="deleteAd">
+        delete from cskaoyan_mall_ad where id=#{ad.id}
+    </delete>
+
+    <insert id="insertStorage">
+        insert into cskaoyan_mall_storage (
+                                           cskaoyan_mall_storage.key,
+                                           name,
+                                           type,
+                                           size,
+                                           url,
+                                           add_time,
+                                           update_time,
+                                           deleted) value ( #{sto.key},
+                                                            #{sto.name},
+                                                            #{sto.type},
+                                                            #{sto.size},
+                                                            #{sto.url},
+                                                            #{sto.addTime},
+                                                            #{sto.updateTime},
+                                                            #{sto.deleted})
+    </insert>
+
+    <!--<resultMap id="stoResult" type="com.cskaoyan.bean.Storage">
+        <result column="id" property=""/>
+        <result column="key" property=""/>
+        <result column="name" property=""/>
+        <result column="type" property=""/>
+        <result column="" property=""/>
+    </resultMap>-->
+    <select id="queryStorageIdByKey" resultType="_int">
+      select
+      id
+      from cskaoyan_mall_storage where cskaoyan_mall_storage.key=#{key}
+    </select>
+
+    <insert id="insertAd">
+        insert into cskaoyan_mall_ad (
+                                           NAME,
+                                           link,
+                                           url,
+                                           POSITION,
+                                           content,
+                                           start_time,
+                                           end_time,
+                                           enabled,
+                                           add_time,
+                                           update_time,
+                                           deleted) value (
+                                                          #{ad.name},
+                                                          #{ad.link},
+                                                          #{ad.url},
+                                                          #{ad.position},
+                                                          #{ad.content},
+                                                          #{ad.startTime},
+                                                          #{ad.endTime},
+                                                          #{ad.enabled},
+                                                          #{ad.addTime},
+                                                          #{ad.updateTime},
+                                                          #{ad.deleted}
+                                                                      )
+    </insert>
+
+    <!--<select id="findAdListByName" resultMap="adResult">
+        select
+        id,
+        NAME,
+        link,
+        url,
+        POSITION,
+        content,
+        start_time,
+        end_time,
+        enabled,
+        add_time,
+        update_time,
+        deleted
+        from cskaoyan_mall_ad where name like CONCAT(CONCAT('%',#{name}),'%')
+    </select>-->
+</mapper>
