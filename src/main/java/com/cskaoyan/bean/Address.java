@@ -31,6 +31,14 @@ public class Address {
 
     private User user;
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
     public Boolean getDefault() {
         return isDefault;
     }
