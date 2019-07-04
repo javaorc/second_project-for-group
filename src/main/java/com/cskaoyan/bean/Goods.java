@@ -1,6 +1,7 @@
 package com.cskaoyan.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Goods {
     private int         id;
@@ -8,7 +9,9 @@ public class Goods {
     private String      name;
     private int         categoryId;
     private int         brandId;
-    private String      gallery;
+
+    private List<String> gallery;
+
     private String      keywords;
     private String      brief;
     private boolean     isOnSale;
@@ -65,11 +68,11 @@ public class Goods {
         this.brandId = brandId;
     }
 
-    public String getGallery() {
+    public List<String> getGallery() {
         return gallery;
     }
 
-    public void setGallery(String gallery) {
+    public void setGallery(List<String> gallery) {
         this.gallery = gallery;
     }
 
@@ -87,14 +90,6 @@ public class Goods {
 
     public void setBrief(String brief) {
         this.brief = brief;
-    }
-
-    public boolean isOnSale() {
-        return isOnSale;
-    }
-
-    public void setOnSale(boolean onSale) {
-        isOnSale = onSale;
     }
 
     public int getSortOrder() {
@@ -121,20 +116,28 @@ public class Goods {
         this.shareUrl = shareUrl;
     }
 
-    public boolean isNew() {
+    public boolean getIsOnSale() {
+        return isOnSale;
+    }
+
+    public void setIsOnSale(boolean isOnSale) {
+        this.isOnSale = isOnSale;
+    }
+
+    public boolean getIsNew() {
         return isNew;
     }
 
-    public void setNew(boolean aNew) {
-        isNew = aNew;
+    public void setIsNew(boolean isNew) {
+        this.isNew = isNew;
     }
 
-    public boolean isHot() {
+    public boolean getIsHot() {
         return isHot;
     }
 
-    public void setHot(boolean hot) {
-        isHot = hot;
+    public void setIsHot(boolean isHot) {
+        this.isHot = isHot;
     }
 
     public String getUnit() {

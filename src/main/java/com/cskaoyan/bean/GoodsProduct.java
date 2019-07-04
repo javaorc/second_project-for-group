@@ -1,74 +1,57 @@
 package com.cskaoyan.bean;
 
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class GoodsProduct {
-    private Integer id;
 
-    private Integer goodsId;
+    private int          id;
+    private int          goodsId;
+    private List<String> specifications;
+    private double       price;
+    private int          number;
+    private String       url;
+    private Date         addTime;
+    private Date         updateTime;
+    private boolean      deleted;
 
-    private  Goods goods;
-
-    private String specifications;
-
-    private BigDecimal price;
-
-    private Integer number;
-
-    private String url;
-
-    private Date addTime;
-
-    private Date updateTime;
-
-    private Boolean deleted;
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getGoodsId() {
+    public int getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Integer goodsId) {
+    public void setGoodsId(int goodsId) {
         this.goodsId = goodsId;
     }
 
-    public String getSpecifications() {
+    public List<String> getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(String specifications) {
-        this.specifications = specifications == null ? null : specifications.trim();
+    public void setSpecifications(List<String> specifications) {
+        this.specifications = specifications;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Integer getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
@@ -77,7 +60,7 @@ public class GoodsProduct {
     }
 
     public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+        this.url = url;
     }
 
     public Date getAddTime() {
@@ -96,11 +79,11 @@ public class GoodsProduct {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 }
