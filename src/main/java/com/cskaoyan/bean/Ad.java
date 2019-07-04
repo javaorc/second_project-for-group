@@ -5,25 +5,25 @@ import java.util.Date;
 public class Ad {
     private Integer id;
 
-    private String name;
+    private String  name;
 
-    private String link;
+    private String  link;
 
-    private String url;
+    private String  url;
 
-    private Byte position;
+    private Byte    position;
 
-    private String content;
+    private String  content;
 
-    private Date startTime;
+    private Date    startTime;
 
-    private Date endTime;
+    private Date    endTime;
 
     private Boolean enabled;
 
-    private Date addTime;
+    private Date    addTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean deleted;
 

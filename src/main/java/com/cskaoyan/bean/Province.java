@@ -1,15 +1,17 @@
 package com.cskaoyan.bean;
 
-public class Region {
-    private Integer id;
+import java.util.List;
 
-    private Integer pid;
+public class Province {
+    private Integer id;
 
     private String  name;
 
     private Byte    type;
 
     private Integer code;
+
+    private List<City> children;
 
     public Integer getId() {
         return id;
@@ -19,20 +21,12 @@ public class Region {
         this.id = id;
     }
 
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Byte getType() {
@@ -50,4 +44,14 @@ public class Region {
     public void setCode(Integer code) {
         this.code = code;
     }
+
+    public List<City> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<City> children) {
+        this.children = children;
+    }
+
+
 }
