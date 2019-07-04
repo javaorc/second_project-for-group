@@ -12,9 +12,9 @@ public class Brand {
 
     private String picUrl;
 
-    private Byte  sortOrder;
+    private Byte   sortOrder;
 
-    private  BigDecimal floorPrice;
+    private BigDecimal floorPrice;
 
     private Date   addTime;
 

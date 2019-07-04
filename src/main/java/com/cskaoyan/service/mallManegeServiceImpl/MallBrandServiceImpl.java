@@ -1,6 +1,6 @@
-package com.cskaoyan.Service.mallManegeServiceImpl;
+package com.cskaoyan.service.mallManegeServiceImpl;
 
-import com.cskaoyan.Service.MallBrandService;
+import com.cskaoyan.service.MallBrandService;
 import com.cskaoyan.bean.Brand;
 import com.cskaoyan.mapper.mallManege.MallBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +26,15 @@ public class MallBrandServiceImpl implements MallBrandService {
     @Override
     public List<Brand> searchBrandByIdAndName(String id, String name) {
         return mallBrandMapper.searchBrandByIdAndName(id,name);
+    }
+
+    @Override
+    public int updateBrandByBid(Brand brand) {
+        return mallBrandMapper.updateBrandByBid(brand);
+    }
+
+    @Override
+    public int insertBrand(Brand brand) {
+        return mallBrandMapper.insertBrand(brand);
     }
 }

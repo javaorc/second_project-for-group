@@ -1,4 +1,4 @@
-package com.cskaoyan.Service;
+package com.cskaoyan.service;
 
 import com.cskaoyan.bean.Brand;
 
@@ -10,4 +10,8 @@ public interface MallBrandService {
     int deleteBrand(Brand brand);
 
     List<Brand> searchBrandByIdAndName(String id,String name);
+
+    int updateBrandByBid( Brand brand);
+
+    int insertBrand( Brand brand);
 }
