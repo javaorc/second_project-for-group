@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.system.SystemMapper">
+<select id="querySystem" resultMap="selectByMail">
+    select id,key_name,key_value,add_time,update_time,deleted from cskaoyan_mall_system
+</select>
+
+
+    <select id="selectByMail" resultMap="selectByMail">
+        select id,key_name,key_value,add_time,update_time,deleted from cskaoyan_mall_system
+        where key_name like 'cskaoyan_mall_mall%'
+    </select>
+    
+    <resultMap id="selectByMail" type="com.cskaoyan.bean.System">
+        <result column="id" property="id"/>
+        <result column="key_name" property="keyName"/>
+        <result column="key_value" property="keyValue"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="selectByOrder" resultMap="selectByMail">
+        select id,key_name,key_value,add_time,update_time,deleted from cskaoyan_mall_system
+        where key_name like 'cskaoyan_mall_order%'
+    </select>
+
+    <select id="selectByExpree" resultMap="selectByMail">
+        select id,key_name,key_value,add_time,update_time,deleted from cskaoyan_mall_system
+        where key_name like 'cskaoyan_mall_express%'
+    </select>
+
+    <select id="selectByWx" resultMap="selectByMail">
+        select id,key_name,key_value,add_time,update_time,deleted from cskaoyan_mall_system
+        where key_name like 'cskaoyan_mall_wx%'
+    </select>
+
+    <select id="selectByKeyName" resultMap="selectByMail">
+        select id,key_name,key_value,add_time,update_time,deleted from cskaoyan_mall_system
+        where key_name = #{key}
+    </select>
+    <update id="updateSystem">
+        update cskaoyan_mall_system set key_name = #{s1.keyName},key_value = #{s1.keyValue},
+        update_time = #{s1.updateTime} where id = #{s2.id}
+    </update>
+
+</mapper>
