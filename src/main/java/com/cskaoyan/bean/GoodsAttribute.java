@@ -3,29 +3,14 @@ package com.cskaoyan.bean;
 import java.util.Date;
 
 public class GoodsAttribute {
+
     private Integer id;
-
     private Integer goodsId;
-
-    private Goods goods;
-
-    private String attribute;
-
-    private String value;
-
-    private Date addTime;
-
-    private Date updateTime;
-
+    private String  attribute;
+    private String  value;
+    private Date    addTime;
+    private Date    updateTime;
     private Boolean deleted;
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
 
     public Integer getId() {
         return id;

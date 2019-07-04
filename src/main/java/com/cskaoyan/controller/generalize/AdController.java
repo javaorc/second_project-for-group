@@ -3,6 +3,7 @@ package com.cskaoyan.controller.generalize;
 import com.cskaoyan.bean.Ad;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.Storage;
+import com.cskaoyan.oss.MyOssClient;
 import com.cskaoyan.service.generalize.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,9 @@ public class AdController {
 
     @Autowired
     AdService adService;
+
+    @Autowired
+    MyOssClient myOssClient;
 
     @RequestMapping("ad/list")
     @ResponseBody
@@ -79,26 +83,21 @@ public class AdController {
         storageResponseVO.setErrno(0);
         storageResponseVO.setErrmsg("成功");
 
-        //String path = getClass().getResource("/").getPath();
-        //文件上传相关
-        File dir = new File("E://fileupload");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        String fileName = file.getOriginalFilename();
-        File file1 = new File(dir, fileName);
-        file.transferTo(file1);
+        String url = myOssClient.ossFileUpload(file);
         //设置返回参数的值
         Storage storage = new Storage();
         Date date = new Date();
         storage.setName(file.getOriginalFilename());
         storage.setAddTime(date);
         storage.setUpdateTime(date);
-        String key = UUID.randomUUID() + ".png";
+
+        String[] split = url.split("/");
+        String key = split[split.length-1] + ".png";
         storage.setKey(key);
-        storage.setSize((int) file1.length());
-        storage.setUrl(file1.getAbsolutePath());
-        storage.setType("image/png");
+
+        storage.setSize((int) file.getSize());
+        storage.setUrl(url);
+        storage.setType(file.getContentType());
         storage.setDeleted(false);
         //将数据插入数据库
         int i = adService.insertStorage(storage);
