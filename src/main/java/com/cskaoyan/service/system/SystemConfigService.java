@@ -6,7 +6,7 @@ import com.cskaoyan.bean.System;
 
 import java.util.Map;
 
-public interface SystemService {
+public interface SystemConfigService {
 
     Map<String, Object> listExpress();
 

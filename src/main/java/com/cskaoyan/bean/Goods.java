@@ -1,100 +1,38 @@
 package com.cskaoyan.bean;
 
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Goods {
-    private Integer id;
+    private int         id;
+    private String      goodsSn;
+    private String      name;
+    private int         categoryId;
+    private int         brandId;
 
-    private String goodsSn;
+    private List<String> gallery;
 
-    private String name;
+    private String      keywords;
+    private String      brief;
+    private boolean     isOnSale;
+    private int         sortOrder;
+    private String      picUrl;
+    private String      shareUrl;
+    private boolean     isNew;
+    private boolean     isHot;
+    private String      unit;
+    private double      counterPrice;
+    private double      retailPrice;
+    private String      detail;
+    private Date        addTime;
+    private Date        updateTime;
+    private boolean     deleted;
 
-    private Integer categoryId;
-
-    private  Category category;
-
-    private Integer brandId;
-
-    private Brand brand;
-
-    private String gallery;
-
-    private String keywords;
-
-    private String brief;
-
-    private Boolean isOnSale;
-
-    private Short sortOrder;
-
-    private String picUrl;
-
-    private String shareUrl;
-
-    private Boolean isNew;
-
-    private Boolean isHot;
-
-    private String unit;
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    public Boolean getOnSale() {
-        return isOnSale;
-    }
-
-    public void setOnSale(Boolean onSale) {
-        isOnSale = onSale;
-    }
-
-    public Boolean getNew() {
-        return isNew;
-    }
-
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
-    }
-
-    public Boolean getHot() {
-        return isHot;
-    }
-
-    public void setHot(Boolean hot) {
-        isHot = hot;
-    }
-
-    private BigDecimal counterPrice;
-
-    private BigDecimal retailPrice;
-
-    private Date addTime;
-
-    private Date updateTime;
-
-    private Boolean deleted;
-
-    private String detail;
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -103,7 +41,7 @@ public class Goods {
     }
 
     public void setGoodsSn(String goodsSn) {
-        this.goodsSn = goodsSn == null ? null : goodsSn.trim();
+        this.goodsSn = goodsSn;
     }
 
     public String getName() {
@@ -111,31 +49,31 @@ public class Goods {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Integer getBrandId() {
+    public int getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(Integer brandId) {
+    public void setBrandId(int brandId) {
         this.brandId = brandId;
     }
 
-    public String getGallery() {
+    public List<String> getGallery() {
         return gallery;
     }
 
-    public void setGallery(String gallery) {
-        this.gallery = gallery == null ? null : gallery.trim();
+    public void setGallery(List<String> gallery) {
+        this.gallery = gallery;
     }
 
     public String getKeywords() {
@@ -143,7 +81,7 @@ public class Goods {
     }
 
     public void setKeywords(String keywords) {
-        this.keywords = keywords == null ? null : keywords.trim();
+        this.keywords = keywords;
     }
 
     public String getBrief() {
@@ -151,22 +89,14 @@ public class Goods {
     }
 
     public void setBrief(String brief) {
-        this.brief = brief == null ? null : brief.trim();
+        this.brief = brief;
     }
 
-    public Boolean getIsOnSale() {
-        return isOnSale;
-    }
-
-    public void setIsOnSale(Boolean isOnSale) {
-        this.isOnSale = isOnSale;
-    }
-
-    public Short getSortOrder() {
+    public int getSortOrder() {
         return sortOrder;
     }
 
-    public void setSortOrder(Short sortOrder) {
+    public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
     }
 
@@ -175,7 +105,7 @@ public class Goods {
     }
 
     public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl == null ? null : picUrl.trim();
+        this.picUrl = picUrl;
     }
 
     public String getShareUrl() {
@@ -183,22 +113,30 @@ public class Goods {
     }
 
     public void setShareUrl(String shareUrl) {
-        this.shareUrl = shareUrl == null ? null : shareUrl.trim();
+        this.shareUrl = shareUrl;
     }
 
-    public Boolean getIsNew() {
+    public boolean getIsOnSale() {
+        return isOnSale;
+    }
+
+    public void setIsOnSale(boolean isOnSale) {
+        this.isOnSale = isOnSale;
+    }
+
+    public boolean getIsNew() {
         return isNew;
     }
 
-    public void setIsNew(Boolean isNew) {
+    public void setIsNew(boolean isNew) {
         this.isNew = isNew;
     }
 
-    public Boolean getIsHot() {
+    public boolean getIsHot() {
         return isHot;
     }
 
-    public void setIsHot(Boolean isHot) {
+    public void setIsHot(boolean isHot) {
         this.isHot = isHot;
     }
 
@@ -207,23 +145,31 @@ public class Goods {
     }
 
     public void setUnit(String unit) {
-        this.unit = unit == null ? null : unit.trim();
+        this.unit = unit;
     }
 
-    public BigDecimal getCounterPrice() {
+    public double getCounterPrice() {
         return counterPrice;
     }
 
-    public void setCounterPrice(BigDecimal counterPrice) {
+    public void setCounterPrice(double counterPrice) {
         this.counterPrice = counterPrice;
     }
 
-    public BigDecimal getRetailPrice() {
+    public double getRetailPrice() {
         return retailPrice;
     }
 
-    public void setRetailPrice(BigDecimal retailPrice) {
+    public void setRetailPrice(double retailPrice) {
         this.retailPrice = retailPrice;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public Date getAddTime() {
@@ -242,19 +188,11 @@ public class Goods {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail == null ? null : detail.trim();
     }
 }

@@ -1,8 +1,8 @@
 package com.cskaoyan.service.system.impl;
 
 import com.cskaoyan.bean.System;
-import com.cskaoyan.mapper.system.SystemMapper;
-import com.cskaoyan.service.system.SystemService;
+import com.cskaoyan.mapper.system.SystemConfigMapper;
+import com.cskaoyan.service.system.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class SystemServiceImpl implements SystemService {
+public class SystemConfigServiceImpl implements SystemConfigService {
+
     @Autowired
-    SystemMapper mapper;
+    SystemConfigMapper mapper;
 
     @Override
     public Map<String, Object> listExpress() {

@@ -1,7 +1,7 @@
 package com.cskaoyan.controller.system;
 
 import com.cskaoyan.config.SystemConfig;
-import com.cskaoyan.service.system.SystemService;
+import com.cskaoyan.service.system.SystemConfigService;
 import com.cskaoyan.util.JacksonUtil;
 import com.cskaoyan.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class SystemController {
 
 
     @Autowired
-    SystemService service;
+    SystemConfigService service;
 
     @GetMapping("admin/config/mall")
     public Object listMail(){

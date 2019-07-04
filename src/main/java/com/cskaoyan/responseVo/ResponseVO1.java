@@ -1,6 +1,6 @@
-package com.cskaoyan.bean;
+package com.cskaoyan.responseVo;
 
-public class ResponseVO<T> {
+public class ResponseVO1<T> {
     private T data;
     private String errmsg;
     private int errno;

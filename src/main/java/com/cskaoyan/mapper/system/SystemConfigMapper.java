@@ -4,7 +4,7 @@ import com.cskaoyan.bean.System;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-public interface SystemMapper {
+public interface SystemConfigMapper {
     //键值对映射
     List<System> querySystem();
 

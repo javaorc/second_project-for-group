@@ -5,19 +5,19 @@ import java.util.Date;
 public class Storage {
     private Integer id;
 
-    private String key;
+    private String  key;
 
-    private String name;
+    private String  name;
 
-    private String type;
+    private String  type;
 
     private Integer size;
 
-    private String url;
+    private String  url;
 
-    private Date addTime;
+    private Date    addTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean deleted;
 
