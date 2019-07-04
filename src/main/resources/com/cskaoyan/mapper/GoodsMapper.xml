@@ -4,30 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.mapper.GoodsMapper">
 
-    <resultMap id="goodsMap" type="com.cskaoyan.bean.Goods">
-        <result column="id" property="id" />
-        <result column="goods_sn" property="goodsSn" />
-        <result column="name" property="name" />
-        <result column="category_id" property="categoryId" />
-        <result column="brand_id" property="brandId" />
-        <result column="gallery" property="gallery" />
-        <result column="keywords" property="keywords" />
-        <result column="brief" property="brief" />
-        <result column="is_on_sale" property="isOnSale" />
-        <result column="sort_order" property="sortOrder" />
-        <result column="pic_url" property="picUrl" />
-        <result column="share_url" property="shareUrl" />
-        <result column="is_new" property="isNew" />
-        <result column="is_hot" property="isHot" />
-        <result column="unit" property="unit" />
-        <result column="counter_price" property="counterPrice" />
-        <result column="retail_price" property="retailPrice" />
-        <result column="detail" property="detail" />
-        <result column="add_time" property="addTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="deleted" property="deleted" />
-    </resultMap>
-    <select id="queryList" resultMap="goodsMap">
+
+    <sql id="baseColumn">
         select
           id,
           goods_sn,
@@ -50,6 +28,37 @@
           add_time,
           update_time,
           deleted
+    </sql>
+
+    <resultMap id="goodsMap" type="com.cskaoyan.bean.Goods">
+        <result column="id" property="id" />
+        <result column="goods_sn" property="goodsSn" />
+        <result column="name" property="name" />
+        <result column="category_id" property="categoryId" />
+        <result column="brand_id" property="brandId" />
+
+        <result column="gallery" property="gallery" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler" />
+
+        <result column="keywords" property="keywords" />
+        <result column="brief" property="brief" />
+        <result column="is_on_sale" property="isOnSale" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="pic_url" property="picUrl" />
+        <result column="share_url" property="shareUrl" />
+        <result column="is_new" property="isNew" />
+        <result column="is_hot" property="isHot" />
+        <result column="unit" property="unit" />
+        <result column="counter_price" property="counterPrice" />
+        <result column="retail_price" property="retailPrice" />
+        <result column="detail" property="detail" />
+        <result column="add_time" property="addTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <!-- 根据条件获取 商品列表 -->
+    <select id="queryList" resultMap="goodsMap">
+        <include refid="baseColumn"/>
         from  cskaoyan_mall_goods
         <where>
             <if test="goodsSn != null">
@@ -64,7 +73,7 @@
         limit #{limit} offset #{offset}
     </select>
 
-
+    <!-- 根据条件查询 记录数 -->
     <select id="queryTotalRecords" resultType="_int">
         select count(*)
         from cskaoyan_mall_goods
@@ -76,6 +85,107 @@
                 and name like CONCAT('%',#{name},'%')
             </if>
         </where>
+    </select>
+
+    <!--根据商品id 获取商品-->
+    <select id="queryGoodsById" resultMap="goodsMap">
+        <include refid="baseColumn"/>
+        from cskaoyan_mall_goods
+        where id = #{id}
+    </select>
+
+
+
+    <!--##############################################################-->
+    <resultMap id="goodsAttributeMap" type="com.cskaoyan.bean.GoodsAttribute">
+        <result column="id" property="id"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="attribute" property="attribute"/>
+        <result column="value" property="value"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <!--根据goodsId 查询 商品参数 -->
+    <select id="queryGoodsAttributeByGoodsId" resultMap="goodsAttributeMap">
+        select
+          id,
+          goods_id,
+          attribute,
+          value,
+          add_time,
+          update_time,
+          deleted
+        from cskaoyan_mall_goods_attribute
+        where goods_id = #{goodsId}
+    </select>
+
+    <!--根据goodsId 查询商品的 类目ID 集合-->
+    <select id="queryCategoryIdsByGoodsId" resultType="_int">
+        select category.pid
+        from cskaoyan_mall_category as category
+        where category.id =
+        (select goods.category_id
+        from cskaoyan_mall_goods as goods
+        where goods.id = #{goodsId})
+
+        union
+
+        select goods.category_id
+        from cskaoyan_mall_goods as goods
+        where goods.id = #{goodsId}
+    </select>
+
+    <!--根据goodsId 查询商品的 规格-->
+    <resultMap id="goodsSpecificationMap" type="com.cskaoyan.bean.GoodsSpecification">
+        <result column="id" property="id"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="specification" property="specification"/>
+        <result column="value" property="value"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <select id="querySpecificationsByGoodsId" resultMap="goodsSpecificationMap">
+        select
+          id,
+          goods_id,
+          specification,
+          value,
+          pic_url,
+          add_time,
+          update_time,
+          deleted
+        from cskaoyan_mall_goods_specification
+        where goods_id = #{goodsId}
+    </select>
+
+    <!--根据goodsId 查询 商品的 库存-->
+    <resultMap id="goodsProductMap" type="com.cskaoyan.bean.GoodsProduct">
+        <result column="id" property="id"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="specifications" property="specifications" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler" />
+        <result column="number" property="number"/>
+        <result column="url" property="url"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <select id="queryProductsByGoodsId" resultMap="goodsProductMap">
+        select
+          id,
+          goods_id,
+          specifications,
+          price,
+          number,
+          url,
+          add_time,
+          update_time,
+          deleted
+        from cskaoyan_mall_goods_product
+        where goods_id = #{goodsId}
     </select>
 
 
