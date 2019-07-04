@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.SystemMapper">
+    <resultMap id="adminSearchMap" type="com.cskaoyan.bean.Admin">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="avatar" property="avatar"/>
+        <result column="role_ids" property="roleIds" typeHandler="com.cskaoyan.TypeHandler.IntArrayTypeHandler"/>
+    </resultMap>
+ <select id="adminsSearch" resultMap="adminSearchMap"   >
+SELECT
+id,
+username,
+avatar,
+role_ids
+from
+cskaoyan_mall_admin
+ </select>
+
+    <select id="adminsSearchByname" resultMap="adminSearchMap"   >
+SELECT
+id,
+username,
+avatar,
+role_ids
+from
+cskaoyan_mall_admin
+where
+username LIKE CONCAT(CONCAT('%', #{username}), '%')
+ </select>
+  <insert id="asminssInsert" >
+      insert
+cskaoyan_mall_admin
+(username,password,last_login_ip,last_login_time,avatar,add_time,update_time,deleted)
+values(#{username},#{password},#{lastLoginIp},#{lastLoginTime},#{avatar},#{addTime},#{updateTime},#{deleted})
+  </insert>
+<update id="asminssUpdate">
+  update
+  cskaoyan_mall_admin
+  set
+  username=#{username},
+  password=#{password},
+  last_login_ip=#{lastLoginIp},
+  last_login_time=#{lastLoginTime},
+  avatar=#{avatar},
+  add_time=#{addTime},
+  update_time=#{updateTime},
+  deleted=#{deleted}
+where id=#{id}
+</update>
+<delete id="adminssDelete">
+      delete
+    from
+    cskaoyan_mall_admin
+    where id=#{id}
+</delete>
+<select id="rolesSearch" resultType="com.cskaoyan.bean.Role">
+ SELECT
+id,
+`name`,
+`desc`,
+enabled,
+add_time as addTime,
+update_time as updateTime,
+deleted
+from
+cskaoyan_mall_role
+</select>
+    <select id="rolesSearchByname" resultType="com.cskaoyan.bean.Role">
+         SELECT
+id,
+`name`,
+`desc`,
+enabled,
+add_time as addTime,
+update_time as updateTime,
+deleted
+from
+cskaoyan_mall_role
+where
+name LIKE CONCAT(CONCAT('%', #{name}), '%')
+    </select>
+<insert id="rolesInsert">
+insert
+cskaoyan_mall_role
+(`name`,`desc`,enabled,add_time,update_time,deleted)
+value(#{name},#{desc},#{enabled},NOW(),NOW(),#{deleted})
+</insert>
+<update id="rolesUpdate"  >
+update
+cskaoyan_mall_role
+set
+`name`=#{name},
+`desc`=#{desc},
+enabled=#{enabled},
+add_time=#{addTime},
+update_time=NOW(),
+deleted=#{deleted}
+</update>
+<delete id="rolesDelete" >
+    delete
+    from
+    cskaoyan_mall_role
+    where id=#{id}
+</delete>
+<select id="rolesOptions" resultType="com.cskaoyan.bean.RoleOptions">
+    SELECT
+id as 'value',
+name as label
+from
+cskaoyan_mall_role
+</select>
+<select id="storageSearch" resultType="com.cskaoyan.bean.Storage"    >
+    SELECT
+id,
+`key`,
+`name`,
+type,
+size,
+url,
+add_time as addTime,
+update_time as updateTime,
+deleted
+from
+cskaoyan_mall_storage
+</select>
+</mapper>
