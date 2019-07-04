@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.SystemMapper">
+<select id="rolesSearch" resultType="com.cskaoyan.bean.Role">
+ SELECT
+id,
+`name`,
+`desc`,
+enabled,
+add_time as addTime,
+update_time as updateTime,
+deleted
+from
+cskaoyan_mall_role
+</select>
+    <select id="rolesSearchByname" resultType="com.cskaoyan.bean.Role">
+         SELECT
+id,
+`name`,
+`desc`,
+enabled,
+add_time as addTime,
+update_time as updateTime,
+deleted
+from
+cskaoyan_mall_role
+where `name` like %#{name}%
+    </select>
+<insert id="rolesInsert">
+insert
+cskaoyan_mall_role
+(`name`,`desc`,enabled,add_time,update_time,deleted)
+value(#{name},#{desc},#{enabled},NOW(),NOW(),#{deleted})
+</insert>
+<update id="rolesUpdate"  >
+update
+cskaoyan_mall_role
+set
+`name`=#{name},
+`desc`=#{desc},
+enabled=#{enabled},
+add_time=#{addTime},
+update_time=NOW(),
+deleted=#{deleted}
+</update>
+<delete id="rolesDelete" >
+    delete
+    from
+    cskaoyan_mall_role
+    where id=#{id}
+</delete>
+</mapper>

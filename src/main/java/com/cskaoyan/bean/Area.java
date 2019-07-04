@@ -1,9 +1,10 @@
 package com.cskaoyan.bean;
 
-public class Region {
-    private Integer id;
+import java.util.List;
 
-    private Integer pid;
+public class Area {
+
+    private Integer id;
 
     private String  name;
 
@@ -19,20 +20,12 @@ public class Region {
         this.id = id;
     }
 
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Byte getType() {
