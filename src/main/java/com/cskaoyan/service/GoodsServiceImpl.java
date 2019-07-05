@@ -5,11 +5,15 @@ import com.cskaoyan.bean.GoodsAttribute;
 import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
 import com.cskaoyan.bean.vo.QueryList;
+import com.cskaoyan.bean.vo.QueryMapVO;
 import com.cskaoyan.mapper.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -33,27 +37,114 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Goods queryGoodsById(int id) {
-        return goodsMapper.queryGoodsById(id);
+    public Map queryGoodsDeatilById(int id) {
+
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        map.put("goods", goodsMapper.queryGoodsById(id));
+        map.put("attributes", goodsMapper.queryGoodsAttributeByGoodsId(id));
+        map.put("categoryIds", goodsMapper.queryCategoryIdsByGoodsId(id));
+        map.put("products", goodsMapper.queryProductsByGoodsId(id));
+        map.put("specifications", goodsMapper.querySpecificationsByGoodsId(id));
+
+        return map;
     }
 
     @Override
-    public List<GoodsAttribute> queryGoodsAttributeByGoodsId(int goodsId) {
-        return goodsMapper.queryGoodsAttributeByGoodsId(goodsId);
+    public int deleteGoods(Goods goods) {
+
+        try {
+            int a = goodsMapper.deleteGoodsAttributesByGoodsId(goods.getId());
+            int b = goodsMapper.deleteGoodsSpecificationsByGoodsId(goods.getId());
+            int c = goodsMapper.deleteGoodsProductsByGoodsId(goods.getId());
+            int d = goodsMapper.deleteGoodsByGoodsId(goods.getId());
+
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     @Override
-    public List<Integer> queryCategoryIdsByGoodsId(int goodsId) {
-        return goodsMapper.queryCategoryIdsByGoodsId(goodsId);
-    }
+    public int updateGoods(QueryMapVO queryMapVO) {
 
-    @Override
-    public List<GoodsSpecification> querySpecificationsByGoodsId(int goodsId) {
-        return goodsMapper.querySpecificationsByGoodsId(goodsId);
-    }
+        Goods goods = queryMapVO.getGoods();
+        Date date = new Date();
 
-    @Override
-    public List<GoodsProduct> queryProductsByGoodsId(int goodsId) {
-        return goodsMapper.queryProductsByGoodsId(goodsId);
+        /*1.更新商品参数*/
+        List<GoodsAttribute> attributes = queryMapVO.getAttributes();
+        //先删除
+        goodsMapper.deleteGoodsAttributesByGoodsId(goods.getId());
+        //再遍历（存在则恢复， 不存在则添加）
+        for (GoodsAttribute attribute : attributes) {
+            boolean exists = attribute.getId() != 0;
+
+            //参数存在，更新时间，并置deleted = 0
+            if (exists) {
+                attribute.setUpdateTime(date);
+                attribute.setDeleted(false);
+                goodsMapper.updateGoodsAttribute(attribute);
+            }
+            //参数不存在
+            else {
+                attribute.setGoodsId(goods.getId());
+                attribute.setAddTime(date);
+                attribute.setUpdateTime(date);
+                attribute.setDeleted(false);
+                goodsMapper.insertGoodsAttribute(attribute);
+            }
+        }
+
+        /*2.更新商品规格*/
+        List<GoodsSpecification> specifications = queryMapVO.getSpecifications();
+        //先删除
+        goodsMapper.deleteGoodsSpecificationsByGoodsId(goods.getId());
+        //再遍历（存在则恢复， 不存在则添加）
+        for (GoodsSpecification specification : specifications) {
+            boolean exists = specification.getId() != 0;
+
+            //参数存在，更新时间，并置deleted = 0
+            if (exists) {
+                specification.setUpdateTime(date);
+                specification.setDeleted(false);
+                goodsMapper.updateGoodsSpecification(specification);
+            }
+            //参数不存在
+            else {
+                specification.setGoodsId(goods.getId());
+                specification.setAddTime(date);
+                specification.setUpdateTime(date);
+                specification.setDeleted(false);
+                goodsMapper.insertGoodsSpecification(specification);
+            }
+        }
+        /*3.更新商品库存*/
+        List<GoodsProduct> products = queryMapVO.getProducts();
+        //先删除
+        goodsMapper.deleteGoodsProductsByGoodsId(goods.getId());
+        //再遍历（存在则恢复， 不存在则添加）
+        for (GoodsProduct product : products) {
+            boolean exists = product.getAddTime() != null;
+
+            //参数存在，更新时间，并置deleted = 0
+            if (exists) {
+                product.setUpdateTime(date);
+                product.setDeleted(false);
+                goodsMapper.updateGoodsProduct(product);
+            }
+            //参数不存在
+            else {
+                product.setGoodsId(goods.getId());
+                product.setAddTime(date);
+                product.setUpdateTime(date);
+                product.setDeleted(false);
+                goodsMapper.insertGoodsProduct(product);
+            }
+        }
+        /*4.更新商品信息*/
+        goods.setUpdateTime(date);
+        goodsMapper.updateGoods(goods);
+
+        return 1;
     }
 }

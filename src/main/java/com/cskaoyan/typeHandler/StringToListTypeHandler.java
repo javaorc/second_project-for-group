@@ -20,7 +20,7 @@ public class StringToListTypeHandler extends BaseTypeHandler<List<String>> {
         StringBuffer stringBuffer = new StringBuffer("[");
         Iterator<String> iterator = strings.iterator();
         while (iterator.hasNext()) {
-            stringBuffer.append(iterator.next()).append(", ");
+            stringBuffer.append("\"").append(iterator.next()).append("\", ");
         }
         String s = stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length()).append("]").toString();
         preparedStatement.setString(index, s);
