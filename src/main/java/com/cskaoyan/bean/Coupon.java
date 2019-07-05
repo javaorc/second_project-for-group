@@ -1,22 +1,24 @@
 package com.cskaoyan.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class Coupon {
-    private Integer id;
+    private Integer     id;
 
-    private String name;
+    private String      name;
 
-    private String desc;
+    private String      desc;
 
-    private String tag;
+    private String      tag;
 
-    private Integer total;
+    private Integer     total;
 
-    private BigDecimal discount;
+    private BigDecimal  discount;
 
-    private BigDecimal min;
+    private BigDecimal  min;
 
     private Short limit;
 
@@ -26,21 +28,23 @@ public class Coupon {
 
     private Short goodsType;
 
-    private String goodsValue;
+    private int[]   goodsValue;
 
-    private String code;
+    private String  code;
 
-    private Short timeType;
+    private Short   timeType;
 
-    private Short days;
+    private Short   days;
 
-    private Date startTime;
+    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date    startTime;
 
-    private Date endTime;
+    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date    endTime;
 
-    private Date addTime;
+    private Date    addTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean deleted;
 
@@ -132,12 +136,21 @@ public class Coupon {
         this.goodsType = goodsType;
     }
 
-    public String getGoodsValue() {
+    /*public int [] getGoodsValue() {
         return goodsValue;
     }
 
-    public void setGoodsValue(String goodsValue) {
-        this.goodsValue = goodsValue == null ? null : goodsValue.trim();
+    public void setGoodsValue(int [] goodsValue) {
+        //this.goodsValue = goodsValue == null ? null : goodsValue.trim();
+
+    }*/
+
+    public int[] getGoodsValue() {
+        return goodsValue;
+    }
+
+    public void setGoodsValue(int[] goodsValue) {
+        this.goodsValue = goodsValue;
     }
 
     public String getCode() {

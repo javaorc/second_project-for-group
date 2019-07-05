@@ -1,7 +1,10 @@
 package com.cskaoyan.controller;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.Admin;
+import com.cskaoyan.bean.Log;
 import com.cskaoyan.bean.Role;
+import com.cskaoyan.bean.Storage;
 import com.cskaoyan.service.SystemService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ public class SystemManagement {
     @RequestMapping("admin/list")
     @ResponseBody
    public Map adminsSearch(int page,int limit,String username){
+        PageHelper.startPage(page,limit);
         List list;
         if (username==null){
            list=systemService.adminsSearch();
@@ -46,6 +50,9 @@ public class SystemManagement {
         map.put("data",admin);
         map.put("errmsg","成功");
         map.put("errno",0);
+        Log log=new Log();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"新建管理");
         return map;
     }
 
@@ -57,6 +64,8 @@ public class SystemManagement {
         map.put("data",admin);
         map.put("errmsg","成功");
         map.put("errno",0);
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"更新管理");
         return map;
     }
 
@@ -68,6 +77,8 @@ public class SystemManagement {
 
         map.put("errmsg","成功");
         map.put("errno",0);
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"删除管理");
         return map;
     }
     @RequestMapping("role/list")
@@ -97,6 +108,8 @@ public class SystemManagement {
         map.put("data",role);
         map.put("errmsg","成功");
         map.put("errno",0);
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"角色更新");
         return map;
     }
     @RequestMapping("role/create")
@@ -107,6 +120,8 @@ public class SystemManagement {
         map.put("data",role);
         map.put("errmsg","成功");
         map.put("errno",0);
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"角色新建");
         return map;
     }
     @RequestMapping("role/delete")
@@ -117,6 +132,8 @@ public class SystemManagement {
 
         map.put("errmsg","成功");
         map.put("errno",0);
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"角色删除");
         return map;
     }
 
@@ -144,5 +161,44 @@ public class SystemManagement {
         map.put("errno",0);
         return map;
 
+    }
+    @RequestMapping("storage/update")
+    @ResponseBody
+    public Map storageUpdate(@RequestBody Storage storage){
+        Map map=new HashMap();
+        systemService.storageUpdate(storage);
+        map.put("data",storage);
+        map.put("errmsg","成功");
+        map.put("errno",0);
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"更新对象");
+        return map;
+    }
+
+    @RequestMapping("storage/delete")
+    @ResponseBody
+    public Map storageDelete(@RequestBody Storage storage){
+        Map map=new HashMap();
+        systemService.storageDelete(storage);
+
+        map.put("errmsg","成功");
+        map.put("errno",0);
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"删除对象");
+        return map;
+    }
+
+    @RequestMapping("log/list")
+    @ResponseBody
+    public Map logSearch(int page,int limit,String name){
+        PageHelper.startPage(page,limit);
+        List list=systemService.logSearch(name);
+        Map map=new HashMap();
+        Map map1=new HashMap();
+        map1.put("items",list);
+        map.put("data",map1);
+        map.put("errmsg","成功");
+        map.put("errno",0);
+        return map;
     }
 }

@@ -1,8 +1,11 @@
 package com.cskaoyan.service;
 
 import com.cskaoyan.bean.Admin;
+import com.cskaoyan.bean.Log;
 import com.cskaoyan.bean.Role;
+import com.cskaoyan.bean.Storage;
 import com.cskaoyan.mapper.SystemMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,4 +75,26 @@ public class SystemServiceImpl implements SystemService{
     public List storageSearch(String name, String key) {
         return systemMapper.storageSearch(name,key);
     }
+
+    @Override
+    public void storageUpdate(Storage storage) {
+        systemMapper.storageUpdate(storage);
+    }
+
+    @Override
+    public void storageDelete(Storage storage) {
+        systemMapper.storageDelete(storage);
+    }
+
+    @Override
+    public List logSearch(String name) {
+        return systemMapper.logSearch(name);
+    }
+
+    @Override
+    public void logInsert(Log log) {
+        systemMapper.logInsert(log);
+    }
+
+
 }
