@@ -1,9 +1,7 @@
-package com.cskaoyan.Service.userManegeService;
+package com.cskaoyan.service.userManegeService;
 
 import com.cskaoyan.bean.Collect;
-import com.cskaoyan.bean.User;
 import com.cskaoyan.mapper.userManege.CollectMapper;
-import com.cskaoyan.mapper.userManege.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

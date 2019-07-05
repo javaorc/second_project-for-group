@@ -1,9 +1,7 @@
 package com.cskaoyan.controller;
 
-import com.cskaoyan.Service.MallBrandService;
+import com.cskaoyan.service.MallBrandService;
 import com.cskaoyan.bean.Brand;
-import com.cskaoyan.bean.Region;
-import com.cskaoyan.mapper.mallManege.MallBrandMapper;
 import com.cskaoyan.responseVo.ResponseVO1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

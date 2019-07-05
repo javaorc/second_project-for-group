@@ -1,6 +1,6 @@
-package com.cskaoyan.Service.mallManegeServiceImpl;
+package com.cskaoyan.service.mallManegeServiceImpl;
 
-import com.cskaoyan.Service.MallBrandService;
+import com.cskaoyan.service.MallBrandService;
 import com.cskaoyan.bean.Brand;
 import com.cskaoyan.mapper.mallManege.MallBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;

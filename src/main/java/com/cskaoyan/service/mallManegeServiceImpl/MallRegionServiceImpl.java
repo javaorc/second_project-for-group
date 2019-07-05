@@ -1,6 +1,6 @@
-package com.cskaoyan.Service.mallManegeServiceImpl;
+package com.cskaoyan.service.mallManegeServiceImpl;
 
-import com.cskaoyan.Service.MallRegionService;
+import com.cskaoyan.service.MallRegionService;
 import com.cskaoyan.bean.Region;
 import com.cskaoyan.mapper.mallManege.MallRegionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
