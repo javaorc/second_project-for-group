@@ -37,7 +37,7 @@
         <result column="category_id" property="categoryId" />
         <result column="brand_id" property="brandId" />
 
-        <result column="gallery" property="gallery" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler" />
+        <result column="gallery" property="gallery" typeHandler="com.cskaoyan.TypeHandler.StringToListTypeHandler" />
 
         <result column="keywords" property="keywords" />
         <result column="brief" property="brief" />
