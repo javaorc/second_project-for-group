@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.KeywordMapper">
+    <resultMap id="keywordsMap" type="com.cskaoyan.bean.Keyword">
+        <result  property = "id" column = "id"/>
+        <result  property = "keyword" column = "keyword"/>
+        <result  property = "url" column = "url"/>
+        <result  property = "isHot" column = "is_hot"/>
+        <result  property = "isDefault" column = "is_default"/>
+        <result  property = "sortOrder" column = "sort_oder"/>
+        <result  property = "addTime" column = "add_time"/>
+        <result  property = "updateTime" column = "update_time"/>
+        <result  property = "deleted" column = "deleted"/>
+    </resultMap>
+
+    <select id="queryAllKeywordList" resultMap="keywordsMap">
+    select
+    id,
+    keyword,
+    url,
+    is_hot,
+    is_default,
+    sort_order,
+    add_time,
+    update_time,
+    deleted
+    from  cskaoyan_mall_keyword
+<where>
+    <if test="keyword != null">
+        keyword=#{keyword}
+    </if>
+    <if test="url != null">
+        AND url=#{url}
+    </if>
+</where>
+</select>
+
+    <insert id="insertKeyword" >
+ insert into cskaoyan_mall_keyword values (
+    #{keyword.id},
+    #{keyword.keyword},
+    #{keyword.url},
+    #{keyword.isHot},
+    #{keyword.isDefault},
+    100,
+    #{keyword.addTime},
+    #{keyword.updateTime},
+    #{keyword.deleted})
+    </insert>
+
+    <select id="queryKeywordByKeywordAndUrl" resultType="_int">
+      select
+        id,
+        keyword,
+        url,
+        is_hot,
+        is_default,
+        sort_order,
+        add_time,
+        update_time,
+        deleted
+      from cskaoyan_mall_keyword
+        <where>
+            <if test="keyword != null">
+                keyword = #{keyword}
+            </if>
+            <if test="url != null">
+                AND url =#{url}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateKeyword">
+        UPDATE cskaoyan_mall_keyword
+        SET
+        keyword = #{keyword},
+        url = #{url},
+        is_hot = #{isHot},
+        is_default = #{isDefault}
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteKeyword">
+        delete from cskaoyan_mall_keyword where id = #{id}
+    </delete>
+</mapper>

@@ -1,7 +1,9 @@
 package com.cskaoyan.bean;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class Keyword {
     private Integer id;
 
@@ -21,6 +23,22 @@ public class Keyword {
 
     private Boolean deleted;
 
+
+    @Override
+    public String toString() {
+        return "Keyword{" +
+                "id=" + id +
+                ", keyword='" + keyword + '\'' +
+                ", url='" + url + '\'' +
+                ", isHot=" + isHot +
+                ", isDefault=" + isDefault +
+                ", sortOrder=" + sortOrder +
+                ", addTime=" + addTime +
+                ", updateTime=" + updateTime +
+                ", deleted=" + deleted +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
@@ -29,7 +47,7 @@ public class Keyword {
         this.id = id;
     }
 
-    public String getKeyword() {
+    public  String getKeyword() {
         return keyword;
     }
 
