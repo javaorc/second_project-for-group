@@ -61,8 +61,9 @@
         <include refid="baseColumn"/>
         from  cskaoyan_mall_goods
         <where>
+            deleted = 0
             <if test="goodsSn != null">
-                goods_sn = #{goodsSn}
+                and goods_sn = #{goodsSn}
             </if>
             <if test="name != null">
                 and name like CONCAT('%',#{name},'%')
@@ -78,8 +79,9 @@
         select count(*)
         from cskaoyan_mall_goods
         <where>
+            deleted = 0
             <if test="goodsSn != null">
-                goods_sn = #{goodsSn}
+                and goods_sn = #{goodsSn}
             </if>
             <if test="name != null">
                 and name like CONCAT('%',#{name},'%')
@@ -118,7 +120,7 @@
           update_time,
           deleted
         from cskaoyan_mall_goods_attribute
-        where goods_id = #{goodsId}
+        where goods_id = #{goodsId} and deleted = 0
     </select>
 
     <!--根据goodsId 查询商品的 类目ID 集合-->
@@ -128,13 +130,13 @@
         where category.id =
         (select goods.category_id
         from cskaoyan_mall_goods as goods
-        where goods.id = #{goodsId})
+        where goods.id = #{goodsId} and goods.deleted = 0) and category.deleted = 0
 
         union
 
         select goods.category_id
         from cskaoyan_mall_goods as goods
-        where goods.id = #{goodsId}
+        where goods.id = #{goodsId} and goods.deleted = 0
     </select>
 
     <!--根据goodsId 查询商品的 规格-->
@@ -159,7 +161,7 @@
           update_time,
           deleted
         from cskaoyan_mall_goods_specification
-        where goods_id = #{goodsId}
+        where goods_id = #{goodsId} and deleted = 0
     </select>
 
     <!--根据goodsId 查询 商品的 库存-->
@@ -185,8 +187,166 @@
           update_time,
           deleted
         from cskaoyan_mall_goods_product
-        where goods_id = #{goodsId}
+        where goods_id = #{goodsId} and deleted = 0
     </select>
+
+
+    <!--#######################删除商品###################-->
+    <!--1.删除attribute-->
+    <update id="deleteGoodsAttributesByGoodsId">
+        update cskaoyan_mall_goods_attribute
+        set deleted = 1
+        where goods_id = #{goodsId}
+    </update>
+    <!--2.删除specification-->
+    <update id="deleteGoodsSpecificationsByGoodsId">
+        update cskaoyan_mall_goods_specification
+        set deleted = 1
+        where goods_id = #{goodsId}
+    </update>
+    <!--3.删除库存-->
+    <update id="deleteGoodsProductsByGoodsId">
+        update cskaoyan_mall_goods_product
+        set deleted = 1
+        where goods_id = #{goodsId}
+    </update>
+    <!--4.删除商品-->
+    <update id="deleteGoodsByGoodsId">
+        update cskaoyan_mall_goods
+        set deleted = 1
+        where id = #{goodsId}
+    </update>
+    <!--#################################################-->
+
+
+    <!--#####################更新商品###########################-->
+    <!--1.更新商品参数-->
+    <update id="updateGoodsAttribute">
+        update cskaoyan_mall_goods_attribute set
+          attribute = #{attribute.attribute},
+          value = #{attribute.value},
+          update_time = #{attribute.updateTime},
+          deleted = 0
+        where id = #{attribute.id}
+    </update>
+    <!--添加商品参数-->
+    <insert id="insertGoodsAttribute">
+        <selectKey keyProperty="attribute.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into cskaoyan_mall_goods_attribute (
+            goods_id,
+            attribute,
+            value,
+            add_time,
+            update_time,
+            deleted
+        ) values (
+            #{attribute.goodsId},
+            #{attribute.attribute},
+            #{attribute.value},
+            #{attribute.addTime},
+            #{attribute.updateTime},
+            #{attribute.deleted}
+        )
+    </insert>
+
+    <!--2.更新商品规格-->
+    <update id="updateGoodsSpecification">
+        update cskaoyan_mall_goods_specification set
+          specification = #{specification.specification},
+          value = #{specification.value},
+          pic_url = #{specification.picUrl},
+          update_time = #{specification.updateTime},
+          deleted = 0
+        where id = #{specification.id}
+    </update>
+    <!--添加商品规格-->
+    <insert id="insertGoodsSpecification">
+        <selectKey keyProperty="specification.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into cskaoyan_mall_goods_specification (
+        goods_id,
+        specification,
+        value,
+        pic_url,
+        add_time,
+        update_time,
+        deleted
+        ) values (
+        #{specification.goodsId},
+        #{specification.specification},
+        #{specification.value},
+        #{specification.picUrl},
+        #{specification.addTime},
+        #{specification.updateTime},
+        #{specification.deleted}
+        )
+    </insert>
+
+    <!--3.更新商品库存-->
+    <update id="updateGoodsProduct">
+        update cskaoyan_mall_goods_product set
+          specifications = #{product.specifications, typeHandler=com.cskaoyan.typeHandler.StringToListTypeHandler},
+          price = #{product.price},
+          number = #{product.number},
+          url = #{product.url},
+          update_time = #{product.updateTime},
+          deleted = 0
+        where id = #{product.id}
+    </update>
+    <!--添加商品库存-->
+    <insert id="insertGoodsProduct">
+        <selectKey keyProperty="product.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into cskaoyan_mall_goods_product (
+        goods_id,
+        specifications,
+        price,
+        number,
+        url,
+        add_time,
+        update_time,
+        deleted
+        ) values (
+        #{product.goodsId},
+        #{product.specifications, typeHandler=com.cskaoyan.typeHandler.StringToListTypeHandler},
+        #{product.price},
+        #{product.number},
+        #{product.url},
+        #{product.addTime},
+        #{product.updateTime},
+        #{product.deleted}
+        )
+    </insert>
+
+    <!--4.更新商品-->
+    <update id="updateGoods">
+        update cskaoyan_mall_goods set
+          goods_sn = #{goods.goodsSn},
+          name = #{goods.name},
+          category_id = #{goods.categoryId},
+          brand_id = #{goods.brandId},
+          gallery = #{goods.gallery, typeHandler=com.cskaoyan.typeHandler.StringToListTypeHandler},
+          keywords = #{goods.keywords},
+          brief = #{goods.brief},
+          is_on_sale = #{goods.isOnSale},
+          sort_order = #{goods.sortOrder},
+          pic_url = #{goods.picUrl},
+          share_url = #{goods.shareUrl},
+          is_new = #{goods.isNew},
+          is_hot = #{goods.isHot},
+          unit = #{goods.unit},
+          counter_price = #{goods.counterPrice},
+          retail_price = #{goods.retailPrice},
+          detail = #{goods.detail},
+          update_time = #{goods.updateTime},
+          deleted = #{goods.deleted}
+        where id = #{goods.id}
+    </update>
+    <!--#######################################################-->
 
 
 </mapper>
