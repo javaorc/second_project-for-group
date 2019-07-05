@@ -3,6 +3,7 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.service.userManegeService.CollectServiceImpl;
 import com.cskaoyan.bean.Collect;
+import com.github.pagehelper.PageHelper;
 import com.cskaoyan.bean.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,9 @@ public class CollectController {
 
     @RequestMapping("admin/collect/list")
     @ResponseBody
-    public ResponseVO<Map> queryCollect(Integer userId, Integer valueId){
+    public ResponseVO<Map> queryCollect(int page, int limit,Integer userId, Integer valueId){
         ResponseVO<Map> userResponseVO = new ResponseVO<>();
+        PageHelper.startPage(page,limit);
         List<Collect> collects = collectService.queryCollect();
         if (userId != null && valueId != null){
             collects = collectService.queryCollectByUserIdAndValueID(userId,valueId);
