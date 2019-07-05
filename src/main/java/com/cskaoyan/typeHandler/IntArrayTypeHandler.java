@@ -13,14 +13,13 @@ public class IntArrayTypeHandler extends BaseTypeHandler<int[]> {
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int index, int[] input, JdbcType jdbcType) throws SQLException {
         StringBuffer sb = new StringBuffer();
+        String substring = null;
         for (int value : input) {
             sb.append(value).append(",");
+            //1,2,3,4,
         }
-        String substring = null;
-        if (sb.length() != 0) {
+        if (sb.length() > 1) {
             substring = sb.substring(0, sb.length() - 1);
-        } else {
-            substring = sb.substring(0, sb.length());
         }
         preparedStatement.setString(index, substring);
     }
@@ -45,11 +44,10 @@ public class IntArrayTypeHandler extends BaseTypeHandler<int[]> {
 
     private int[] transferString2IntArray(String string) {
         int[] ints = {};
-        if (string.length() > 1) {
-            String substring = string.substring(1, string.length() - 1);
-            if (substring.length() != 0) {
+        if (string != null) {
+            if (string.length() > 1) {
+                String substring = string.substring(1, string.length() - 1);
                 String[] split = substring.split(",");
-
                 ints = new int[split.length];
                 for (int i = 0; i < split.length; i++) {
                     ints[i] = Integer.parseInt(split[i]);
