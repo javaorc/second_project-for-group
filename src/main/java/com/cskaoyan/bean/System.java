@@ -16,8 +16,10 @@ public class System {
     private Boolean deleted;
 
     public Integer getId() {
+
         return id;
     }
+
 
     public void setId(Integer id) {
         this.id = id;
@@ -52,6 +54,7 @@ public class System {
     }
 
     public void setUpdateTime(Date updateTime) {
+
         this.updateTime = updateTime;
     }
 

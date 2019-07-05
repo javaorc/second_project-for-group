@@ -3,6 +3,21 @@ package com.cskaoyan.bean;
 import java.util.Date;
 
 public class Log {
+    public Log() {
+    }
+
+    public Log(Integer id, String admin, String ip, Integer type, String action, Boolean status, Date addTime, Date updateTime, Boolean deleted) {
+        this.id = id;
+        this.admin = admin;
+        this.ip = ip;
+        this.type = type;
+        this.action = action;
+        this.status = status;
+        this.addTime = addTime;
+        this.updateTime = updateTime;
+        this.deleted = deleted;
+    }
+
     private Integer id;
 
     private String admin;

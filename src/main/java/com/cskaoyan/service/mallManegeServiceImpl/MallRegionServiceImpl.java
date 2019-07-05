@@ -1,7 +1,7 @@
-package com.cskaoyan.Service.mallManegeServiceImpl;
+package com.cskaoyan.service.mallManegeServiceImpl;
 
-import com.cskaoyan.Service.MallRegionService;
-import com.cskaoyan.bean.Region;
+import com.cskaoyan.service.MallRegionService;
+import com.cskaoyan.bean.Province;
 import com.cskaoyan.mapper.mallManege.MallRegionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class MallRegionServiceImpl implements MallRegionService {
     MallRegionMapper mallRegionMapper;
 
     @Override
-    public List<Region> showArea() {
+    public List<Province> showArea() {
         return mallRegionMapper.showArea();
     }
 }

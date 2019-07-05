@@ -35,6 +35,8 @@ public class User {
 
     private Boolean deleted;
 
+
+
     public Integer getId() {
         return id;
     }

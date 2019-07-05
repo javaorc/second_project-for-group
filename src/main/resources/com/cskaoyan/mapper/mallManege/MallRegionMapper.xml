@@ -43,5 +43,6 @@
         ON re1.id=re2.pid
         LEFT JOIN cskaoyan_mall_region re3
         ON re2.id=re3.pid
+        where re1.type=1
     </select>
 </mapper>

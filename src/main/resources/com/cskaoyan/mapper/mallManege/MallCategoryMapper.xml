@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.mallManege.MallCategoryMapper">
+    <resultMap id="categoryMap" type="com.cskaoyan.bean.Kind">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="iconUrl" column="icon_url"/>
+        <result property="keywords" column="keywords"/>
+        <result property="level" column="level"/>
+        <result property="picUrl" column="pic_url"/>
+        <collection property="children" ofType="com.cskaoyan.bean.Spices">
+            <result property="id" column="Sid"/>
+            <result property="name" column="Sname"/>
+            <result property="desc" column="Sdesc"/>
+            <result property="iconUrl" column="Sic"/>
+            <result property="keywords" column="Skey"/>
+            <result property="level" column="Sle"/>
+            <result property="picUrl" column="Spic"/>
+        </collection>
+
+    </resultMap>
+    <select id="showAllCategory" resultMap="categoryMap">
+        SELECT
+        c1.desc,
+        c1.icon_url,
+        c1.id,
+        c1.keywords,
+        c1.level,
+        c1.name,
+        c1.pic_url,
+
+        c2.desc AS Sdesc,
+        c2.icon_url AS Sic,
+        c2.id As Sid,
+        c2.keywords AS Skey,
+        c2.level AS Sle,
+        c2.name AS Sname,
+        c2.pic_url AS Spic
+
+
+        FROM cskaoyan_mall_category c1
+        LEFT JOIN cskaoyan_mall_category c2
+        ON  c2.pid=c1.id
+
+    </select>
+
+    <delete id="deleteCategory">
+        delete from cskaoyan_mall_category
+        where id=#{category.id}
+    </delete>
+<resultMap id="kindCategoryMap" type="com.cskaoyan.bean.Kind">
+    <result property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="desc" column="desc"/>
+    <result property="iconUrl" column="icon_url"/>
+    <result property="keywords" column="keywords"/>
+    <result property="level" column="level"/>
+    <result property="picUrl" column="pic_url"/>
+</resultMap>
+    <select id="showKindCategory" resultMap="kindCategoryMap">
+        SELECT
+        cskaoyan_mall_category.desc,
+        icon_url,
+        id,
+        keywords,
+        level,
+        name,
+        pic_url
+				from cskaoyan_mall_category
+        where level="L1";
+    </select>
+
+    <insert id="createCategory" parameterType="com.cskaoyan.bean.Category" useGeneratedKeys="true">
+        <selectKey keyProperty="category.id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+      insert into cskaoyan_mall_category(
+          name,
+          keywords,
+          cskaoyan_mall_category.desc,
+          pid,
+          icon_url,
+          pic_url,
+          level,
+          add_time,
+          update_time)
+      values (#{category.name},#{category.keywords},#{category.desc},
+        #{category.pid},#{category.iconUrl},#{category.picUrl},
+        #{category.level},#{category.addTime},#{category.updateTime})
+    </insert>
+
+    <update id="updateCategory">
+        update cskaoyan_mall_category set
+        name=#{category.name},
+          keywords=#{category.keywords},
+          cskaoyan_mall_category.desc=#{category.desc},
+          icon_url=#{category.iconUrl},
+          pic_url=#{category.picUrl},
+          level=#{category.level},
+          update_time=#{category.updateTime}
+          where id=#{category.id}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
