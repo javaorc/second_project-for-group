@@ -1,8 +1,12 @@
 package com.cskaoyan.controller;
 
+
 import com.cskaoyan.service.MallRegionService;
 import com.cskaoyan.bean.Region;
-import com.cskaoyan.responseVo.ResponseVO1;
+
+import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.service.MallRegionService;
+import com.cskaoyan.bean.Province;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,14 +22,13 @@ public class MallRegionController {
 
     @RequestMapping("region/list")
     @ResponseBody
-    public ResponseVO1<List<Region>> showArea(){
+    public ResponseVO<List<Province>> showArea(){
 
-        List<Region> regions = mallRegionService.showArea();
-        ResponseVO1<List<Region>> responseVO1 = new ResponseVO1<>();
-        responseVO1.setData(regions);
-        responseVO1.setErrmsg("成功");
-        responseVO1.setErrno(0);
-        System.out.println(regions);
-        return responseVO1;
+        List<Province> provinces = mallRegionService.showArea();
+        ResponseVO<List<Province>> responseVO = new ResponseVO<>();
+        responseVO.setData(provinces);
+        responseVO.setErrmsg("成功");
+        responseVO.setErrno(0);
+        return responseVO;
     }
 }

@@ -11,4 +11,9 @@ public interface MallBrandMapper {
     int deleteBrand(@Param("brand") Brand brand);
 
     List<Brand> searchBrandByIdAndName(@Param("id")String id,@Param("name")String name);
+
+    int updateBrandByBid(@Param("brand") Brand brand);
+
+    int insertBrand(@Param("brand") Brand brand);
+
 }

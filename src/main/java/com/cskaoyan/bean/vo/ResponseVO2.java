@@ -1,17 +1,8 @@
-package com.cskaoyan.responseVo;
+package com.cskaoyan.bean.vo;
 
-public class ResponseVO1<T> {
-    private T data;
+public class ResponseVO2 {
     private String errmsg;
     private int errno;
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 
     public String getErrmsg() {
         return errmsg;

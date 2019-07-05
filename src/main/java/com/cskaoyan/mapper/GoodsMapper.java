@@ -23,4 +23,26 @@ public interface GoodsMapper {
     List<GoodsSpecification> querySpecificationsByGoodsId(@Param("goodsId") int goodsId);
 
     List<GoodsProduct> queryProductsByGoodsId(@Param("goodsId") int goodsId);
+
+    int deleteGoodsAttributesByGoodsId(int id);
+
+    int deleteGoodsSpecificationsByGoodsId(int id);
+
+    int deleteGoodsProductsByGoodsId(int id);
+
+    int deleteGoodsByGoodsId(int id);
+
+    int updateGoodsAttribute(@Param("attribute") GoodsAttribute attribute);
+
+    int insertGoodsAttribute(@Param("attribute") GoodsAttribute attribute);
+
+    int updateGoodsSpecification(@Param("specification") GoodsSpecification specification);
+
+    int insertGoodsSpecification(@Param("specification") GoodsSpecification specification);
+
+    int updateGoodsProduct(@Param("product") GoodsProduct product);
+
+    int insertGoodsProduct(@Param("product") GoodsProduct product);
+
+    int updateGoods(@Param("goods") Goods goods);
 }

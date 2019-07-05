@@ -27,4 +27,14 @@ public class MallBrandServiceImpl implements MallBrandService {
     public List<Brand> searchBrandByIdAndName(String id, String name) {
         return mallBrandMapper.searchBrandByIdAndName(id,name);
     }
+
+    @Override
+    public int updateBrandByBid(Brand brand) {
+        return mallBrandMapper.updateBrandByBid(brand);
+    }
+
+    @Override
+    public int insertBrand(Brand brand) {
+        return mallBrandMapper.insertBrand(brand);
+    }
 }

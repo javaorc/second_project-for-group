@@ -7,7 +7,7 @@
         <result column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="avatar" property="avatar"/>
-        <result column="role_ids" property="roleIds" typeHandler="com.cskaoyan.TypeHandler.IntArrayTypeHandler"/>
+        <result column="role_ids" property="roleIds" typeHandler="com.cskaoyan.typeHandler.IntArrayTypeHandler"/>
     </resultMap>
  <select id="adminsSearch" resultMap="adminSearchMap"   >
 SELECT
@@ -124,6 +124,58 @@ add_time as addTime,
 update_time as updateTime,
 deleted
 from
-cskaoyan_mall_storage
+    cskaoyan_mall_storage
+    <where>
+        <if test="key != null">
+            'key' LIKE CONCAT(CONCAT('%', #{key}), '%')
+        </if>
+        <if test="name != null">
+            AND 'name' LIKE CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+    </where>
+
+
 </select>
+    <update id="storageUpdate">
+        update
+        cskaoyan_mall_storage
+        set
+        name=#{name}
+        where id=#{id}
+    </update>
+<delete id="storageDelete" >
+    delete
+    from
+    cskaoyan_mall_storage
+    where id=#{id}
+
+</delete>
+<select id="logSearch" resultType="com.cskaoyan.bean.Log">
+    SELECT
+id,
+admin,
+ip,
+type,
+action,
+`status`,
+result,
+`comment`,
+add_time as addTime,
+update_time as updateTime,
+deleted
+from
+cskaoyan_mall_log
+    <where>
+
+        <if test="name != null">
+           'name' LIKE CONCAT(CONCAT('%', #{name}), '%')
+        </if>
+    </where>
+</select>
+    <insert id="logInsert">
+        insert
+cskaoyan_mall_log
+(admin,ip,type,action,`status`,result,`comment`,add_time,update_time,deleted)
+values(#{admin},#{ip},#{type},#{action},#{status},#{result},#{comment},#{addTime},#{updateTime},#{deleted})
+    </insert>
 </mapper>
