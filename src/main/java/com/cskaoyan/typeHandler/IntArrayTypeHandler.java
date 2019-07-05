@@ -1,4 +1,4 @@
-package com.cskaoyan.TypeHandler;
+package com.cskaoyan.typeHandler;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

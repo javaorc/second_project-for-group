@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.mallManege.MallHomeMapper">
+    <select id="showHome" resultType="com.cskaoyan.bean.HomeData">
+        select SUM(UserNum)UserNum,SUM(productNum)productNum,SUM(goodsNum)goodsNum,SUM(orderNum)orderNum
+        from(
+        select   COUNT(*) UserNum,0 productNum,0 goodsNum,0 orderNum
+        from cskaoyan_mall_user
+         UNION ALL
+        SELECT  0 UserNum,COUNT(*) productNum,0 goodsNum,0 orderNum
+        from cskaoyan_mall_goods_product
+        UNION ALL
+        SELECT 0 UserNum, 0 productNum,COUNT(*) goodsNum,0 orderNum
+        from cskaoyan_mall_goods
+        UNION ALL
+        SELECT 0 UserNum, 0 productNum, 0 goodsNum,COUNT(*) orderNum
+        from cskaoyan_mall_order)t;
+    </select>
+</mapper>
