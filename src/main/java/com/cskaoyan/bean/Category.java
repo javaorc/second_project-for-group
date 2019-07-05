@@ -19,11 +19,11 @@ public class Category {
 
     private String level;
 
-    private Byte sortOrder;
+    private Byte   sortOrder;
 
-    private Date addTime;
+    private Date   addTime;
 
-    private Date updateTime;
+    private Date   updateTime;
 
     private Boolean deleted;
 
