@@ -17,12 +17,19 @@ public class StringToListTypeHandler extends BaseTypeHandler<List<String>> {
     /*List -> String*/
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int index, List<String> strings, JdbcType jdbcType) throws SQLException {
+
+        String s = null;
         StringBuffer stringBuffer = new StringBuffer("[");
-        Iterator<String> iterator = strings.iterator();
-        while (iterator.hasNext()) {
-            stringBuffer.append("\"").append(iterator.next()).append("\", ");
+
+        if (strings.size() >= 1) {
+            Iterator<String> iterator = strings.iterator();
+            while (iterator.hasNext()) {
+                stringBuffer.append("\"").append(iterator.next()).append("\", ");
+            }
+            s = stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length()).append("]").toString();
+        } else {
+            s = stringBuffer.append("]").toString();
         }
-        String s = stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length()).append("]").toString();
         preparedStatement.setString(index, s);
     }
 
@@ -48,13 +55,16 @@ public class StringToListTypeHandler extends BaseTypeHandler<List<String>> {
 
     private List<String> string2List(String string) {
         List<String> list = new ArrayList<>();
-        String[] split = string.substring(1, string.length()-1).split(",");
 
-        for (String str : split) {
+        if (!"[]".equals(string)) {
+            String[] split = string.substring(1, string.length() - 1).split(",");
 
-            String trim = str.trim();
-            String substring = trim.substring(1, trim.length() - 1);
-            list.add(substring);
+            for (String str : split) {
+
+                String trim = str.trim();
+                String substring = trim.substring(1, trim.length() - 1);
+                list.add(substring);
+            }
         }
         return list;
     }

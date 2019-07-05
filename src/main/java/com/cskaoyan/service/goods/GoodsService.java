@@ -1,4 +1,4 @@
-package com.cskaoyan.service;
+package com.cskaoyan.service.goods;
 
 import com.cskaoyan.bean.Goods;
 import com.cskaoyan.bean.GoodsAttribute;
@@ -19,4 +19,8 @@ public interface GoodsService {
     Map queryGoodsDeatilById(int id);
 
     int updateGoods(QueryMapVO queryMapVO);
+
+    Map queryCatAndBrand();
+
+    int insertGoods(QueryMapVO queryMapVO);
 }

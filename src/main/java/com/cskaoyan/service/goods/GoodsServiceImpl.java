@@ -1,4 +1,4 @@
-package com.cskaoyan.service;
+package com.cskaoyan.service.goods;
 
 import com.cskaoyan.bean.Goods;
 import com.cskaoyan.bean.GoodsAttribute;
@@ -6,7 +6,7 @@ import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
 import com.cskaoyan.bean.vo.QueryList;
 import com.cskaoyan.bean.vo.QueryMapVO;
-import com.cskaoyan.mapper.GoodsMapper;
+import com.cskaoyan.mapper.goods.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +47,14 @@ public class GoodsServiceImpl implements GoodsService {
         map.put("products", goodsMapper.queryProductsByGoodsId(id));
         map.put("specifications", goodsMapper.querySpecificationsByGoodsId(id));
 
+        return map;
+    }
+
+    @Override
+    public Map queryCatAndBrand() {
+        Map map = new LinkedHashMap();
+        map.put("brandList", goodsMapper.queryBrandList());
+        map.put("categoryList", goodsMapper.queryCategoryList());
         return map;
     }
 
@@ -144,6 +152,50 @@ public class GoodsServiceImpl implements GoodsService {
         /*4.更新商品信息*/
         goods.setUpdateTime(date);
         goodsMapper.updateGoods(goods);
+
+        return 1;
+    }
+
+    @Override
+    public int insertGoods(QueryMapVO queryMapVO) {
+
+        Date date = new Date();
+        /*1.添加商品*/
+        Goods goods = queryMapVO.getGoods();
+        goods.setAddTime(date);
+        goods.setUpdateTime(date);
+        goods.setDeleted(false);
+        goodsMapper.insertGoods(goods);
+
+        /*2.添加商品参数*/
+        List<GoodsAttribute> attributes = queryMapVO.getAttributes();
+        for (GoodsAttribute attribute : attributes) {
+            attribute.setGoodsId(goods.getId());
+            attribute.setAddTime(date);
+            attribute.setUpdateTime(date);
+            attribute.setDeleted(false);
+            goodsMapper.insertGoodsAttribute(attribute);
+        }
+
+        /*3.添加商品规格*/
+        List<GoodsSpecification> specifications = queryMapVO.getSpecifications();
+        for (GoodsSpecification specification : specifications) {
+            specification.setGoodsId(goods.getId());
+            specification.setAddTime(date);
+            specification.setUpdateTime(date);
+            specification.setDeleted(false);
+            goodsMapper.insertGoodsSpecification(specification);
+        }
+
+        /*4.添加商品库存*/
+        List<GoodsProduct> products = queryMapVO.getProducts();
+        for (GoodsProduct product : products) {
+            product.setGoodsId(goods.getId());
+            product.setAddTime(date);
+            product.setUpdateTime(date);
+            product.setDeleted(false);
+            goodsMapper.insertGoodsProduct(product);
+        }
 
         return 1;
     }
