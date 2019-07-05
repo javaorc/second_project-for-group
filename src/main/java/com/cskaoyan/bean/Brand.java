@@ -12,13 +12,13 @@ public class Brand {
 
     private String picUrl;
 
-    private Byte sortOrder;
+    private Byte   sortOrder;
 
     private BigDecimal floorPrice;
 
-    private Date addTime;
+    private Date   addTime;
 
-    private Date updateTime;
+    private Date   updateTime;
 
     private Boolean deleted;
 

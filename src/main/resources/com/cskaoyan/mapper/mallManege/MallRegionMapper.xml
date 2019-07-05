@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.mallManege.MallRegionMapper">
+    <resultMap id="regionMap" type="com.cskaoyan.bean.Province">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="code" property="code"/>
+        <collection property="children" ofType="com.cskaoyan.bean.City">
+            <result column="cityId" property="id"/>
+            <result column="cityName" property="name"/>
+            <result column="cityType" property="type"/>
+            <result column="cityCode" property="code"/>
+            <collection property="children" ofType="com.cskaoyan.bean.Area">
+                <result column="AreaId" property="id"/>
+                <result column="AreaName" property="name"/>
+                <result column="AreaType" property="type"/>
+                <result column="AreaCode" property="code"/>
+            </collection>
+        </collection>
+
+    </resultMap>
+    <select id="showArea" resultMap="regionMap">
+        select
+        re1.id,
+        re1.name,
+        re1.type,
+        re1.code,
+
+        re2.id as   cityId,
+        re2.name as cityName,
+        re2.type as cityType,
+        re2.code as cityCode,
+
+        re3.id as   AreaId,
+        re3.name as AreaName,
+        re3.type as AreaType,
+        re3.code as AreaCode
+        from cskaoyan_mall_region re1
+        LEFT JOIN cskaoyan_mall_region re2
+        ON re1.id=re2.pid
+        LEFT JOIN cskaoyan_mall_region re3
+        ON re2.id=re3.pid
+        where re1.type=1
+    </select>
+</mapper>

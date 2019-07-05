@@ -3,45 +3,28 @@ package com.cskaoyan.bean;
 import java.util.Date;
 
 public class GoodsSpecification {
-    private Integer id;
+    private int             id;
+    private int             goodsId;
+    private String          specification;
+    private String          value;
+    private String          picUrl;
+    private Date            addTime;
+    private Date            updateTime;
+    private Boolean         deleted;
 
-    private Integer goodsId;
-
-    private  Goods goods;
-
-    private String specification;
-
-    private String value;
-
-    private String picUrl;
-
-    private Date addTime;
-
-    private Date updateTime;
-
-    private Boolean deleted;
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getGoodsId() {
+    public int getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Integer goodsId) {
+    public void setGoodsId(int goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -50,7 +33,7 @@ public class GoodsSpecification {
     }
 
     public void setSpecification(String specification) {
-        this.specification = specification == null ? null : specification.trim();
+        this.specification = specification;
     }
 
     public String getValue() {
@@ -58,7 +41,7 @@ public class GoodsSpecification {
     }
 
     public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+        this.value = value;
     }
 
     public String getPicUrl() {
@@ -66,7 +49,7 @@ public class GoodsSpecification {
     }
 
     public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl == null ? null : picUrl.trim();
+        this.picUrl = picUrl;
     }
 
     public Date getAddTime() {

@@ -5,9 +5,9 @@ public class Region {
 
     private Integer pid;
 
-    private String name;
+    private String  name;
 
-    private Byte type;
+    private Byte    type;
 
     private Integer code;
 

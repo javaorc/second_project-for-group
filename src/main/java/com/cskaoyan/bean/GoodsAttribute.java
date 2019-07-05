@@ -3,43 +3,28 @@ package com.cskaoyan.bean;
 import java.util.Date;
 
 public class GoodsAttribute {
-    private Integer id;
 
-    private Integer goodsId;
+    private int id;
+    private int goodsId;
+    private String  attribute;
+    private String  value;
+    private Date    addTime;
+    private Date    updateTime;
+    private boolean deleted;
 
-    private Goods goods;
-
-    private String attribute;
-
-    private String value;
-
-    private Date addTime;
-
-    private Date updateTime;
-
-    private Boolean deleted;
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getGoodsId() {
+    public int getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Integer goodsId) {
+    public void setGoodsId(int goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -48,7 +33,7 @@ public class GoodsAttribute {
     }
 
     public void setAttribute(String attribute) {
-        this.attribute = attribute == null ? null : attribute.trim();
+        this.attribute = attribute;
     }
 
     public String getValue() {
@@ -56,7 +41,7 @@ public class GoodsAttribute {
     }
 
     public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+        this.value = value;
     }
 
     public Date getAddTime() {
@@ -75,11 +60,11 @@ public class GoodsAttribute {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 }
