@@ -6,6 +6,7 @@ import com.cskaoyan.mapper.KeywordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
     @Service
@@ -20,8 +21,8 @@ import java.util.List;
         }
 
         @Override
-        public int updateKeyword(Integer id,String keyword,String url,boolean isHot,boolean isDefault) {
-            return keywordMapper.updateKeyword(id,keyword,url,isHot,isDefault);
+        public int updateKeyword(Integer id, String keyword, String url, boolean isHot, boolean isDefault, Date updateTime) {
+            return keywordMapper.updateKeyword(id,keyword,url,isHot,isDefault,updateTime);
         }
 
         @Override

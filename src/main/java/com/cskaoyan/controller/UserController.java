@@ -1,9 +1,10 @@
 package com.cskaoyan.controller;
 
 
-import com.cskaoyan.Service.userManegeService.UserServiceImpl;
+import com.cskaoyan.service.userManegeService.UserServiceImpl;
 import com.cskaoyan.bean.User;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,9 @@ public class UserController {
 
     @RequestMapping("admin/user/list")
     @ResponseBody
-    public ResponseVO<Map> queryUser(String username, String mobile){
+    public ResponseVO<Map> queryUser(int page, int limit, String username, String mobile){
         ResponseVO<Map> userResponseVO = new ResponseVO<>();
+        /*PageHelper.startPage(page,limit);*/
         List<User> users = userService.queryUser();
         if (username != null && mobile != null){
             users = userService.queryUserByUsernameAndMobile(username,mobile);
@@ -35,6 +37,7 @@ public class UserController {
         userResponseVO.setErrmsg("成功");
         return userResponseVO;
     }
+
 
 
 }

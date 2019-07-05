@@ -2,12 +2,15 @@ package com.cskaoyan.controller;
 import com.cskaoyan.bean.Keyword;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.KeywordService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +29,8 @@ public class KeywordController {
 
 @RequestMapping("admin/keyword/list")
 @ResponseBody
-public ResponseVO<Map<String, Object>>  queryAllKeywordList(String keyword,String url) {
-    
+public ResponseVO<Map<String, Object>>  queryAllKeywordList(String keyword,String url,int page,int limit) {
+    PageHelper.startPage(page,limit);
     ResponseVO<Map<String, Object>> ResponseVO = new ResponseVO<>();
     ResponseVO.setErrmsg("成功");
     ResponseVO.setErrno(0);
@@ -46,7 +49,9 @@ public ResponseVO<Map<String, Object>>  queryAllKeywordList(String keyword,Strin
         ResponseVO<Keyword> keywordResponseVO = new ResponseVO<>();
         keywordResponseVO.setErrno(0);
         keywordResponseVO.setErrmsg("成功");
-        int i = keywordService.updateKeyword(keyword.getId(),keyword.getKeyword(),keyword.getUrl(),keyword.getIsHot(),keyword.getIsDefault());
+        Date date = new Date();
+        keyword.setUpdateTime(date);
+        int i = keywordService.updateKeyword(keyword.getId(),keyword.getKeyword(),keyword.getUrl(),keyword.getIsHot(),keyword.getIsDefault(),date);
         if (i == 1) {
             keywordResponseVO.setData(keyword);
             return keywordResponseVO;
@@ -74,6 +79,10 @@ public ResponseVO<Keyword> insertKeyword(@RequestBody Keyword keyword){
     ResponseVO<Keyword> keywordResponseVO = new ResponseVO<>();
     keywordResponseVO.setErrno(0);
     keywordResponseVO.setErrmsg("成功");
+    Date date = new Date();
+    keyword.setAddTime(date);
+    keyword.setUpdateTime(date);
+    keyword.setDeleted(false);
     int i = keywordService.insertKeyword(keyword);
     if (i == 1) {
         keywordResponseVO.setData(keyword);

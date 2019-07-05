@@ -1,6 +1,8 @@
 package com.cskaoyan.mapper;
 import com.cskaoyan.bean.Keyword;
 import org.apache.ibatis.annotations.*;
+
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -12,7 +14,7 @@ public interface KeywordMapper {
 
     int insertKeyword(@Param("keyword") Keyword keyword);
 
-    int deleteKeyword(@Param("id") Integer id);
+    int deleteKeyword(Integer id);
 
-    int updateKeyword(@Param("id") Integer id,@Param("keyword") String keyword,@Param("url")String url,@Param("isHot")boolean isHot,@Param("isDefault")boolean isDefault);
+    int updateKeyword(@Param("id") Integer id, @Param("keyword") String keyword, @Param("url")String url, @Param("isHot")boolean isHot, @Param("isDefault")boolean isDefault, @Param("updateTime")Date updateTime);
 }

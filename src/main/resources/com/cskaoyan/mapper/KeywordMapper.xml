@@ -78,7 +78,8 @@
         keyword = #{keyword},
         url = #{url},
         is_hot = #{isHot},
-        is_default = #{isDefault}
+        is_default = #{isDefault},
+        update_time = #{updateTime}
         WHERE
         id = #{id}
     </update>
