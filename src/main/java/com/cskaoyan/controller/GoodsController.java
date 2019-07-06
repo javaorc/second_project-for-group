@@ -66,7 +66,7 @@ public class GoodsController {
     public ResponseVO<Map> detail(int id) {
         ResponseVO<Map> responseVO = new ResponseVO<>();
 
-        Map map = goodsService.queryGoodsDeatilById(id);
+        Map map = goodsService.queryGoodsDetailById(id);
 
         responseVO.setData(map);
         responseVO.setErrmsg("成功");
