@@ -37,6 +37,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public Goods queryGoodsyId(int id) {
+        return goodsMapper.queryGoodsById(id);
+    }
+
+    @Override
     public Map queryGoodsDeatilById(int id) {
 
         Map<String, Object> map = new LinkedHashMap<>();

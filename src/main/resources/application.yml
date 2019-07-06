@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     username: root
-    password: 123456
+    password: 1178
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8
 myoss:

@@ -16,6 +16,8 @@ public interface GoodsService {
 
     int deleteGoods(Goods goods);
 
+    Goods queryGoodsyId(int id);
+
     Map queryGoodsDeatilById(int id);
 
     int updateGoods(QueryMapVO queryMapVO);
