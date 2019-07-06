@@ -50,7 +50,7 @@
             id LIKE CONCAT(CONCAT('%', #{id}), '%')
             </if>
             <if test="name">
-            name LIKE CONCAT(CONCAT('%', #{name}), '%')
+            and name LIKE CONCAT(CONCAT('%', #{name}), '%')
             </if>
         </where>
 

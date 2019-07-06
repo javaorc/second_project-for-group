@@ -8,33 +8,33 @@ public class OrderGoods {
 
     private Integer orderId;
 
-    private  Order order;
+    private  Order  order;
 
     private Integer goodsId;
 
-    private Goods goods;
+    private Goods   goods;
 
-    private String goodsName;
+    private String  goodsName;
 
-    private String goodsSn;
+    private String  goodsSn;
 
     private Integer productId;
 
     private GoodsProduct goodsProduct;
 
-    private Short number;
+    private Short   number;
 
-    private BigDecimal price;
+    private  BigDecimal  price;
 
-    private String specifications;
+    private String  specifications;
 
-    private String picUrl;
+    private String  picUrl;
 
     private Integer comment;
 
-    private Date addTime;
+    private Date    addTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean deleted;
 
