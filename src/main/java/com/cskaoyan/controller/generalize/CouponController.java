@@ -34,6 +34,7 @@ public class CouponController {
         ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
         mapResponseVO.setErrmsg("成功");
         mapResponseVO.setErrno(0);
+
         List<Coupon> couponList = couponService.findCouponList(name,type,status);
         int total = couponList.size();
         Map<String, Object> map = new HashMap<>();

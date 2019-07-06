@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.GoodsMapper">
+<mapper namespace="com.cskaoyan.mapper.goods.GoodsMapper">
 
 
     <sql id="baseColumn">
@@ -69,8 +69,7 @@
                 and name like CONCAT('%',#{name},'%')
             </if>
         </where>
-
-        order by #{sort} #{order}
+        order by add_time desc
         limit #{limit} offset #{offset}
     </select>
 
@@ -346,7 +345,89 @@
           deleted = #{goods.deleted}
         where id = #{goods.id}
     </update>
+
     <!--#######################################################-->
 
+    <!--################## 添加商品 #######################-->
 
+    <insert id="insertGoods">
+        <selectKey keyProperty="goods.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+
+        insert into cskaoyan_mall_goods (
+          goods_sn,
+          name,
+          category_id,
+          brand_id,
+          gallery,
+          keywords,
+          brief,
+          is_on_sale,
+          sort_order,
+          pic_url,
+          share_url,
+          is_new,
+          is_hot,
+          unit,
+          counter_price,
+          retail_price,
+          detail,
+          add_time,
+          update_time,
+          deleted
+        ) values (
+          #{goods.goodsSn},
+          #{goods.name},
+          #{goods.categoryId},
+          #{goods.brandId},
+          #{goods.gallery, typeHandler=com.cskaoyan.typeHandler.StringToListTypeHandler},
+          #{goods.keywords},
+          #{goods.brief},
+          #{goods.isOnSale},
+          #{goods.sortOrder},
+          #{goods.picUrl},
+          #{goods.shareUrl},
+          #{goods.isNew},
+          #{goods.isHot},
+          #{goods.unit},
+          #{goods.counterPrice},
+          #{goods.retailPrice},
+          #{goods.detail},
+          #{goods.addTime},
+          #{goods.updateTime},
+          #{goods.deleted}
+        )
+    </insert>
+
+    <!--##################################################-->
+
+    <!--###################### 获取categoryList 和 brandList #################################-->
+    <resultMap id="node2Map" type="com.cskaoyan.bean.vo.Node2">
+        <result column="id" property="value"/>
+        <result column="name" property="label"/>
+    </resultMap>
+    <select id="queryBrandList" resultMap="node2Map">
+        select id, name from cskaoyan_mall_brand
+    </select>
+
+    <resultMap id="nodeMap" type="com.cskaoyan.bean.vo.Node">
+        <result column="pid" property="value"/>
+        <result column="pname" property="label"/>
+        <collection property="children" column="pid" select="com.cskaoyan.mapper.goods.GoodsMapper.queryChildrenCategory" />
+    </resultMap>
+    <select id="queryCategoryList" resultMap="nodeMap">
+        select
+          cat1.id as pid,
+          cat1.name as pname
+        from cskaoyan_mall_category as cat1 where cat1.level = 'L1'
+    </select>
+    <select id="queryChildrenCategory" resultMap="node2Map">
+        select
+          id,
+          name
+        from cskaoyan_mall_category where pid = #{pid}
+    </select>
+    
+    
 </mapper>
