@@ -5,13 +5,13 @@ import java.util.Date;
 public class Issue {
     private Integer id;
 
-    private String question;
+    private String  question;
 
-    private String answer;
+    private String  answer;
 
-    private Date addTime;
+    private Date    addTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean deleted;
 

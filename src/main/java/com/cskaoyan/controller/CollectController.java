@@ -1,7 +1,7 @@
 package com.cskaoyan.controller;
 
 
-import com.cskaoyan.Service.userManegeService.CollectServiceImpl;
+import com.cskaoyan.service.userManegeService.CollectServiceImpl;
 import com.cskaoyan.bean.Collect;
 import com.cskaoyan.bean.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,20 +1,18 @@
 package com.cskaoyan.controller;
 
-import com.cskaoyan.bean.Brand;
-import com.cskaoyan.bean.Category;
-import com.cskaoyan.bean.Goods;
+import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.QueryList;
+import com.cskaoyan.bean.vo.QueryMapVO;
 import com.cskaoyan.bean.vo.ResponseVO;
-import com.cskaoyan.service.GoodsService;
+import com.cskaoyan.bean.vo.ResponseVO2;
+import com.cskaoyan.service.goods.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 
 @Controller
 @RequestMapping("admin")
@@ -53,13 +51,8 @@ public class GoodsController {
     public ResponseVO<Map> queryCatAndBrand() {
 
         ResponseVO<Map> responseVO = new ResponseVO<>();
-        Map<String, Object> map = new HashMap<>();
 
-        List categoryList = null;
-        List brandList = null;
-
-        map.put("categoryList", categoryList);
-        map.put("brandList", brandList);
+        Map map = goodsService.queryCatAndBrand();
 
         responseVO.setData(map);
         responseVO.setErrno(0);
@@ -71,19 +64,67 @@ public class GoodsController {
     @RequestMapping("goods/detail")
     @ResponseBody
     public ResponseVO<Map> detail(int id) {
-
         ResponseVO<Map> responseVO = new ResponseVO<>();
-        Map<String, Object> map = new HashMap<>();
 
-        map.put("goods", goodsService.queryGoodsById(id));
-        map.put("attributes", goodsService.queryGoodsAttributeByGoodsId(id));
-        map.put("categoryIds", goodsService.queryCategoryIdsByGoodsId(id));
-        map.put("products", goodsService.queryProductsByGoodsId(id));
-        map.put("specifications", goodsService.querySpecificationsByGoodsId(id));
+        Map map = goodsService.queryGoodsDeatilById(id);
 
         responseVO.setData(map);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
         return responseVO;
+    }
+
+    /*删除商品*/
+    @RequestMapping("goods/delete")
+    @ResponseBody
+    public ResponseVO2 delete(@RequestBody Goods goods) {
+
+        ResponseVO2 responseVO2 = new ResponseVO2();
+        int ret = goodsService.deleteGoods(goods);
+
+        if(ret == 1) {
+            responseVO2.setErrmsg("成功");
+            responseVO2.setErrno(0);
+        } else {
+            responseVO2.setErrmsg("失败");
+            responseVO2.setErrno(-1);
+        }
+        return responseVO2;
+    }
+
+    /*更新商品信息*/
+    @RequestMapping("goods/update")
+    @ResponseBody
+    public ResponseVO2 update(@RequestBody QueryMapVO queryMapVO) {
+        ResponseVO2 responseVO2 = new ResponseVO2();
+
+        int ret = goodsService.updateGoods(queryMapVO);
+
+        if (ret == 1) {
+            responseVO2.setErrmsg("成功");
+            responseVO2.setErrno(0);
+        } else {
+            responseVO2.setErrmsg("失败");
+            responseVO2.setErrno(-2);
+        }
+        return responseVO2;
+    }
+
+    /*添加商品*/
+    @RequestMapping("goods/create")
+    @ResponseBody
+    public ResponseVO2 add(@RequestBody QueryMapVO queryMapVO) {
+
+        ResponseVO2 responseVO2 = new ResponseVO2();
+
+        int ret = goodsService.insertGoods(queryMapVO);
+        if (ret == 1) {
+            responseVO2.setErrmsg("成功");
+            responseVO2.setErrno(0);
+        } else {
+            responseVO2.setErrmsg("失败");
+            responseVO2.setErrno(-3);
+        }
+        return responseVO2;
     }
 }

@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class StringToListTypeHandler extends BaseTypeHandler<List<String>> {
+public class StringToListTypeHandler2 extends BaseTypeHandler<List<String>> {
 
-    /*输入映射*/
-    /*List -> String*/
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int index, List<String> strings, JdbcType jdbcType) throws SQLException {
 
@@ -33,8 +31,6 @@ public class StringToListTypeHandler extends BaseTypeHandler<List<String>> {
         preparedStatement.setString(index, s);
     }
 
-    /*输出映射*/
-    /*String -> List*/
     @Override
     public List<String> getNullableResult(ResultSet resultSet, String s) throws SQLException {
         String string = resultSet.getString(s);
@@ -55,12 +51,10 @@ public class StringToListTypeHandler extends BaseTypeHandler<List<String>> {
 
     private List<String> string2List(String string) {
         List<String> list = new ArrayList<>();
-
         if (!"[]".equals(string)) {
             String[] split = string.substring(1, string.length() - 1).split(",");
 
             for (String str : split) {
-
                 String trim = str.trim();
                 String substring = trim.substring(1, trim.length() - 1);
                 list.add(substring);
@@ -68,5 +62,6 @@ public class StringToListTypeHandler extends BaseTypeHandler<List<String>> {
         }
         return list;
     }
+
 }
 
