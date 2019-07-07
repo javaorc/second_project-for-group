@@ -9,4 +9,7 @@ public interface CollectService {
 
     List<Collect> queryCollect();
     List<Collect> queryCollectByUserIdAndValueID(Integer userId, Integer valueId);
+    List<Collect> queryCollectByValueID(Integer valueId);
+    List<Collect> queryCollectByUserId(Integer userId);
+
 }

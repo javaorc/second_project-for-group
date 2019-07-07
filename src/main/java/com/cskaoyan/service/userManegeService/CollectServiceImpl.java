@@ -24,4 +24,17 @@ public class CollectServiceImpl implements CollectService {
         List<Collect> collects = collectMapper.queryCollectByUserIdAndValueID(userId, valueId);
         return collects;
     }
+
+    @Override
+    public List<Collect> queryCollectByValueID(Integer valueId) {
+        List<Collect> collects = collectMapper.queryCollectByValueID(valueId);
+        return collects;
+    }
+
+    @Override
+    public List<Collect> queryCollectByUserId(Integer userId) {
+        List<Collect> collects = collectMapper.queryCollectByUserId(userId);
+        return collects;
+
+    }
 }

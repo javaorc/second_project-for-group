@@ -39,4 +39,31 @@
   where user_id=#{userId} and value_id=#{valueId}
 </select>
 
+    <select id="queryCollectByValueID" resultMap="collectMap">
+  select
+  id,
+  user_id,
+  value_id,
+  type,
+  add_time,
+  update_time,
+  deleted
+  from cskaoyan_mall_collect
+  where value_id=#{valueId}
+</select>
+
+
+    <select id="queryCollectByUserId" resultMap="collectMap">
+  select
+  id,
+  user_id,
+  value_id,
+  type,
+  add_time,
+  update_time,
+  deleted
+  from cskaoyan_mall_collect
+  where user_id=#{userId}
+</select>
+
 </mapper>

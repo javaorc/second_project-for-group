@@ -9,6 +9,8 @@ import java.util.List;
 public interface UserMapper {
 
     List<User> queryUserByUsernameAndMobile(@Param("username")String username,@Param("mobile")String mobile);
+    List<User> queryUserByUsername(@Param("username")String username);
+    List<User> queryUserByMobile(@Param("mobile")String mobile);
     List<User> queryUser();
     User queryUserById(@Param("id")Integer id);
 }
