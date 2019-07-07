@@ -32,15 +32,7 @@ public class GrouponRulesController {
     @ResponseBody
     public ResponseVO<Map<String, Object>> grouponList(Integer goodsId,
                                                        int page, int limit, String sort, String order) {
-        ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
-        mapResponseVO.setErrmsg("成功");
-        mapResponseVO.setErrno(0);
-        List<GrouponRules> grouponRulesList = grouponRulesService.grouponList(goodsId);
-        Map<String, Object> map = new HashMap<>();
-        map.put("items", grouponRulesList);
-        map.put("total", grouponRulesList.size());
-        mapResponseVO.setData(map);
-        return mapResponseVO;
+        return grouponRulesService.grouponList(goodsId,page,limit);
     }
 
     @RequestMapping("groupon/update")

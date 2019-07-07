@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,15 +28,7 @@ public class TopicController {
     @ResponseBody
     public ResponseVO<Map<String, Object>> topicList(String title, String subtitle,
                                                      int page, int limit, String sort, String order) {
-        ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
-        mapResponseVO.setErrmsg("成功");
-        mapResponseVO.setErrno(0);
-        List<Topic> topicList = topicService.topicList(title, subtitle);
-        Map<String, Object> map = new HashMap<>();
-        map.put("items", topicList);
-        map.put("total", topicList.size());
-        mapResponseVO.setData(map);
-        return mapResponseVO;
+        return topicService.topicList(title, subtitle,page,limit);
     }
 
     @RequestMapping("topic/update")
