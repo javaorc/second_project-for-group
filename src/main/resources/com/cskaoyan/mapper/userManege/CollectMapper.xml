@@ -14,55 +14,37 @@
     <result column="deleted" property="deleted"/>
     <association property="user" select="com.cskaoyan.mapper.userManege.UserMapper.queryUserById" column="user_id"/>
 </resultMap>
+
+    <sql id="baseColumn">
+      select
+          id,
+          user_id,
+          value_id,
+          type,
+          add_time,
+          update_time,
+          deleted
+      from cskaoyan_mall_collect
+    </sql>
+
+
 <select id="queryCollect" resultMap="collectMap">
-  select
-  id,
-  user_id,
-  value_id,
-  type,
-  add_time,
-  update_time,
-  deleted
-  from cskaoyan_mall_collect
+    <include refid="baseColumn"/>
 </select>
 
 <select id="queryCollectByUserIdAndValueID" resultMap="collectMap">
-  select
-  id,
-  user_id,
-  value_id,
-  type,
-  add_time,
-  update_time,
-  deleted
-  from cskaoyan_mall_collect
+    <include refid="baseColumn"/>
   where user_id=#{userId} and value_id=#{valueId}
 </select>
 
-    <select id="queryCollectByValueID" resultMap="collectMap">
-  select
-  id,
-  user_id,
-  value_id,
-  type,
-  add_time,
-  update_time,
-  deleted
-  from cskaoyan_mall_collect
+<select id="queryCollectByValueID" resultMap="collectMap">
+    <include refid="baseColumn"/>
   where value_id=#{valueId}
 </select>
 
 
-    <select id="queryCollectByUserId" resultMap="collectMap">
-  select
-  id,
-  user_id,
-  value_id,
-  type,
-  add_time,
-  update_time,
-  deleted
-  from cskaoyan_mall_collect
+<select id="queryCollectByUserId" resultMap="collectMap">
+    <include refid="baseColumn"/>
   where user_id=#{userId}
 </select>
 
