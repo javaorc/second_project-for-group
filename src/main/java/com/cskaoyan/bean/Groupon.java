@@ -11,11 +11,9 @@ public class Groupon {
 
     private Integer grouponId;
 
-    private  Groupon groupon;
-
     private Integer rulesId;
 
-    private  Rules rules;
+    private  GrouponRules rules;
 
     private Integer userId;
 
@@ -41,19 +39,12 @@ public class Groupon {
         this.order = order;
     }
 
-    public Groupon getGroupon() {
-        return groupon;
-    }
 
-    public void setGroupon(Groupon groupon) {
-        this.groupon = groupon;
-    }
-
-    public Rules getRules() {
+    public GrouponRules getRules() {
         return rules;
     }
 
-    public void setRules(Rules rules) {
+    public void setRules(GrouponRules rules) {
         this.rules = rules;
     }
 

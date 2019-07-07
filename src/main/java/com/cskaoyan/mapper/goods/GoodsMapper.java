@@ -1,9 +1,11 @@
-package com.cskaoyan.mapper;
+package com.cskaoyan.mapper.goods;
 
 import com.cskaoyan.bean.Goods;
 import com.cskaoyan.bean.GoodsAttribute;
 import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
+import com.cskaoyan.bean.vo.Node;
+import com.cskaoyan.bean.vo.Node2;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -45,4 +47,11 @@ public interface GoodsMapper {
     int insertGoodsProduct(@Param("product") GoodsProduct product);
 
     int updateGoods(@Param("goods") Goods goods);
+
+
+    /*cat And  brand*/
+    List<Node> queryCategoryList();
+    List<Node2> queryBrandList();
+
+    int insertGoods(@Param("goods") Goods goods);
 }

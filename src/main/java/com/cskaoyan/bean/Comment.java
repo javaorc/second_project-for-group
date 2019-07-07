@@ -1,8 +1,10 @@
 package com.cskaoyan.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Comment {
+
     private Integer id;
 
     private Integer valueId;
@@ -13,11 +15,9 @@ public class Comment {
 
     private Integer userId;
 
-    private User user;
-
     private Boolean hasPicture;
 
-    private String picUrls;
+    private List<String> picUrls;
 
     private Short star;
 
@@ -26,14 +26,6 @@ public class Comment {
     private Date updateTime;
 
     private Boolean deleted;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Integer getId() {
         return id;
@@ -83,12 +75,12 @@ public class Comment {
         this.hasPicture = hasPicture;
     }
 
-    public String getPicUrls() {
+    public List<String> getPicUrls() {
         return picUrls;
     }
 
-    public void setPicUrls(String picUrls) {
-        this.picUrls = picUrls == null ? null : picUrls.trim();
+    public void setPicUrls(List<String> picUrls) {
+        this.picUrls = picUrls;
     }
 
     public Short getStar() {
@@ -122,4 +114,5 @@ public class Comment {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
+
 }
