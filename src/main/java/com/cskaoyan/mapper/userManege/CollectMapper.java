@@ -12,4 +12,6 @@ public interface CollectMapper {
 
     List<Collect> queryCollect();
     List<Collect> queryCollectByUserIdAndValueID(@Param("userId") Integer userId, @Param("valueId") Integer valueId);
+    List<Collect> queryCollectByValueID(@Param("valueId") Integer valueId);
+    List<Collect> queryCollectByUserId(@Param("userId") Integer userId);
 }
