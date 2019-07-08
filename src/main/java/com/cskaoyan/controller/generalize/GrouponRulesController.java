@@ -4,7 +4,7 @@ import com.cskaoyan.bean.Goods;
 import com.cskaoyan.bean.Groupon;
 import com.cskaoyan.bean.GrouponRules;
 import com.cskaoyan.bean.vo.ResponseVO;
-import com.cskaoyan.service.GoodsService;
+import com.cskaoyan.service.goods.GoodsService;
 import com.cskaoyan.service.generalize.GrouponRulesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

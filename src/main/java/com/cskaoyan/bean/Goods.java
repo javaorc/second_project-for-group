@@ -24,8 +24,8 @@ public class Goods {
     private double      counterPrice;
     private double      retailPrice;
     private String      detail;
-    private Date        addTime;
-    private Date        updateTime;
+    private Date      addTime;
+    private Date      updateTime;
     private boolean     deleted;
 
     public int getId() {
