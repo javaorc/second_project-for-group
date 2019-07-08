@@ -90,7 +90,7 @@
     </insert>
 
 
-    <resultMap id="brandMap2" type="com.cskaoyan.bean.Brand">
+    <resultMap id="brandMap2" type="com.cskaoyan.bean.wxBean.WxBrand">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="floor_price" property="floorPrice"/>

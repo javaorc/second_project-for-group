@@ -2,6 +2,7 @@ package com.cskaoyan.mapper.generalize;
 
 import com.cskaoyan.bean.Groupon;
 import com.cskaoyan.bean.GrouponRules;
+import com.cskaoyan.bean.wxBean.WxGroupon;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface GrouponRulesMapper {
     int insertGrouponRules(@Param("grules") GrouponRules grouponRules);
 
     List<Groupon> queryGrouponAndRulesAndGoods(@Param("goodsId") Integer goodsId);
+
+    List<WxGroupon> queryGrouponRules();
 }

@@ -3,6 +3,7 @@ package com.cskaoyan.service.generalize;
 import com.cskaoyan.bean.Coupon;
 import com.cskaoyan.bean.CouponUser;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxBean.WxCoupon;
 import com.cskaoyan.mapper.generalize.CouponMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -84,7 +85,7 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public List<Coupon> queryCoupons() {
+    public List<WxCoupon> queryCoupons() {
         return couponMapper.queryCoupons();
     }
 }

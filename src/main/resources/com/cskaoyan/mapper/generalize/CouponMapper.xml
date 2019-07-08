@@ -230,7 +230,7 @@
     </delete>
 
 
-    <resultMap id="couponMap2" type="com.cskaoyan.bean.Coupon">
+    <resultMap id="couponMap2" type="com.cskaoyan.bean.wxBean.WxCoupon">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="discount" property="discount"/>

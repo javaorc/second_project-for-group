@@ -40,8 +40,8 @@ public class MallHomeController {
     @Autowired
     GoodsService goodsService;
 
-    /*@Autowired
-    GrouponRulesService ;*/
+    @Autowired
+    GrouponRulesService grouponRulesService;
 
     @Autowired
     TopicService topicService;
@@ -85,7 +85,7 @@ public class MallHomeController {
         map.put("floorGoodsList",null);
 
         //团购专区
-        map.put("grouponList",null);
+        map.put("grouponList", grouponRulesService.queryGrouponRules());
 
         //人气推荐
         map.put("hotGoodsList",goodsService.queryHotGoods());

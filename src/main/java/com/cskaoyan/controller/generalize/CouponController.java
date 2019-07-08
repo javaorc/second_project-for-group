@@ -45,7 +45,7 @@ public class CouponController {
         int i= couponService.insertCoupon(coupon);
         if(i==1){
             //(未写)再查出id等等信息再setData;
-            //Coupon coupon1= couponService.queryCouponByAddTime(date);
+            //WxCoupon coupon1= couponService.queryCouponByAddTime(date);
             responseVO.setData(coupon);
             return responseVO;
         }

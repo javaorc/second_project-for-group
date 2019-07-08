@@ -6,6 +6,7 @@ import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
 import com.cskaoyan.bean.vo.QueryList;
 import com.cskaoyan.bean.vo.QueryMapVO;
+import com.cskaoyan.bean.wxBean.WxHotOrNewGoods;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public interface GoodsService {
 
     Integer queryTotalRecords();
 
-    List<Goods> queryHotGoods();
+    List<WxHotOrNewGoods> queryHotGoods();
 
-    List<Goods> queryNewGoods();
+    List<WxHotOrNewGoods> queryNewGoods();
 }

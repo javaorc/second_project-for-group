@@ -6,6 +6,7 @@ import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
 import com.cskaoyan.bean.vo.QueryList;
 import com.cskaoyan.bean.vo.QueryMapVO;
+import com.cskaoyan.bean.wxBean.WxHotOrNewGoods;
 import com.cskaoyan.mapper.goods.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -213,12 +214,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> queryHotGoods() {
+    public List<WxHotOrNewGoods> queryHotGoods() {
         return goodsMapper.queryHotGoods();
     }
 
     @Override
-    public List<Goods> queryNewGoods() {
+    public List<WxHotOrNewGoods> queryNewGoods() {
         return goodsMapper.queryNewGoods();
     }
 }
