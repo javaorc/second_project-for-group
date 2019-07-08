@@ -16,4 +16,24 @@ public class MallIssueServiceImpl implements MallIssueService {
     public List<Issue> queryAllIssue() {
         return mallIssueMapper.queryAllIssue();
     }
+
+    @Override
+    public List<Issue> searchByQuestion(String question) {
+        return mallIssueMapper.searchByQuestion(question);
+    }
+
+    @Override
+    public int insetIssue(Issue issue) {
+        return mallIssueMapper.insetIssue(issue);
+    }
+
+    @Override
+    public int updateIssue(Issue issue) {
+        return mallIssueMapper.updateIssue(issue);
+    }
+
+    @Override
+    public int deleteIssue(Issue issue) {
+        return mallIssueMapper.deleteIssue(issue);
+    }
 }

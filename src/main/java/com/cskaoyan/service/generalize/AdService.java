@@ -2,8 +2,9 @@ package com.cskaoyan.service.generalize;
 
 import com.cskaoyan.bean.Ad;
 import com.cskaoyan.bean.Storage;
+import com.cskaoyan.bean.vo.ResponseVO;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @Desc
@@ -11,7 +12,7 @@ import java.util.List;
  * @CreateTime 2019/7/3 17:07
  **/
 public interface AdService {
-    List<Ad> findAdList(String name,String content);
+    ResponseVO<Map<String, Object>> findAdList(String name, String content, int page, int limit);
 
     int updateAd(Ad ad);
 

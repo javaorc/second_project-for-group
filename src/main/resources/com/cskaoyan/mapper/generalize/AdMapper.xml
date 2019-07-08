@@ -128,20 +128,5 @@
                                                                       )
     </insert>
 
-    <!--<select id="findAdListByName" resultMap="adResult">
-        select
-        id,
-        NAME,
-        link,
-        url,
-        POSITION,
-        content,
-        start_time,
-        end_time,
-        enabled,
-        add_time,
-        update_time,
-        deleted
-        from cskaoyan_mall_ad where name like CONCAT(CONCAT('%',#{name}),'%')
-    </select>-->
+
 </mapper>

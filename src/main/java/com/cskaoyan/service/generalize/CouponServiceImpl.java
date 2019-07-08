@@ -2,12 +2,17 @@ package com.cskaoyan.service.generalize;
 
 import com.cskaoyan.bean.Coupon;
 import com.cskaoyan.bean.CouponUser;
+import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.mapper.generalize.CouponMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Desc
@@ -20,9 +25,32 @@ public class CouponServiceImpl implements CouponService {
     @Autowired
     CouponMapper couponMapper;
 
+    ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
+
+    Map<String, Object> map = new HashMap<>();
+
     @Override
-    public List<Coupon> findCouponList(String name, Short type, Short status) {
-        return couponMapper.findCouponList(name,type,status);
+    public ResponseVO<Map<String, Object>> findCouponList(String name, Short type,
+                                                          Short status,int page,int limit) {
+        if("".equals(name)){
+            name=null;
+        }
+        if("".equals(type)){
+            type=null;
+        }if("".equals(status)){
+            status=null;
+        }
+        List<Coupon> couponList = couponMapper.findCouponList(name, type, status);
+        //分页
+        PageHelper.startPage(page,limit);
+        PageInfo<Coupon> couponPageInfo = new PageInfo<>(couponList);
+        map.put("total", couponPageInfo.getTotal());
+        map.put("items", couponList);
+        //封装
+        mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        return  mapResponseVO;
     }
 
     @Override

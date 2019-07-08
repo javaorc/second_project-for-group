@@ -2,8 +2,9 @@ package com.cskaoyan.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-public class Order {
+public class OrderCGoods {
     private Integer    id;
 
     private Integer    userId;
@@ -58,14 +59,7 @@ public class Order {
 
     private Boolean    deleted;
 
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    private List<OrderGoods> orderGoods;
 
     public Integer getId() {
         return id;
@@ -83,12 +77,20 @@ public class Order {
         this.userId = userId;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getOrderSn() {
         return orderSn;
     }
 
     public void setOrderSn(String orderSn) {
-        this.orderSn = orderSn == null ? null : orderSn.trim();
+        this.orderSn = orderSn;
     }
 
     public Short getOrderStatus() {
@@ -104,7 +106,7 @@ public class Order {
     }
 
     public void setConsignee(String consignee) {
-        this.consignee = consignee == null ? null : consignee.trim();
+        this.consignee = consignee;
     }
 
     public String getMobile() {
@@ -112,7 +114,7 @@ public class Order {
     }
 
     public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
+        this.mobile = mobile;
     }
 
     public String getAddress() {
@@ -120,7 +122,7 @@ public class Order {
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
     public String getMessage() {
@@ -128,7 +130,7 @@ public class Order {
     }
 
     public void setMessage(String message) {
-        this.message = message == null ? null : message.trim();
+        this.message = message;
     }
 
     public BigDecimal getGoodsPrice() {
@@ -192,7 +194,7 @@ public class Order {
     }
 
     public void setPayId(String payId) {
-        this.payId = payId == null ? null : payId.trim();
+        this.payId = payId;
     }
 
     public Date getPayTime() {
@@ -208,7 +210,7 @@ public class Order {
     }
 
     public void setShipSn(String shipSn) {
-        this.shipSn = shipSn == null ? null : shipSn.trim();
+        this.shipSn = shipSn;
     }
 
     public String getShipChannel() {
@@ -216,7 +218,7 @@ public class Order {
     }
 
     public void setShipChannel(String shipChannel) {
-        this.shipChannel = shipChannel == null ? null : shipChannel.trim();
+        this.shipChannel = shipChannel;
     }
 
     public Date getShipTime() {
@@ -273,5 +275,13 @@ public class Order {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public List<OrderGoods> getOrderGoods() {
+        return orderGoods;
+    }
+
+    public void setOrderGoods(List<OrderGoods> orderGoods) {
+        this.orderGoods = orderGoods;
     }
 }

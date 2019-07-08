@@ -2,8 +2,10 @@ package com.cskaoyan.service.generalize;
 
 import com.cskaoyan.bean.Groupon;
 import com.cskaoyan.bean.GrouponRules;
+import com.cskaoyan.bean.vo.ResponseVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Desc
@@ -11,7 +13,7 @@ import java.util.List;
  * @CreateTime 2019/7/5 15:55
  **/
 public interface GrouponRulesService {
-    List<GrouponRules> grouponList(Integer goodsId);
+    ResponseVO<Map<String, Object>> grouponList(Integer goodsId,int page,int limit);
 
     int updateGrouponRules(GrouponRules grouponRules);
 

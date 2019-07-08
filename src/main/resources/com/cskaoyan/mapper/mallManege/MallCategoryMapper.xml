@@ -44,7 +44,7 @@
         FROM cskaoyan_mall_category c1
         LEFT JOIN cskaoyan_mall_category c2
         ON  c2.pid=c1.id
-
+        WHERE c1.`level`="L1"
     </select>
 
     <delete id="deleteCategory">
@@ -98,6 +98,7 @@
         name=#{category.name},
           keywords=#{category.keywords},
           cskaoyan_mall_category.desc=#{category.desc},
+          pid=#{category.pid},
           icon_url=#{category.iconUrl},
           pic_url=#{category.picUrl},
           level=#{category.level},

@@ -10,7 +10,7 @@ public class Goods {
     private int         categoryId;
     private int         brandId;
 
-    private List<String> gallery;
+    private List<String>gallery;
 
     private String      keywords;
     private String      brief;

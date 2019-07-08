@@ -7,15 +7,15 @@
         select SUM(UserNum)UserNum,SUM(productNum)productNum,SUM(goodsNum)goodsNum,SUM(orderNum)orderNum
         from(
         select   COUNT(*) UserNum,0 productNum,0 goodsNum,0 orderNum
-        from cskaoyan_mall_user
+        from cskaoyan_mall_user WHERE cskaoyan_mall_user.deleted=0
          UNION ALL
         SELECT  0 UserNum,COUNT(*) productNum,0 goodsNum,0 orderNum
-        from cskaoyan_mall_goods_product
+        from cskaoyan_mall_goods_product WHERE	cskaoyan_mall_goods_product.deleted=0
         UNION ALL
         SELECT 0 UserNum, 0 productNum,COUNT(*) goodsNum,0 orderNum
-        from cskaoyan_mall_goods
+        from cskaoyan_mall_goods where cskaoyan_mall_goods.deleted=0
         UNION ALL
         SELECT 0 UserNum, 0 productNum, 0 goodsNum,COUNT(*) orderNum
-        from cskaoyan_mall_order)t;
+        from cskaoyan_mall_order where cskaoyan_mall_order.deleted=0)t
     </select>
 </mapper>

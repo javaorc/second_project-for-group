@@ -4,7 +4,6 @@ import com.cskaoyan.bean.Coupon;
 import com.cskaoyan.bean.CouponUser;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.generalize.CouponService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,22 +30,11 @@ public class CouponController {
     @RequestMapping("coupon/list")
     @ResponseBody
     public ResponseVO<Map<String, Object>> couponList(String name,Short type,Short status, int page,int limit,String sort,String order){
-        ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
-        mapResponseVO.setErrmsg("成功");
-        mapResponseVO.setErrno(0);
-
-        List<Coupon> couponList = couponService.findCouponList(name,type,status);
-        int total = couponList.size();
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("items", couponList);
-        mapResponseVO.setData(map);
-        return mapResponseVO;
+        return couponService.findCouponList(name,type,status,page,limit);
     }
 
     @RequestMapping("coupon/create")
     @ResponseBody
-    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public ResponseVO<Coupon> couponCreate(@RequestBody Coupon coupon){
         ResponseVO<Coupon> responseVO =new ResponseVO<>();
         responseVO.setErrmsg("成功");

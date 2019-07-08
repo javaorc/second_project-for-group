@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -33,19 +30,13 @@ public class AdController {
     @Autowired
     MyOssClient myOssClient;
 
+    ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
+
     @RequestMapping("ad/list")
     @ResponseBody
-    public ResponseVO<Map<String, Object>> findAdList(int page, int limit, String name, String content, String sort, String order) {
-        ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
-        mapResponseVO.setErrmsg("成功");
-        mapResponseVO.setErrno(0);
-        List<Ad>  adList = adService.findAdList(name,content);
-        int total = adList.size();
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("items", adList);
-        mapResponseVO.setData(map);
-        return mapResponseVO;
+    public ResponseVO<Map<String, Object>> findAdList(int page, int limit, String name,
+                                                      String content, String sort, String order) {
+        return adService.findAdList(name,content,page,limit);
     }
 
     @RequestMapping("ad/update")
