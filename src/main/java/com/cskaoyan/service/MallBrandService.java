@@ -14,4 +14,6 @@ public interface MallBrandService {
     int updateBrandByBid( Brand brand);
 
     int insertBrand( Brand brand);
+
+    List<Brand> queryBrands();
 }

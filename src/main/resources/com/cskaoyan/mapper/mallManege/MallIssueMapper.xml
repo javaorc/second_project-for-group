@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.mallManege.MallIssueMapper">
+    <resultMap id="issueMap" type="com.cskaoyan.bean.Issue">
+        <result property="id" column="id"/>
+        <result property="question" column="question"/>
+        <result property="answer" column="answer"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+    <select id="queryAllIssue" resultMap="issueMap">
+        SELECT
+		id,
+		question,
+		answer,
+		add_time,
+		update_time,
+		deleted
+		from cskaoyan_mall_issue
+    </select>
+
+    <select id="searchByQuestion" resultMap="issueMap">
+        SELECT
+		id,
+		question,
+		answer,
+		add_time,
+		update_time,
+		deleted
+		from cskaoyan_mall_issue
+        where id LIKE CONCAT(CONCAT('%', #{ques}), '%')
+        or question LIKE CONCAT(CONCAT('%', #{ques}), '%')
+        or answer  LIKE CONCAT(CONCAT('%', #{ques}), '%')
+    </select>
+
+    <insert id="insetIssue" useGeneratedKeys="true" parameterType="com.cskaoyan.bean.Issue">
+        <selectKey keyProperty="issue.id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into cskaoyan_mall_issue
+        ( question,
+          answer,
+          add_time,
+          update_time)
+        values (#{issue.question},
+                #{issue.answer},
+                #{issue.addTime},
+                #{issue.updateTime})
+    </insert>
+
+    <update id="updateIssue">
+        update cskaoyan_mall_issue
+        set question=#{issue.question},
+            answer=#{issue.answer},
+            update_time= #{issue.updateTime}
+        where id=#{issue.id}
+    </update>
+
+    <delete id="deleteIssue">
+        delete from cskaoyan_mall_issue
+        where id=#{issue.id}
+    </delete>
+</mapper>

@@ -3,15 +3,15 @@ package com.cskaoyan.bean.vo;
 import java.util.List;
 
 public class Node {
-    String value;
-    String label;
-    List<Node> children;
+    private int value;
+    private String label;
+    private List<Node> children;
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(int value) {
         this.value = value;
     }
 

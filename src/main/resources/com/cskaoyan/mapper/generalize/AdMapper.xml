@@ -66,6 +66,7 @@
     </delete>
 
     <insert id="insertStorage">
+
         insert into cskaoyan_mall_storage (
                                            cskaoyan_mall_storage.key,
                                            name,
@@ -98,6 +99,9 @@
     </select>
 
     <insert id="insertAd">
+        <selectKey keyProperty="ad.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
         insert into cskaoyan_mall_ad (
                                            NAME,
                                            link,
@@ -124,20 +128,21 @@
                                                                       )
     </insert>
 
-    <!--<select id="findAdListByName" resultMap="adResult">
-        select
-        id,
-        NAME,
-        link,
-        url,
-        POSITION,
-        content,
-        start_time,
-        end_time,
-        enabled,
-        add_time,
-        update_time,
-        deleted
-        from cskaoyan_mall_ad where name like CONCAT(CONCAT('%',#{name}),'%')
-    </select>-->
+    <select id="queryAds" resultMap="adResult" >
+        SELECT
+            id,
+            NAME,
+            link,
+            url,
+            POSITION,
+            content,
+            start_time,
+            end_time,
+            enabled,
+            add_time,
+            update_time,
+            deleted
+        FROM cskaoyan_mall_ad
+    </select>
+
 </mapper>

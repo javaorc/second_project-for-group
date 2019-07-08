@@ -47,10 +47,12 @@ public class IntArrayTypeHandler extends BaseTypeHandler<int[]> {
         if (string != null) {
             if (string.length() > 1) {
                 String substring = string.substring(1, string.length() - 1);
-                String[] split = substring.split(",");
-                ints = new int[split.length];
-                for (int i = 0; i < split.length; i++) {
-                    ints[i] = Integer.parseInt(split[i]);
+                if (substring.length() != 0) {
+                    String[] split = substring.split(",");
+                    ints = new int[split.length];
+                    for (int i = 0; i < split.length; i++) {
+                        ints[i] = Integer.parseInt(split[i]);
+                    }
                 }
             }
         }

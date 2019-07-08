@@ -10,7 +10,7 @@ public class Goods {
     private int         categoryId;
     private int         brandId;
 
-    private List<String> gallery;
+    private List<String>gallery;
 
     private String      keywords;
     private String      brief;
@@ -24,8 +24,8 @@ public class Goods {
     private double      counterPrice;
     private double      retailPrice;
     private String      detail;
-    private Date        addTime;
-    private Date        updateTime;
+    private Date      addTime;
+    private Date      updateTime;
     private boolean     deleted;
 
     public int getId() {

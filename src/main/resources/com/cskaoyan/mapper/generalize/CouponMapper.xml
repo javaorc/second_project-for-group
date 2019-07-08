@@ -63,6 +63,9 @@
     </select>
 
     <insert id="insertCoupon">
+        <selectKey keyProperty="coupon.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
         insert into cskaoyan_mall_coupon
         (id,
         cskaoyan_mall_coupon.name,
@@ -225,5 +228,25 @@
     <delete id="deleteCoupon">
         delete from cskaoyan_mall_coupon where id=#{coupon.id}
     </delete>
+
+
+    <resultMap id="couponMap2" type="com.cskaoyan.bean.Coupon">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="discount" property="discount"/>
+        <result column="min" property="min"/>
+        <result column="days" property="days"/>
+        <result column="desc" property="desc"/>
+    </resultMap>
+    <select id="queryCoupons" resultMap="couponMap2">
+        select
+          id,
+          name,
+          discount,
+          min,
+          days,
+          `desc`
+        from cskaoyan_mall_coupon
+    </select>
 
 </mapper>

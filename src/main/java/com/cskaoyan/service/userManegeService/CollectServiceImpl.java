@@ -1,9 +1,7 @@
-package com.cskaoyan.Service.userManegeService;
+package com.cskaoyan.service.userManegeService;
 
 import com.cskaoyan.bean.Collect;
-import com.cskaoyan.bean.User;
 import com.cskaoyan.mapper.userManege.CollectMapper;
-import com.cskaoyan.mapper.userManege.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +23,18 @@ public class CollectServiceImpl implements CollectService {
     public List<Collect> queryCollectByUserIdAndValueID(Integer userId, Integer valueId) {
         List<Collect> collects = collectMapper.queryCollectByUserIdAndValueID(userId, valueId);
         return collects;
+    }
+
+    @Override
+    public List<Collect> queryCollectByValueID(Integer valueId) {
+        List<Collect> collects = collectMapper.queryCollectByValueID(valueId);
+        return collects;
+    }
+
+    @Override
+    public List<Collect> queryCollectByUserId(Integer userId) {
+        List<Collect> collects = collectMapper.queryCollectByUserId(userId);
+        return collects;
+
     }
 }

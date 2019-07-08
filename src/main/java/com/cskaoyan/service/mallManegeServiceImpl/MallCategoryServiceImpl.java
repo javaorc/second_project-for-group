@@ -5,9 +5,11 @@ import com.cskaoyan.bean.Kind;
 import com.cskaoyan.mapper.mallManege.MallCategoryMapper;
 import com.cskaoyan.service.MallCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MallCategoryServiceImpl implements MallCategoryService {
     @Autowired
     MallCategoryMapper mallCategoryMapper;
@@ -37,4 +39,8 @@ public class MallCategoryServiceImpl implements MallCategoryService {
         return mallCategoryMapper.updateCategory(category);
     }
 
+    @Override
+    public List<Kind> queryKindCategories() {
+        return mallCategoryMapper.queryKindCategories();
+    }
 }

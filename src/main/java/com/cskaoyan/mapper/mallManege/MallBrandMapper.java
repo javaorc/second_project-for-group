@@ -16,4 +16,5 @@ public interface MallBrandMapper {
 
     int insertBrand(@Param("brand") Brand brand);
 
+    List<Brand> queryBrands();
 }

@@ -5,33 +5,33 @@ import java.util.Date;
 public class User {
     private Integer id;
 
-    private String username;
+    private String  username;
 
-    private String password;
+    private String  password;
 
-    private Byte gender;
+    private Byte    gender;
 
-    private Date birthday;
+    private Date    birthday;
 
-    private Date lastLoginTime;
+    private Date    lastLoginTime;
 
-    private String lastLoginIp;
+    private String  lastLoginIp;
 
-    private Byte userLevel;
+    private Byte    userLevel;
 
-    private String nickname;
+    private String  nickname;
 
-    private String mobile;
+    private String  mobile;
 
-    private String avatar;
+    private String  avatar;
 
-    private String weixinOpenid;
+    private String  weixinOpenid;
 
-    private Byte status;
+    private Byte    status;
 
-    private Date addTime;
+    private Date    addTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean deleted;
 

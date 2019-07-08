@@ -24,7 +24,7 @@
 </resultMap>
 
 
-    <select id="queryUserByUsernameAndMobile" resultMap="userMap">
+    <sql id="baseColumn">
         select
         id,
         username,
@@ -43,48 +43,34 @@
         update_time,
         deleted
         from cskaoyan_mall_user
-        where username=#{username} and mobile=#{mobile}
+    </sql>
+
+
+    <select id="queryUserByUsernameAndMobile" resultMap="userMap">
+        <include refid="baseColumn"/>
+        where username like CONCAT('%',#{username},'%') and mobile=#{mobile}
     </select>
 
     <select id="queryUser" resultMap="userMap">
-        select
-        id,
-        username,
-        password,
-        gender,
-        birthday,
-        last_login_time,
-        last_login_ip,
-        user_level,
-        nickname,
-        mobile,
-        avatar,
-        weixin_openid,
-        status,
-        add_time,
-        update_time,
-        deleted
-        from cskaoyan_mall_user
+        <include refid="baseColumn"/>
     </select>
+
+
+    <select id="queryUserByUsername" resultMap="userMap">
+        <include refid="baseColumn"/>
+        where username like CONCAT('%',#{username},'%')
+    </select>
+
+    <select id="queryUserByMobile" resultMap="userMap">
+        <include refid="baseColumn"/>
+        where mobile=#{mobile}
+    </select>
+
+
+
+
     <select id="queryUserById" resultMap="userMap">
-        select
-        id,
-        username,
-        password,
-        gender,
-        birthday,
-        last_login_time,
-        last_login_ip,
-        user_level,
-        nickname,
-        mobile,
-        avatar,
-        weixin_openid,
-        status,
-        add_time,
-        update_time,
-        deleted
-        from cskaoyan_mall_user
+        <include refid="baseColumn"/>
         where id=#{id}
     </select>
 

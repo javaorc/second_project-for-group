@@ -5,6 +5,8 @@ import com.cskaoyan.bean.Kind;
 import com.cskaoyan.bean.Province;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.mapper.mallManege.MallCategoryMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ public class MallCategoryController {
     public ResponseVO<List<Kind>> showAllCategory(){
 
         List<Kind> kinds = mallCategoryMapper.showAllCategory();
+
         ResponseVO<List<Kind>> responseVO = new ResponseVO<>();
         responseVO.setData(kinds);
         responseVO.setErrmsg("成功");

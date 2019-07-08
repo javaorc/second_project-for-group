@@ -1,24 +1,30 @@
-package com.cskaoyan.service;
+package com.cskaoyan.service.goods;
 
 import com.cskaoyan.bean.Goods;
 import com.cskaoyan.bean.GoodsAttribute;
 import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
 import com.cskaoyan.bean.vo.QueryList;
+import com.cskaoyan.bean.vo.QueryMapVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GoodsService {
 
     QueryList queryList(int page, int limit, String sort, String order, String goodsSn, String name);
 
+    int deleteGoods(Goods goods);
+
     Goods queryGoodsById(int id);
 
-    List<GoodsAttribute> queryGoodsAttributeByGoodsId(int goodsId);
+    Map queryGoodsDetailById(int id);
 
-    List<Integer> queryCategoryIdsByGoodsId(int goodsId);
+    int updateGoods(QueryMapVO queryMapVO);
 
-    List<GoodsSpecification> querySpecificationsByGoodsId(int goodsId);
+    Map queryCatAndBrand();
 
-    List<GoodsProduct> queryProductsByGoodsId(int goodsId);
+    int insertGoods(QueryMapVO queryMapVO);
+
+    Integer queryTotalRecords();
 }

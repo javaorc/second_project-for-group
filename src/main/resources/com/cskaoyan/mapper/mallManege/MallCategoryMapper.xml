@@ -44,7 +44,7 @@
         FROM cskaoyan_mall_category c1
         LEFT JOIN cskaoyan_mall_category c2
         ON  c2.pid=c1.id
-
+        WHERE c1.`level`="L1"
     </select>
 
     <delete id="deleteCategory">
@@ -98,12 +98,28 @@
         name=#{category.name},
           keywords=#{category.keywords},
           cskaoyan_mall_category.desc=#{category.desc},
+          pid=#{category.pid},
           icon_url=#{category.iconUrl},
           pic_url=#{category.picUrl},
           level=#{category.level},
           update_time=#{category.updateTime}
           where id=#{category.id}
     </update>
+
+
+    <resultMap id="kindCategoryMap2" type="com.cskaoyan.bean.Kind">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="icon_url" property="iconUrl"/>
+    </resultMap>
+    <select id="queryKindCategories" resultMap="kindCategoryMap2">
+        select
+          id,
+          name,
+          icon_url
+        from cskaoyan_mall_category
+        where level = 'L1'
+    </select>
 
 </mapper>
 

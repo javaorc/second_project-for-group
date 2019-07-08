@@ -2,11 +2,16 @@ package com.cskaoyan.service.generalize;
 
 import com.cskaoyan.bean.Ad;
 import com.cskaoyan.bean.Storage;
+import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.mapper.generalize.AdMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Desc
@@ -18,9 +23,31 @@ public class AdServiceImpl implements AdService {
 
     @Autowired
     AdMapper adMapper;
+
+    ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
+
+    Map<String, Object> map = new HashMap<>();
+
+
     @Override
-    public List<Ad> findAdList(String name,String context) {
-        return adMapper.findAdList(name,context);
+    public ResponseVO<Map<String, Object>> findAdList(String name, String content, int page, int limit) {
+        if ("".equals(name)) {
+            name = null;
+        }
+        if ("".equals(content)) {
+            content = null;
+        }
+        List<Ad> adList = adMapper.findAdList(name, content);
+        //分页
+        PageHelper.startPage(page, limit);
+        PageInfo<Ad> adPageInfo = new PageInfo<>(adList);
+        //封装
+        map.put("total", adPageInfo.getTotal());
+        map.put("items", adList);
+        mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        return mapResponseVO;
     }
 
     @Override
@@ -48,5 +75,8 @@ public class AdServiceImpl implements AdService {
         return adMapper.insertAd(ad);
     }
 
-
+    @Override
+    public List<Ad> queryAds() {
+        return adMapper.queryAds();
+    }
 }

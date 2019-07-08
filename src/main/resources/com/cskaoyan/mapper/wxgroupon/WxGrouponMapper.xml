@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxgroupon.WxGrouponMapper">
+
+    <resultMap id="groupon_goods" type="com.cskaoyan.bean.GrouponRules">
+        <result column="ru.discount" property="discount"/>
+        <result column="ru.discount_member" property="discountMember"/>
+        <association property="goods" javaType="com.cskaoyan.bean.Goods">
+            <result column="goods.id" property="id"/>
+            <result column="goods.brief" property="brief"/>
+            <result column="goods.counter_price" property="counterPrice"/>
+            <result column="goods.`name`" property="name"/>
+            <result column="goods.pic_url" property="picUrl"/>
+            <result column="goods.retail_price" property="retailPrice"/>
+        </association>
+    </resultMap>
+<select id="gouponList" resultMap="groupon_goods">
+          SELECT
+          ru.discount,
+          ru.discount_member,
+          goods.id,
+          goods.brief,
+          goods.counter_price,
+          goods.`name`,
+          goods.pic_url,
+          goods.retail_price
+          from
+          cskaoyan_mall_groupon_rules as ru
+          LEFT JOIN
+          cskaoyan_mall_goods as goods
+          on ru.goods_id = goods.id
+</select>
+
+</mapper>

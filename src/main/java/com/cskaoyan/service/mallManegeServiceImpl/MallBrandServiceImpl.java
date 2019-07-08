@@ -37,4 +37,9 @@ public class MallBrandServiceImpl implements MallBrandService {
     public int insertBrand(Brand brand) {
         return mallBrandMapper.insertBrand(brand);
     }
+
+    @Override
+    public List<Brand> queryBrands() {
+        return mallBrandMapper.queryBrands();
+    }
 }

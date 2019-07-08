@@ -4,23 +4,23 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Order {
-    private Integer id;
+    private Integer    id;
 
-    private Integer userId;
+    private Integer    userId;
 
-    private  User user;
+    private  User      user;
 
-    private String orderSn;
+    private String     orderSn;
 
-    private Short orderStatus;
+    private Short      orderStatus;
 
-    private String consignee;
+    private String     consignee;
 
-    private String mobile;
+    private String     mobile;
 
-    private String address;
+    private String     address;
 
-    private String message;
+    private String     message;
 
     private BigDecimal goodsPrice;
 
@@ -36,27 +36,27 @@ public class Order {
 
     private BigDecimal actualPrice;
 
-    private String payId;
+    private String     payId;
 
-    private Date payTime;
+    private Date       payTime;
 
-    private String shipSn;
+    private String     shipSn;
 
-    private String shipChannel;
+    private String     shipChannel;
 
-    private Date shipTime;
+    private Date       shipTime;
 
-    private Date confirmTime;
+    private Date       confirmTime;
 
-    private Short comments;
+    private Short      comments;
 
-    private Date endTime;
+    private Date       endTime;
 
-    private Date addTime;
+    private Date       addTime;
 
-    private Date updateTime;
+    private Date       updateTime;
 
-    private Boolean deleted;
+    private Boolean    deleted;
 
 
     public User getUser() {
