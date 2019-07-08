@@ -18,6 +18,5 @@ public interface MallCategoryMapper {
 
     int updateCategory(@Param("category")Category category);
 
-
-
+    List<Kind> queryKindCategories();
 }

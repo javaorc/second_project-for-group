@@ -25,4 +25,6 @@ public interface GoodsService {
     Map queryCatAndBrand();
 
     int insertGoods(QueryMapVO queryMapVO);
+
+    Integer queryTotalRecords();
 }

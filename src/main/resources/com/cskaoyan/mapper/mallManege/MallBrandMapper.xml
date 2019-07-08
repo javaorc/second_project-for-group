@@ -90,13 +90,21 @@
     </insert>
 
 
+    <resultMap id="brandMap2" type="com.cskaoyan.bean.Brand">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="floor_price" property="floorPrice"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="desc" property="desc"/>
+    </resultMap>
+    <select id="queryBrands" resultMap="brandMap2">
+        select
+          id,
+          name,
+          floor_price,
+          pic_url,
+          `desc`
+        from cskaoyan_mall_brand
+    </select>
+
 </mapper>
-
-
-
-
-
-
-
-
-

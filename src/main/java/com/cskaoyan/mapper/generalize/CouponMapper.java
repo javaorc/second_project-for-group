@@ -31,4 +31,6 @@ public interface CouponMapper {
     int updateCoupon(@Param("coupon") Coupon coupon);
 
     int deleteCoupon(@Param("coupon") Coupon coupon);
+
+    List<Coupon> queryCoupons();
 }

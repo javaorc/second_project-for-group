@@ -206,4 +206,9 @@ public class GoodsServiceImpl implements GoodsService {
 
         return 1;
     }
+
+    @Override
+    public Integer queryTotalRecords() {
+        return goodsMapper.queryTotalRecords(null, null);
+    }
 }

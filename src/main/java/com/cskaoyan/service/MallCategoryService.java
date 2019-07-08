@@ -15,4 +15,6 @@ public interface MallCategoryService {
     int createCategory(Category category);
 
     int updateCategory(Category category);
+
+    List<Kind> queryKindCategories();
 }
