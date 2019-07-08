@@ -8,7 +8,9 @@ import com.cskaoyan.bean.Storage;
 import com.cskaoyan.service.SystemService;
 import com.cskaoyan.typeHandler.IntArrayToString;
 import com.github.pagehelper.PageHelper;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -56,8 +58,9 @@ public class SystemManagement {
         map.put("errmsg","成功");
         map.put("errno",0);
         Log log=new Log();
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"新建管理");
+        operationLog.logInsert(systemService,"新建管理",name);
         return map;
     }
 
@@ -72,8 +75,9 @@ public class SystemManagement {
         map.put("data",admin);
         map.put("errmsg","成功");
         map.put("errno",0);
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"更新管理");
+        operationLog.logInsert(systemService,"更新管理",name);
         return map;
     }
 
@@ -83,11 +87,11 @@ public class SystemManagement {
     public Map adminsDelete(@RequestBody Admin admin){
         Map map=new HashMap();
         systemService.adminssDelete(admin);
-
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         map.put("errmsg","成功");
         map.put("errno",0);
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"删除管理");
+        operationLog.logInsert(systemService,"删除管理",name);
         return map;
     }
     @RequestMapping("role/list")
@@ -119,8 +123,9 @@ public class SystemManagement {
         map.put("data",role);
         map.put("errmsg","成功");
         map.put("errno",0);
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"角色更新");
+        operationLog.logInsert(systemService,"角色更新",name);
         return map;
     }
     @RequestMapping("role/create")
@@ -132,8 +137,9 @@ public class SystemManagement {
         map.put("data",role);
         map.put("errmsg","成功");
         map.put("errno",0);
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"角色新建");
+        operationLog.logInsert(systemService,"角色新建",name);
         return map;
     }
     @RequestMapping("role/delete")
@@ -145,8 +151,9 @@ public class SystemManagement {
 
         map.put("errmsg","成功");
         map.put("errno",0);
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"角色删除");
+        operationLog.logInsert(systemService,"角色删除",name);
         return map;
     }
 
@@ -227,8 +234,9 @@ public class SystemManagement {
         map.put("data",storage);
         map.put("errmsg","成功");
         map.put("errno",0);
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"更新对象");
+        operationLog.logInsert(systemService,"更新对象",name);
         return map;
     }
 
@@ -241,8 +249,9 @@ public class SystemManagement {
 
         map.put("errmsg","成功");
         map.put("errno",0);
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
         OperationLog operationLog=new OperationLog();
-        operationLog.logInsert(systemService,"删除对象");
+        operationLog.logInsert(systemService,"删除对象",name);
         return map;
     }
 
