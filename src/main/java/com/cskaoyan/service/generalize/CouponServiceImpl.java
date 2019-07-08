@@ -82,4 +82,9 @@ public class CouponServiceImpl implements CouponService {
     public int deleteCoupon(Coupon coupon) {
         return couponMapper.deleteCoupon(coupon);
     }
+
+    @Override
+    public List<Coupon> queryCoupons() {
+        return couponMapper.queryCoupons();
+    }
 }

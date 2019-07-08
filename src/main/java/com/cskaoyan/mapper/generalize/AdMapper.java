@@ -24,4 +24,5 @@ public interface AdMapper {
 
     int insertAd(@Param("ad") Ad ad);
 
+    List<Ad> queryAds();
 }

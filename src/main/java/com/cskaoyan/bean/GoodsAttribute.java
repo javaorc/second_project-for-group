@@ -8,8 +8,8 @@ public class GoodsAttribute {
     private int goodsId;
     private String  attribute;
     private String  value;
-    private Date    addTime;
-    private Date    updateTime;
+    private Date  addTime;
+    private Date  updateTime;
     private boolean deleted;
 
     public int getId() {

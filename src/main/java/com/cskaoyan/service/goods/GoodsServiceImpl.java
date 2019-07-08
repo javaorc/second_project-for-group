@@ -10,6 +10,7 @@ import com.cskaoyan.mapper.goods.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -165,6 +166,7 @@ public class GoodsServiceImpl implements GoodsService {
     public int insertGoods(QueryMapVO queryMapVO) {
 
         Date date = new Date();
+
         /*1.添加商品*/
         Goods goods = queryMapVO.getGoods();
         goods.setAddTime(date);
@@ -203,5 +205,10 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         return 1;
+    }
+
+    @Override
+    public Integer queryTotalRecords() {
+        return goodsMapper.queryTotalRecords(null, null);
     }
 }

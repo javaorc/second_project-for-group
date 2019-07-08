@@ -2,51 +2,45 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cskaoyan.mapper.CommentMapper">
+<mapper namespace="com.cskaoyan.mapper.FeedbackMapper">
 
-    <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Comment">
+    <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Feedback">
         <id property="id" column="id"/>
-        <result property="valueId" column="value_id"/>
-        <result property="type" column="type"/>
-        <result property="content" column="content"/>
         <result property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="mobile" column="mobile"/>
+        <result property="feedType" column="feed_type"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
         <result property="hasPicture" column="has_picture"/>
         <result property="picUrls" column="pic_urls" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler2"/>
-        <result property="star" column="star"/>
         <result property="addTime" column="add_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="deleted" column="deleted"/>
     </resultMap>
 
-    <delete id="deleteOne" parameterType="com.cskaoyan.bean.Comment">
-        DELETE
-        FROM
-        cskaoyan_mall_comment
-        WHERE
-        id = #{comment.id}
-    </delete>
-
     <select id="queryList" resultMap="BaseResultMap">
         select
         id,
-        value_id,
-        type,
-        content,
         user_id,
+        username,
+        mobile,
+        feed_type,
+        content,
+        status,
         has_picture,
         pic_urls,
-        star,
         add_time,
         update_time,
         deleted
         from
-        cskaoyan_mall_comment
+        cskaoyan_mall_feedback
         <where>
-            <if test="userId != null">
-                user_id like CONCAT('%',#{userId},'%')
+            <if test="username != null">
+                username like CONCAT('%',#{username},'%')
             </if>
-            <if test="valueId != null">
-                and value_id like CONCAT('%',#{valueId},'%')
+            <if test="id != null">
+                and id like CONCAT('%',#{id},'%')
             </if>
         </where>
         order by #{sort} #{order}
@@ -57,13 +51,13 @@
         select
         count(*)
         from
-        cskaoyan_mall_comment
+        cskaoyan_mall_feedback
         <where>
-            <if test="userId != null">
-                user_id like CONCAT('%',#{userId},'%')
+            <if test="username != null">
+                username like CONCAT('%',#{username},'%')
             </if>
-            <if test="valueId != null">
-                and value_id like CONCAT('%',#{valueId},'%')
+            <if test="id != null">
+                and id like CONCAT('%',#{id},'%')
             </if>
         </where>
     </select>

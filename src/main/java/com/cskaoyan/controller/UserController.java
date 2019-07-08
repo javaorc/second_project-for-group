@@ -22,26 +22,6 @@ public class UserController {
     @Autowired
     UserServiceImpl userService;
 
-/*    @RequestMapping("admin/user/list")
-    @ResponseBody
-    public ResponseVO<Map> queryUser(int page, int limit, String username, String mobile){
-        ResponseVO<Map> userResponseVO = new ResponseVO<>();
-        PageHelper.startPage(page,limit);
-        List<User> users = userService.queryUser();
-        if (username != null && mobile != null){
-            users = userService.queryUserByUsernameAndMobile(username,mobile);
-        }
-        HashMap<Object, Object> map = new HashMap<>();
-
-        PageInfo<User> userPageInfo= new PageInfo<>(users);
-
-        map.put("items",users);
-        map.put("total",userPageInfo.getTotal());
-        userResponseVO.setData(map);
-        userResponseVO.setErrno(0);
-        userResponseVO.setErrmsg("成功");
-        return userResponseVO;
-    }*/
     @RequestMapping("admin/user/list")
     @ResponseBody
     public ResponseVO<Map> queryUser(int page, int limit, String username, String mobile){

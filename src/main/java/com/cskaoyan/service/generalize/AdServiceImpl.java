@@ -75,5 +75,8 @@ public class AdServiceImpl implements AdService {
         return adMapper.insertAd(ad);
     }
 
-
+    @Override
+    public List<Ad> queryAds() {
+        return adMapper.queryAds();
+    }
 }

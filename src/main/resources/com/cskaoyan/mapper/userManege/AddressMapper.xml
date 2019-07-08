@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.userManege.AddressMapper">
+
+    <resultMap id="addressMap" type="com.cskaoyan.bean.Address">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="user_id" property="userId"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="area_id" property="areaId"/>
+        <result column="address" property="address"/>
+        <result column="mobile" property="mobile"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+
+        <association property="user" select="com.cskaoyan.mapper.userManege.UserMapper.queryUserById" column="user_id"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        select
+          id,
+          name,
+          user_id,
+          province_id,
+          city_id,
+          area_id,
+          address,
+          mobile,
+          is_default,
+          add_time,
+          update_time,
+          deleted
+        from cskaoyan_mall_address
+    </sql>
+
+
+    <select id="queryAddress" resultMap="addressMap">
+        <include refid="baseColumn"/>
+    </select>
+
+
+    <select id="queryAddressByUserId" resultMap="addressMap">
+        <include refid="baseColumn"/>
+        where user_id=#{userId}
+    </select>
+
+    <select id="queryAddressByName" resultMap="addressMap">
+        <include refid="baseColumn"/>
+        where name like CONCAT('%',#{name},'%')
+    </select>
+
+    <select id="queryAddressByUserIdAndName" resultMap="addressMap">
+        <include refid="baseColumn"/>
+        where name like CONCAT('%',#{name},'%') and user_id=#{userId}
+    </select>
+
+</mapper>

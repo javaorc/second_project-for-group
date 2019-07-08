@@ -106,6 +106,21 @@
           where id=#{category.id}
     </update>
 
+
+    <resultMap id="kindCategoryMap2" type="com.cskaoyan.bean.Kind">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="icon_url" property="iconUrl"/>
+    </resultMap>
+    <select id="queryKindCategories" resultMap="kindCategoryMap2">
+        select
+          id,
+          name,
+          icon_url
+        from cskaoyan_mall_category
+        where level = 'L1'
+    </select>
+
 </mapper>
 
 
