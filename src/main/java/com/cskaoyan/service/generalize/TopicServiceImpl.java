@@ -62,4 +62,9 @@ public class TopicServiceImpl implements TopicService {
     public int insertTopic(Topic topic) {
         return topicMapper.insertTopic(topic);
     }
+
+    @Override
+    public List<Topic> queryTopics() {
+        return topicMapper.queryTopics();
+    }
 }

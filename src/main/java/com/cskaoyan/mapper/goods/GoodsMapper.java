@@ -54,4 +54,8 @@ public interface GoodsMapper {
     List<Node2> queryBrandList();
 
     int insertGoods(@Param("goods") Goods goods);
+
+    List<Goods> queryHotGoods();
+
+    List<Goods> queryNewGoods();
 }

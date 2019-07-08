@@ -27,4 +27,8 @@ public interface GoodsService {
     int insertGoods(QueryMapVO queryMapVO);
 
     Integer queryTotalRecords();
+
+    List<Goods> queryHotGoods();
+
+    List<Goods> queryNewGoods();
 }

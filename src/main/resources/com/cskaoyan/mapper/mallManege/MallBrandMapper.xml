@@ -105,6 +105,7 @@
           pic_url,
           `desc`
         from cskaoyan_mall_brand
+        where deleted = 0
     </select>
 
 </mapper>

@@ -95,4 +95,24 @@
         #{topic.updateTime},
         #{topic.deleted})
     </insert>
+
+    <resultMap id="topicMap2" type="com.cskaoyan.bean.Topic">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="subtitle" property="subtitle"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="price" property="price"/>
+        <result column="read_count" property="readCount"/>
+    </resultMap>
+    <select id="queryTopics" resultMap="topicMap2">
+        select
+          id,
+          title,
+          subtitle,
+          pic_url,
+          price,
+          read_count
+        from cskaoyan_mall_topic
+        where deleted = 0
+    </select>
 </mapper>

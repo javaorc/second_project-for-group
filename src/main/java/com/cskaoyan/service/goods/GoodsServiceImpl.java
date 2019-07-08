@@ -211,4 +211,14 @@ public class GoodsServiceImpl implements GoodsService {
     public Integer queryTotalRecords() {
         return goodsMapper.queryTotalRecords(null, null);
     }
+
+    @Override
+    public List<Goods> queryHotGoods() {
+        return goodsMapper.queryHotGoods();
+    }
+
+    @Override
+    public List<Goods> queryNewGoods() {
+        return goodsMapper.queryNewGoods();
+    }
 }

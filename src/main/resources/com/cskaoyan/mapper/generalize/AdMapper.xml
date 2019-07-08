@@ -143,6 +143,7 @@
             update_time,
             deleted
         FROM cskaoyan_mall_ad
+        where deleted = 0
     </select>
 
 </mapper>
