@@ -15,7 +15,7 @@ public class GrouponRules {
     private Integer         goodsId;
     private String          goodsName;
     private String          picUrl;
-    private BigDecimal      discount;
+    private double          discount;
     private Integer         discountMember;
     private Date            addTime;
     private Date            updateTime;
@@ -23,6 +23,24 @@ public class GrouponRules {
     private Date            expireTime;
     private Boolean         deleted;
     private Goods goods;
+    private Integer groupon_member;
+    private Integer groupon_price;
+
+    public Integer getGroupon_member() {
+        return groupon_member;
+    }
+
+    public void setGroupon_member(Integer groupon_member) {
+        this.groupon_member = groupon_member;
+    }
+
+    public Integer getGroupon_price() {
+        return groupon_price;
+    }
+
+    public void setGroupon_price(Integer groupon_price) {
+        this.groupon_price = groupon_price;
+    }
 
     public Goods getGoods() {
         return goods;
@@ -64,11 +82,11 @@ public class GrouponRules {
         this.picUrl = picUrl;
     }
 
-    public BigDecimal getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

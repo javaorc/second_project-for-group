@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxcoupon.WxCouponMapper">
+
+    <resultMap id="couponResult" type="com.cskaoyan.bean.Coupon">
+        <result column="id" property="id"/>
+        <result column="na" property="name"/>
+        <result column="de" property="desc"/>
+        <result column="tag" property="tag"/>
+        <result column="total" property="total"/>
+        <result column="discount" property="discount"/>
+        <result column="mmin" property="min"/>
+        <result column="lim" property="limit"/>
+        <result column="ty" property="type"/>
+        <result column="sta" property="status"/>
+        <result column="goods_type" property="goodsType"/>
+        <result column="goods_value" property="goodsValue" typeHandler="com.cskaoyan.typeHandler.IntArrayTypeHandler"/>
+        <result column="co" property="code"/>
+        <result column="time_type" property="timeType"/>
+        <result column="days" property="days"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <select id="queryCouponList" resultMap="couponResult">
+    SELECT
+        id,
+        cskaoyan_mall_coupon.name as na,
+        cskaoyan_mall_coupon.desc AS de,
+        tag,
+        total,
+        discount,
+        cskaoyan_mall_coupon.min as mmin,
+        cskaoyan_mall_coupon.limit as lim,
+        cskaoyan_mall_coupon.type as ty,
+        cskaoyan_mall_coupon.status as sta,
+        goods_type,
+        goods_value,
+        cskaoyan_mall_coupon.code as co,
+        time_type,
+        days,
+        start_time,
+        end_time,
+        add_time,
+        update_time,
+        deleted
+        FROM cskaoyan_mall_coupon
+</select>
+
+</mapper>
