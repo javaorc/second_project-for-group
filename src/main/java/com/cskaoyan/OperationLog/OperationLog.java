@@ -14,8 +14,6 @@ import java.util.Date;
 @Component
 @EnableTransactionManagement
 public class OperationLog {
-
-
     InetAddress address;
     {
         try {

@@ -31,23 +31,27 @@ where
 username LIKE CONCAT(CONCAT('%', #{username}), '%')
  </select>
   <insert id="asminssInsert" >
+      <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+          SELECT LAST_INSERT_ID()
+      </selectKey>
       insert
 cskaoyan_mall_admin
-(username,password,last_login_ip,last_login_time,avatar,add_time,update_time,deleted)
-values(#{username},#{password},#{lastLoginIp},#{lastLoginTime},#{avatar},#{addTime},#{updateTime},#{deleted})
+(username,password,last_login_ip,last_login_time,avatar,add_time,update_time,deleted,role_ids)
+values(#{username},#{password},#{lastLoginIp},#{lastLoginTime},#{avatar},#{addTime},#{updateTime},#{deleted},#{rolesIds})
   </insert>
 <update id="asminssUpdate">
   update
   cskaoyan_mall_admin
   set
   username=#{username},
-  password=#{password},
+  password=#{password} ,
   last_login_ip=#{lastLoginIp},
   last_login_time=#{lastLoginTime},
   avatar=#{avatar},
   add_time=#{addTime},
   update_time=#{updateTime},
-  deleted=#{deleted}
+  deleted=#{deleted},
+  role_ids=#{rolesIds}
 where id=#{id}
 </update>
 <delete id="adminssDelete">
@@ -112,6 +116,42 @@ name as label
 from
 cskaoyan_mall_role
 </select>
+<select id="assignPermissions" resultType="com.cskaoyan.bean.Permission"  >
+   SELECT
+id,
+permission
+from
+cskaoyan_mall_permission
+where role_id=#{def }
+</select>
+    <resultMap id="systemPermissionsMap" type="com.cskaoyan.bean.LzgPermission">
+        <result property="id" column="label"/>
+        <result property="label" column="label"/>
+        <collection property="children" ofType="com.cskaoyan.bean.Children">
+            <result property="id" column="sonlabel"/>
+            <result property="label" column="sonlabel"/>
+            <collection property="children" ofType="com.cskaoyan.bean.SonPermission">
+                <result property="id" column="permission"/>
+                <result property="label" column="grandsonlabel"/>
+
+            </collection>
+        </collection>
+        
+    </resultMap>
+<select id="systemPermissions" resultMap="systemPermissionsMap"  >
+    SELECT
+
+lzg1.label as label,
+permission,
+lzg2.label as sonlabel,
+
+lzg3.label as grandsonlabel
+FROM `lzg_mall_permission` lzg1
+left join lzg_mall_permission lzg2 on lzg2.pid=lzg1.id
+LEFT JOIN lzg_mall_permission lzg3 on lzg3.pid=lzg2.id
+left join cskaoyan_mall_permission  cmp on cmp.id=lzg3.permission_id
+where lzg1.type=1
+</select>
 <select id="storageSearch" resultType="com.cskaoyan.bean.Storage"    >
     SELECT
 id,
@@ -136,6 +176,14 @@ from
 
 
 </select>
+<insert id="permissionsInsert">
+    insert
+    cskaoyan_mall_permission
+    (role_id,permission,add_time,update_time) values
+    <foreach collection="permissions" separator="," item="permission">
+        ( #{roleId},#{permission},now(),now())
+    </foreach>
+</insert>
     <update id="storageUpdate">
         update
         cskaoyan_mall_storage

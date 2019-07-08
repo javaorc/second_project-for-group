@@ -6,12 +6,11 @@ import com.cskaoyan.bean.Log;
 import com.cskaoyan.bean.Role;
 import com.cskaoyan.bean.Storage;
 import com.cskaoyan.service.SystemService;
+import com.cskaoyan.typeHandler.IntArrayToString;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +45,10 @@ public class SystemManagement {
     @ResponseBody
     public Map rolesInsert(@RequestBody Admin admin){
         Map map=new HashMap();
-        systemService.asminssInsert(admin);
+    String roleIds= IntArrayToString.intArrayToString(admin);
+        admin.setRolesIds(roleIds);
+       int id= systemService.asminssInsert(admin);
+       admin.setId(id);
         map.put("data",admin);
         map.put("errmsg","成功");
         map.put("errno",0);
@@ -60,6 +62,8 @@ public class SystemManagement {
     @ResponseBody
     public Map adminsUpdate(@RequestBody Admin admin){
         Map map=new HashMap();
+        String roleIds= IntArrayToString.intArrayToString(admin);
+        admin.setRolesIds(roleIds);
         systemService.adminsUpdate(admin);
         map.put("data",admin);
         map.put("errmsg","成功");
@@ -147,6 +151,46 @@ public class SystemManagement {
         map.put("errno",0);
         return map;
     }
+    @PostMapping("role/permissions")
+    @ResponseBody
+    public Map rolesOptions(@RequestBody Map maps){
+       int roleId =(int)maps.get("roleId");
+       List permissions= (List) maps.get("permissions");
+        Map map=new HashMap();
+        Map map1=new HashMap();
+        map.put("errmsg","成功");
+        map.put("errno",0);
+        if (permissions==null){
+            List list=systemService.assignPermissions(roleId);
+            List list1=systemService.systemPermissions();
+            map1.put("assignPermissions",list);
+            map1.put("systemPermissions",list1);
+
+            map.put("data",map1);
+
+
+        }else {
+            systemService.permissionsInsert(permissions,roleId);
+        }
+        return map;
+    }
+
+    @GetMapping("role/permissions")
+    @ResponseBody
+    public Map rolesOptions2(int roleId){
+//        int roleId=0;
+        Map map=new HashMap();
+        Map map1=new HashMap();
+        map.put("errmsg","成功");
+        map.put("errno",0);
+
+            List list=systemService.assignPermissions(roleId);
+            List list1=systemService.systemPermissions();
+            map1.put("assignPermissions",list);
+            map1.put("systemPermissions",list1);
+            map.put("data",map1);
+        return map;
+    }
     @RequestMapping("storage/list")
     @ResponseBody
     public Map storageSearch(int page,int limit,String name,String key) {
@@ -201,4 +245,5 @@ public class SystemManagement {
         map.put("errno",0);
         return map;
     }
+
 }

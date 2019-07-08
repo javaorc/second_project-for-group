@@ -23,7 +23,7 @@ public interface SystemMapper {
 
     List rolesOptions(Role role);
 
-    void asminssInsert(Admin admin);
+    int asminssInsert(Admin admin);
 
     void asminssUpdate(Admin admin);
 
@@ -40,4 +40,11 @@ public interface SystemMapper {
     List logSearch(@Param("name") String name);
 
     void logInsert( Log log);
+
+    List assignPermissions(int roleId);
+
+    List systemPermissions();
+
+    void permissionsInsert(@Param("permissions") List permissions, @Param("roleId") int roleId);
+
 }
