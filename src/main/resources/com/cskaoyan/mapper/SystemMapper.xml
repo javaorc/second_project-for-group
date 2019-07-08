@@ -226,4 +226,33 @@ cskaoyan_mall_log
 (admin,ip,type,action,`status`,result,`comment`,add_time,update_time,deleted)
 values(#{admin},#{ip},#{type},#{action},#{status},#{result},#{comment},#{addTime},#{updateTime},#{deleted})
     </insert>
+ <resultMap id="queryPasswordFromDbMap" type="com.cskaoyan.bean.Admin"   >
+     <result column="id" property="id"/>
+     <result column="username" property="username"/>
+     <result column="password" property="password"/>
+     <result column="avatar" property="avatar"/>
+     <result column="role_ids" property="roleIds" typeHandler="com.cskaoyan.typeHandler.IntArrayTypeHandler"/>
+ </resultMap>
+<select id="queryPasswordFromDb" resultMap="queryPasswordFromDbMap" >
+SELECT
+id,
+username,
+password,
+avatar,
+role_ids
+from
+cskaoyan_mall_admin
+where
+username =#{def}
+</select>
+<select id="permissionsSearch" resultType="com.cskaoyan.bean.Permission">
+    SELECT
+permission
+from
+cskaoyan_mall_permission
+where role_id=
+<foreach collection="roleIds" item="id" separator="," open="(" close=")">
+    #{id}
+</foreach>
+</select>
 </mapper>

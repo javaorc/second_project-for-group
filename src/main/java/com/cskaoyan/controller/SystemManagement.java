@@ -8,6 +8,7 @@ import com.cskaoyan.bean.Storage;
 import com.cskaoyan.service.SystemService;
 import com.cskaoyan.typeHandler.IntArrayToString;
 import com.github.pagehelper.PageHelper;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class SystemManagement {
     SystemService systemService;
     @RequestMapping("admin/list")
     @ResponseBody
+    @RequiresPermissions(value = "admin:admin:list")
    public Map adminsSearch(int page,int limit,String username){
         PageHelper.startPage(page,limit);
         List list;
@@ -43,6 +45,7 @@ public class SystemManagement {
 
     @RequestMapping("admin/create")
     @ResponseBody
+    @RequiresPermissions(value = "admin:admin:create")
     public Map rolesInsert(@RequestBody Admin admin){
         Map map=new HashMap();
     String roleIds= IntArrayToString.intArrayToString(admin);
@@ -60,6 +63,7 @@ public class SystemManagement {
 
     @RequestMapping("admin/update")
     @ResponseBody
+    @RequiresPermissions(value = "admin:admin:update")
     public Map adminsUpdate(@RequestBody Admin admin){
         Map map=new HashMap();
         String roleIds= IntArrayToString.intArrayToString(admin);
@@ -75,6 +79,7 @@ public class SystemManagement {
 
     @RequestMapping("admin/delete")
     @ResponseBody
+    @RequiresPermissions(value = "admin:admin:delete")
     public Map adminsDelete(@RequestBody Admin admin){
         Map map=new HashMap();
         systemService.adminssDelete(admin);
@@ -87,6 +92,7 @@ public class SystemManagement {
     }
     @RequestMapping("role/list")
     @ResponseBody
+    @RequiresPermissions(value = "admin:role:list")
     public Map rolesSearch(int page,int limit,String name){
         PageHelper.startPage(page,limit);
         List list;
@@ -106,6 +112,7 @@ public class SystemManagement {
     }
     @RequestMapping("role/update")
     @ResponseBody
+    @RequiresPermissions(value = "admin:role:update")
     public Map rolesUpdate(@RequestBody Role role){
         Map map=new HashMap();
         systemService.rolesUpdate(role);
@@ -118,6 +125,7 @@ public class SystemManagement {
     }
     @RequestMapping("role/create")
     @ResponseBody
+    @RequiresPermissions(value = "admin:role:create")
     public Map rolesInsert(@RequestBody Role role){
         Map map=new HashMap();
         systemService.rolesInsert(role);
@@ -130,6 +138,7 @@ public class SystemManagement {
     }
     @RequestMapping("role/delete")
     @ResponseBody
+    @RequiresPermissions(value = "admin:role:delete")
     public Map rolesDelete(@RequestBody Role role){
         Map map=new HashMap();
         systemService.rolesDelete(role);
@@ -153,6 +162,7 @@ public class SystemManagement {
     }
     @PostMapping("role/permissions")
     @ResponseBody
+    @RequiresPermissions(value = "role:permission:update")
     public Map rolesOptions(@RequestBody Map maps){
        int roleId =(int)maps.get("roleId");
        List permissions= (List) maps.get("permissions");
@@ -177,6 +187,7 @@ public class SystemManagement {
 
     @GetMapping("role/permissions")
     @ResponseBody
+    @RequiresPermissions(value = "admin:role:permission:get")
     public Map rolesOptions2(int roleId){
 //        int roleId=0;
         Map map=new HashMap();
@@ -193,6 +204,7 @@ public class SystemManagement {
     }
     @RequestMapping("storage/list")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:list")
     public Map storageSearch(int page,int limit,String name,String key) {
         PageHelper.startPage(page, limit);
         List list=systemService.storageSearch(name,key);
@@ -208,6 +220,7 @@ public class SystemManagement {
     }
     @RequestMapping("storage/update")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:update")
     public Map storageUpdate(@RequestBody Storage storage){
         Map map=new HashMap();
         systemService.storageUpdate(storage);
@@ -221,6 +234,7 @@ public class SystemManagement {
 
     @RequestMapping("storage/delete")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:delete")
     public Map storageDelete(@RequestBody Storage storage){
         Map map=new HashMap();
         systemService.storageDelete(storage);
@@ -234,6 +248,7 @@ public class SystemManagement {
 
     @RequestMapping("log/list")
     @ResponseBody
+    @RequiresPermissions(value = "admin:log:list")
     public Map logSearch(int page,int limit,String name){
         PageHelper.startPage(page,limit);
         List list=systemService.logSearch(name);

@@ -1,9 +1,6 @@
 package com.cskaoyan.mapper;
 
-import com.cskaoyan.bean.Admin;
-import com.cskaoyan.bean.Log;
-import com.cskaoyan.bean.Role;
-import com.cskaoyan.bean.Storage;
+import com.cskaoyan.bean.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -46,5 +43,9 @@ public interface SystemMapper {
     List systemPermissions();
 
     void permissionsInsert(@Param("permissions") List permissions, @Param("roleId") int roleId);
+
+   Admin queryPasswordFromDb(String principal);
+
+    List permissionsSearch(@Param("roleIds") int[] roleIds);
 
 }
