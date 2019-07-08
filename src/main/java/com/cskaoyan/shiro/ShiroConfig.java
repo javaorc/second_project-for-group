@@ -46,7 +46,7 @@ public class ShiroConfig {
 	@Bean
 	public MallShiroSessionManager mallShiroSessionManager(){
 		MallShiroSessionManager mallShiroSessionManager = new MallShiroSessionManager();
-		mallShiroSessionManager.setGlobalSessionTimeout(60000);
+		mallShiroSessionManager.setGlobalSessionTimeout(6000000);
 		return mallShiroSessionManager;
 	}
 }
