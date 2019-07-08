@@ -247,6 +247,7 @@
           days,
           `desc`
         from cskaoyan_mall_coupon
+        where deleted = 0
     </select>
 
 </mapper>

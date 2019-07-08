@@ -19,4 +19,6 @@ public interface TopicMapper {
     int deleteTopic(@Param("topic") Topic topic);
 
     int insertTopic(@Param("topic") Topic topic);
+
+    List<Topic> queryTopics();
 }

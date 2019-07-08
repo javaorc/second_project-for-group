@@ -428,6 +428,46 @@
           name
         from cskaoyan_mall_category where pid = #{pid}
     </select>
-    
-    
+
+    <!--#####################################################################-->
+    <!--获取热门商品-->
+    <resultMap id="goodsMap2" type="com.cskaoyan.bean.Goods">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="counter_price" property="counterPrice"/>
+        <result column="retail_price" property="retailPrice"/>
+        <result column="is_hot" property="isHot"/>
+        <result column="is_new" property="isNew"/>
+        <result column="brief" property="brief"/>
+        <result column="pic_url" property="picUrl"/>
+    </resultMap>
+    <select id="queryHotGoods" resultMap="goodsMap2">
+        select
+          id,
+          name,
+          counter_price,
+          retail_price,
+          is_hot,
+          is_new,
+          brief,
+          pic_url
+        from cskaoyan_mall_goods
+        where is_hot = 1 and deleted = 0
+        order by add_time desc
+    </select>
+
+    <select id="queryNewGoods" resultMap="goodsMap2">
+        select
+          id,
+          name,
+          counter_price,
+          retail_price,
+          is_hot,
+          is_new,
+          brief,
+          pic_url
+        from cskaoyan_mall_goods
+        where is_new = 1 and deleted = 0
+        order by add_time desc
+    </select>
 </mapper>
