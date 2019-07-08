@@ -51,9 +51,10 @@ public class StringToListTypeHandler2 extends BaseTypeHandler<List<String>> {
 
     private List<String> string2List(String string) {
         List<String> list = new ArrayList<>();
-        if (!"[]".equals(string)) {
+        if ("".equals(string)){
+            return list;
+        }else if (!"[]".equals(string)) {
             String[] split = string.substring(1, string.length() - 1).split(",");
-
             for (String str : split) {
                 String trim = str.trim();
                 String substring = trim.substring(1, trim.length() - 1);
