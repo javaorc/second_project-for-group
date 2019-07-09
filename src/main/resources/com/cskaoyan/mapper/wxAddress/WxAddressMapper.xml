@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxAddress.WxAddressMapper">
+
+    <resultMap id="addressMap" type="com.cskaoyan.bean.wxBean.WxAddress">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="mobile" property="mobile"/>
+        <result column="detailed_address" property="detailedAddress"/>
+        <result column="is_default" property="isDefault"/>
+    </resultMap>
+    <select id="queryAddressListByUserId" resultMap="addressMap">
+        select
+          address.id,
+          address.name,
+          concat(r1.name, r2.name, r3.name, address.address) as detailed_address,
+          address.mobile,
+          address.is_default
+        from cskaoyan_mall_address as address
+        left join cskaoyan_mall_region as r1 on address.province_id = r1.code
+        left join cskaoyan_mall_region as r2 on address.city_id = r2.code
+        left join cskaoyan_mall_region as r3 on address.area_id = r3.code
+        left join cskaoyan_mall_user as `user` on address.user_id = `user`.id
+        where address.user_id = #{uid}
+    </select>
+
+
+    <resultMap id="addressMap2" type="com.cskaoyan.bean.wxBean.WxAddress2">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="province_name" property="provinceName"/>
+        <result column="city_id" property="cityId"/>
+        <result column="city_name" property="cityName"/>
+        <result column="area_id" property="areaId"/>
+        <result column="area_name" property="areaName"/>
+        <result column="address" property="address"/>
+        <result column="mobile" property="mobile"/>
+        <result column="is_default" property="isDefault"/>
+    </resultMap>
+    <select id="queryAddressById" resultMap="addressMap2">
+        select
+          address.id,
+          address.name,
+          address.province_id,
+          r1.name as province_name,
+          address.city_id,
+          r2.name as city_name,
+          address.area_id,
+          r3.name as area_name,
+          address.address,
+          mobile,
+          is_default
+        from cskaoyan_mall_address as address
+        left join cskaoyan_mall_region as r1 on address.province_id = r1.code
+        left join cskaoyan_mall_region as r2 on address.city_id = r2.code
+        left join cskaoyan_mall_region as r3 on address.area_id = r3.code
+        where address.id = #{addressId}
+    </select>
+
+    <!--更新地址信息-->
+    <update id="updateAddress">
+        update cskaoyan_mall_address set
+          name = #{address.name},
+          mobile = #{address.mobile},
+          province_id = #{address.provinceId},
+          city_id = #{address.cityId},
+          area_id = #{address.areaId},
+          address = #{address.address},
+          is_default = #{address.isDefault},
+          update_time = now()
+          where id = #{address.id}
+    </update>
+
+    <!--清除默认地址-->
+
+    <update id="clearDefaultAddress">
+        update cskaoyan_mall_address a set
+          a.is_default = 0
+        where a.user_id = #{uid}
+    </update>
+</mapper>
