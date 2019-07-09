@@ -36,6 +36,7 @@
         deleted
         from cskaoyan_mall_category
         where pid=#{categoryPid}
+
     </select>
 
     <select id="queryCategoryPidById" resultType="_int">
@@ -64,23 +65,6 @@
     </select>
 
 
-    <select id="queryFirstCategoryByPid" resultMap="categoryMap">
-    select
-        id,
-        `name`,
-        keywords,
-		`desc`,
-        pid,
-        icon_url,
-        pic_url,
-        `level`,
-        sort_order,
-        add_time,
-        update_time,
-        deleted
-     from cskaoyan_mall_category
-     WHERE pid=#{categoryPid}
-     order by sort_order asc limit 0,1
-    </select>
+
 
 </mapper>
