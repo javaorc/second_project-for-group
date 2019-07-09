@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.ShoppingCarMapper">
+<resultMap id="cartGetMap" type="com.cskaoyan.bean.Cart" >
+    <result property="goodsName" column="name"/>
+    <result property="goodsSn" column="goodsSn"/>
+    <result property="price" column="price"/>
+    <result property="number" column="number"/>
+    <result property="specifications" column="specifications"/>
+    <result property="picUrl" column="url"/>
+</resultMap>
+    <select id="cartGet" resultMap="cartGetMap">
+select
+cmg.name as name,
+cmg.goods_sn as goodsSn,
+cmgp.price as price,
+cmgp.number as number,
+cmgp.specifications as specifications,
+cmgp.url as url
+from
+cskaoyan_mall_goods cmg
+LEFT JOIN cskaoyan_mall_goods_product cmgp on cmgp.goods_id=cmg.id
+    </select>
+</mapper>
