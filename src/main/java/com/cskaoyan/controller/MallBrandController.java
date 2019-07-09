@@ -1,5 +1,6 @@
 package com.cskaoyan.controller;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.Province;
 
 
@@ -9,8 +10,11 @@ import com.cskaoyan.bean.Brand;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.MallBrandService;
 import com.cskaoyan.bean.Brand;
+import com.cskaoyan.service.SystemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,10 +32,13 @@ import java.util.Map;
 public class MallBrandController {
     @Autowired
     MallBrandService mallBrandService;
+    @Autowired
+    SystemService systemService;
 
 
     @RequestMapping("brand/list")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:list")
     public ResponseVO<Map<String,Object>> showBrandList(Integer page,Integer limit,String id, String name){
         PageHelper.startPage(page,limit);
         ResponseVO<Map<String,Object>> responseVO = new ResponseVO<>();
@@ -48,6 +55,9 @@ public class MallBrandController {
             map.put("items",brands);
             map.put("total",brandPageInfo.getTotal());
         }
+        String name1 = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"显示列表",name1);
         responseVO.setData(map);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
@@ -57,9 +67,13 @@ public class MallBrandController {
 
     @RequestMapping("brand/delete")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:delete")
     public ResponseVO<Object> deleteBrand(Brand brand){
         int i = mallBrandService.deleteBrand(brand);
         ResponseVO<Object> responseVO = new ResponseVO<>();
+        String name1 = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"品牌删除",name1);
         responseVO.setData(null);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
@@ -69,11 +83,15 @@ public class MallBrandController {
 
     @RequestMapping("brand/update")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:update")
     public ResponseVO<Object> updateBrand(@RequestBody Brand brand){
         Date date = new Date(System.currentTimeMillis());
         brand.setUpdateTime(date);
         int i = mallBrandService.updateBrandByBid(brand);
         ResponseVO<Object> responseVO = new ResponseVO<>();
+        String name1 = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"更新对象",name1);
         responseVO.setData(brand);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
@@ -82,6 +100,7 @@ public class MallBrandController {
 
     @RequestMapping("brand/create")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:insert")
     public ResponseVO<Object> createBrand(@RequestBody Brand brand){
         Date date = new Date(System.currentTimeMillis());
         brand.setAddTime(date);
@@ -89,6 +108,9 @@ public class MallBrandController {
         int i = mallBrandService.insertBrand(brand);
         if(i>0){
         ResponseVO<Object> responseVO = new ResponseVO<>();
+            String name1 = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"插入对象",name1);
         responseVO.setData(brand);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
