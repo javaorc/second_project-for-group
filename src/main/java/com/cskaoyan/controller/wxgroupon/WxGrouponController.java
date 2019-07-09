@@ -21,11 +21,17 @@ public class WxGrouponController {
     @Autowired
     WxGrouponService grouponService;
 
-    ResponseVO<Map<String,Object>> mapResponseVO = new ResponseVO<>();
-
     @RequestMapping("groupon/list")
     @ResponseBody
     public ResponseVO<Map<String,Object>> gouponList(int page,int size){
         return grouponService.gouponList(page,size);
     }
+
+    @RequestMapping("groupon/my")
+    @ResponseBody
+    public ResponseVO<Map<String,Object>> gouponMy(Integer showType){
+        return grouponService.gouponMy(showType);
+    }
+
+
 }

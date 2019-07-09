@@ -2,6 +2,7 @@ package com.cskaoyan.service.mallManegeServiceImpl;
 
 import com.cskaoyan.bean.Category;
 import com.cskaoyan.bean.Kind;
+import com.cskaoyan.bean.wxBean.WxChannel;
 import com.cskaoyan.mapper.mallManege.MallCategoryMapper;
 import com.cskaoyan.service.MallCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class MallCategoryServiceImpl implements MallCategoryService {
     }
 
     @Override
-    public List<Kind> queryKindCategories() {
+    public List<WxChannel> queryKindCategories() {
         return mallCategoryMapper.queryKindCategories();
     }
 }

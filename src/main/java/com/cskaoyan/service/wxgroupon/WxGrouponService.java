@@ -11,4 +11,6 @@ import java.util.Map;
  **/
 public interface WxGrouponService {
     ResponseVO<Map<String, Object>> gouponList(int page, int size);
+
+    ResponseVO<Map<String, Object>> gouponMy(Integer showType);
 }

@@ -2,6 +2,7 @@ package com.cskaoyan.mapper.generalize;
 
 import com.cskaoyan.bean.Ad;
 import com.cskaoyan.bean.Storage;
+import com.cskaoyan.bean.wxBean.WxBanner;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -24,5 +25,5 @@ public interface AdMapper {
 
     int insertAd(@Param("ad") Ad ad);
 
-    List<Ad> queryAds();
+    List<WxBanner> queryAds();
 }

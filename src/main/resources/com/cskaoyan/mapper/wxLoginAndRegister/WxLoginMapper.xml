@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxLoginAndRegister.WxLoginMapper">
+    <resultMap id="userMap" type="com.cskaoyan.bean.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="last_login_ip" property="lastLoginIp"/>
+        <result column="user_level" property="userLevel"/>
+        <result column="nickname" property="nickname"/>
+        <result column="mobile" property="mobile"/>
+        <result column="avatar" property="avatar"/>
+        <result column="weixin_openid" property="weixinOpenid"/>
+        <result column="status" property="status"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <select id="isUser" resultMap="userMap">
+        select
+        id,
+        username,
+        password,
+        gender,
+        birthday,
+        last_login_time,
+        last_login_ip,
+        user_level,
+        nickname,
+        mobile,
+        avatar,
+        weixin_openid,
+        status,
+        add_time,
+        update_time,
+        deleted
+        from cskaoyan_mall_user
+        where username=#{user.username}
+    </select>
+    <resultMap id="orderMap" type="com.cskaoyan.bean.Order">
+        <result  column="id" property="id"/>
+        <result  column="user_id" property="userId"/>
+        <result  column="order_sn" property="orderSn"/>
+        <result  column="order_status" property="orderStatus"/>
+        <result  column="consignee" property="consignee"/>
+        <result  column="mobile" property="mobile"/>
+        <result  column="address" property="address"/>
+        <result  column="message" property="message"/>
+        <result  column="goods_price" property="goodsPrice"/>
+        <result  column="freight_price" property="freightPrice"/>
+        <result  column="coupon_price" property="couponPrice"/>
+        <result  column="integral_price" property="integralPrice"/>
+        <result  column="groupon_price" property="grouponPrice"/>
+        <result  column="order_price" property="orderPrice"/>
+        <result  column="actual_price" property="actualPrice"/>
+        <result  column="pay_id" property="payId"/>
+        <result  column="pay_time" property="payTime"/>
+        <result  column="ship_sn" property="shipSn"/>
+        <result  column="ship_channel" property="shipChannel"/>
+        <result  column="ship_time" property="shipTime"/>
+        <result  column="confirm_time" property="confirmTime"/>
+        <result  column="comments" property="comments"/>
+        <result  column="end_time" property="endTime"/>
+        <result  column="oadd_time" property="addTime"/>
+        <result  column="oupdate_time" property="updateTime"/>
+        <result  column="odeleted" property="deleted"/>
+        <association property="user" javaType="com.cskaoyan.bean.User">
+            <result column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <result column="gender" property="gender"/>
+            <result column="birthday" property="birthday"/>
+            <result column="last_login_time" property="lastLoginTime"/>
+            <result column="last_login_ip" property="lastLoginIp"/>
+            <result column="user_level" property="userLevel"/>
+            <result column="nickname" property="nickname"/>
+            <result column="mobile" property="mobile"/>
+            <result column="avatar" property="avatar"/>
+            <result column="weixin_openid" property="weixinOpenid"/>
+            <result column="status" property="status"/>
+            <result column="add_time" property="addTime"/>
+            <result column="update_time" property="updateTime"/>
+            <result column="deleted" property="deleted"/>
+        </association>
+    </resultMap>
+    <select id="queryOrderByUid" resultMap="orderMap">
+        select
+        cskaoyan_mall_order.id,
+        cskaoyan_mall_order.user_id,
+        cskaoyan_mall_order.order_sn,
+        cskaoyan_mall_order.order_status,
+        cskaoyan_mall_order.consignee,
+        cskaoyan_mall_order.mobile,
+        cskaoyan_mall_order.address,
+        cskaoyan_mall_order.message,
+        cskaoyan_mall_order.goods_price,
+        cskaoyan_mall_order.freight_price,
+        cskaoyan_mall_order.coupon_price,
+        cskaoyan_mall_order.integral_price,
+        cskaoyan_mall_order.groupon_price,
+        cskaoyan_mall_order.order_price,
+        cskaoyan_mall_order.actual_price,
+        cskaoyan_mall_order.pay_id,
+        cskaoyan_mall_order.pay_time,
+        cskaoyan_mall_order.ship_sn,
+        cskaoyan_mall_order.ship_channel,
+        cskaoyan_mall_order.ship_time,
+        cskaoyan_mall_order.confirm_time,
+        cskaoyan_mall_order.comments,
+        cskaoyan_mall_order.end_time ,
+        cskaoyan_mall_order.add_time AS oadd_time,
+        cskaoyan_mall_order.update_time AS oupdate_time,
+        cskaoyan_mall_order.deleted AS odeleted,
+
+        cskaoyan_mall_user.id,
+        cskaoyan_mall_user.username,
+        cskaoyan_mall_user.password,
+        cskaoyan_mall_user.gender,
+        cskaoyan_mall_user.birthday,
+        cskaoyan_mall_user.last_login_time,
+        cskaoyan_mall_user.last_login_ip,
+        cskaoyan_mall_user.user_level,
+        cskaoyan_mall_user.nickname,
+        cskaoyan_mall_user.mobile,
+        cskaoyan_mall_user.avatar,
+        cskaoyan_mall_user.weixin_openid,
+        cskaoyan_mall_user.status,
+        cskaoyan_mall_user.add_time,
+        cskaoyan_mall_user.update_time,
+        cskaoyan_mall_user.deleted
+        from cskaoyan_mall_order
+        left join cskaoyan_mall_user
+        on cskaoyan_mall_order.user_id=cskaoyan_mall_user.id
+        where cskaoyan_mall_order.user_id=#{uid}
+    </select>
+</mapper>

@@ -1,5 +1,6 @@
 package com.cskaoyan.service.mallManegeServiceImpl;
 
+import com.cskaoyan.bean.wxBean.WxBrand;
 import com.cskaoyan.service.MallBrandService;
 import com.cskaoyan.bean.Brand;
 import com.cskaoyan.mapper.mallManege.MallBrandMapper;
@@ -39,7 +40,7 @@ public class MallBrandServiceImpl implements MallBrandService {
     }
 
     @Override
-    public List<Brand> queryBrands() {
+    public List<WxBrand> queryBrands() {
         return mallBrandMapper.queryBrands();
     }
 }

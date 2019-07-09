@@ -40,5 +40,33 @@ public class WxCouponServiceImpl implements WxCouponService {
         return mapResponseVO;
     }
 
+    @Override
+    public ResponseVO<Map<String, Object>> queryCouponByStatus(Integer status, Integer page, Integer size) {
+        List<Coupon> couponList = wxCouponMapper.queryCouponByStatus(status);
+        PageHelper.startPage(page,size);
+        PageInfo<Coupon> couponPageInfo = new PageInfo<>(couponList);
+        map.put("count",couponPageInfo.getTotal());
+        map.put("data",couponList);
+        mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        return mapResponseVO;
+    }
+
+    @Override
+    public ResponseVO<Map<String, Object>> couponExchange(String code) {
+        Coupon coupon = wxCouponMapper.queryCouponByCode(code);
+        if(coupon!=null){
+            mapResponseVO.setErrmsg("成功");
+            mapResponseVO.setErrno(0);
+            mapResponseVO.setData(null);
+        }else{
+            mapResponseVO.setErrmsg("优惠券不正确");
+            mapResponseVO.setErrno(742);
+            mapResponseVO.setData(null);
+        }
+        return mapResponseVO;
+    }
+
 
 }

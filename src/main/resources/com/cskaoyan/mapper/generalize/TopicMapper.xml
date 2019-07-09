@@ -96,7 +96,7 @@
         #{topic.deleted})
     </insert>
 
-    <resultMap id="topicMap2" type="com.cskaoyan.bean.Topic">
+    <resultMap id="topicMap2" type="com.cskaoyan.bean.wxBean.WxTopic">
         <result column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="subtitle" property="subtitle"/>

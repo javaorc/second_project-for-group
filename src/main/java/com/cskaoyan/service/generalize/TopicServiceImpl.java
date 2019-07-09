@@ -2,6 +2,7 @@ package com.cskaoyan.service.generalize;
 
 import com.cskaoyan.bean.Topic;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxBean.WxTopic;
 import com.cskaoyan.mapper.generalize.TopicMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -64,7 +65,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<Topic> queryTopics() {
+    public List<WxTopic> queryTopics() {
         return topicMapper.queryTopics();
     }
 }

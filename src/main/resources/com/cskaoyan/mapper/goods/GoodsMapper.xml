@@ -431,7 +431,7 @@
 
     <!--#####################################################################-->
     <!--获取热门商品-->
-    <resultMap id="goodsMap2" type="com.cskaoyan.bean.Goods">
+    <resultMap id="goodsMap2" type="com.cskaoyan.bean.wxBean.WxHotOrNewGoods">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="counter_price" property="counterPrice"/>

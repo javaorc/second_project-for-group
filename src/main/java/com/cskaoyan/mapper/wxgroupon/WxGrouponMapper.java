@@ -1,6 +1,7 @@
 package com.cskaoyan.mapper.wxgroupon;
 
 import com.cskaoyan.bean.GrouponRules;
+import com.cskaoyan.bean.wxgrouponrela.GrouponMy;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ import java.util.List;
  **/
 public interface WxGrouponMapper {
     List<GrouponRules> gouponList();
+
+    List<GrouponMy> grouponMy(Integer showType);
 }

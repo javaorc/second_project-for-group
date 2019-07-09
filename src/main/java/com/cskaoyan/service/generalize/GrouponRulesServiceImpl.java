@@ -3,6 +3,7 @@ package com.cskaoyan.service.generalize;
 import com.cskaoyan.bean.Groupon;
 import com.cskaoyan.bean.GrouponRules;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxBean.WxGroupon;
 import com.cskaoyan.mapper.generalize.GrouponRulesMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -64,5 +65,10 @@ public class GrouponRulesServiceImpl implements GrouponRulesService {
     @Override
     public List<Groupon> queryGrouponAndRulesAndGoods(Integer goodsId) {
         return grouponRulesMapper.queryGrouponAndRulesAndGoods(goodsId);
+    }
+
+    @Override
+    public List<WxGroupon> queryGrouponRules() {
+        return grouponRulesMapper.queryGrouponRules();
     }
 }
