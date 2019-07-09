@@ -1,8 +1,7 @@
 package com.cskaoyan.controller.wxGoods;
 
 
-import com.cskaoyan.bean.Category;
-import com.cskaoyan.bean.Goods;
+import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.wxGoods.WxCategoryGoodsServiceImpl;
 import com.cskaoyan.service.wxGoods.WxGoodsServiceImpl;
@@ -23,9 +22,32 @@ public class WxGoodsController {
     WxGoodsServiceImpl goodsService;
 
     @Autowired
-    WxCategoryGoodsServiceImpl wxCategoryGoodsService;
+    WxCategoryGoodsServiceImpl categoryGoodsService;
 
-
+    @RequestMapping("wx/goods/category")
+    @ResponseBody
+    public ResponseVO<Map> queryCategoryById(int id){
+        ResponseVO<Map> mapResponseVO = new ResponseVO<>();
+        Map<Object, Object> map = new HashMap<>();
+        Category currentCategory;
+        Category parentCategory;
+        Category category = categoryGoodsService.queryCategoryById(id);
+        if ("L2".equals(category.getLevel())){
+            currentCategory = category;
+            parentCategory = categoryGoodsService.queryCategoryById(currentCategory.getPid());
+        }else {
+            parentCategory = category;
+            currentCategory = categoryGoodsService.queryCategoryByPid(parentCategory.getId()).get(0);
+        }
+        List<Category> brotherCategory = categoryGoodsService.queryBrotherCategory(currentCategory.getId());
+        map.put("brotherCategory",brotherCategory);
+        map.put("parentCategory",parentCategory);
+        map.put("currentCategory",currentCategory);
+        mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        return mapResponseVO;
+    }
 
 
     @RequestMapping("wx/goods/list")
@@ -37,14 +59,14 @@ public class WxGoodsController {
         List<Goods> goods;
         List<Category> categories = null;
         if (categoryId != null&& categoryId != 0){
-            categories = wxCategoryGoodsService.queryBrotherCategory(categoryId);
+            categories = categoryGoodsService.queryBrotherCategory(categoryId);
             goods = goodsService.queryGoodsByCategoryId(categoryId);
         }else if (brandId != null){
             goods = goodsService.queryGoodsByBrandId(brandId);
-            categories = wxCategoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+            categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
         }else {
             goods = goodsService.queryGoodsByName(keyword);
-            categories = wxCategoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+            categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
         }
         Map<Object, Object> map = new HashMap<>();
         map.put("filterCategoryList",categories);
