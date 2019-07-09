@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxgoodsmapper.WxGoodsMapperCLY">
+
+
+    <resultMap id="ResultForQueryRelated" type="com.cskaoyan.bean.wxBean.WxGoods2">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="brief" column="brief"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="isNew" column="is_new"/>
+        <result property="isHot" column="is_hot"/>
+        <result property="counterPrice" column="counter_price"/>
+        <result property="retailPrice" column="retail_price"/>
+    </resultMap>
+
+    <select id="queryRelated" resultMap="ResultForQueryRelated">
+        select
+        id,
+        name,
+        brief,
+        pic_url,
+        is_new,
+        is_hot,
+        counter_price,
+        retail_price
+        from
+        cskaoyan_mall_goods
+        <where>
+            category_id = #{categoryId}
+        </where>
+    </select>
+
+    <select id="queryCategoryId" resultType="java.lang.String">
+        select
+        category_id
+        from
+        cskaoyan_mall_goods
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <resultMap id="ResultForQuerySpecificationList" type="com.cskaoyan.bean.GoodsSpecification">
+        <id property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="specification" column="specification"/>
+        <result property="value" column="value"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="querySpecificationList" resultMap="ResultForQuerySpecificationList">
+        select
+        id,
+        goods_id,
+        specification,
+        value,
+        pic_url,
+        add_time,
+        update_time,
+        deleted
+        from
+        cskaoyan_mall_goods_specification
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <resultMap id="ResultForQueryIssue" type="com.cskaoyan.bean.Issue">
+        <id property="id" column="id"/>
+        <result property="question" column="question"/>
+        <result property="answer" column="answer"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="queryIssue" resultMap="ResultForQueryIssue">
+        select
+        id,
+        question,
+        answer,
+        add_time,
+        update_time,
+        deleted
+        from
+        cskaoyan_mall_issue
+    </select>
+
+    <resultMap id="ResultForQueryAttribute" type="com.cskaoyan.bean.GoodsAttribute">
+        <id property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="attribute" column="attribute"/>
+        <result property="value" column="value"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="queryAttribute" resultMap="ResultForQueryAttribute">
+        select
+        id,
+        goods_id,
+        attribute,
+        value,
+        add_time,
+        update_time,
+        deleted
+        from
+        cskaoyan_mall_goods_attribute
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <resultMap id="ResultForQueryBrand" type="com.cskaoyan.bean.Brand">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="floorPrice" column="floor_price"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="queryBrand" resultMap="ResultForQueryBrand">
+        select
+        id,
+        name,
+        `desc`,
+        pic_url,
+        sort_order,
+        floor_price,
+        add_time,
+        update_time,
+        deleted
+        from
+        cskaoyan_mall_brand
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <resultMap id="ResultForQueryProductList" type="com.cskaoyan.bean.GoodsProduct">
+        <id property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="specifications" column="specifications" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler2"/>
+        <result property="price" column="price"/>
+        <result property="number" column="number"/>
+        <result property="url" column="url"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="queryProductList" resultMap="ResultForQueryProductList">
+        select
+        id,
+        goods_id,
+        specifications,
+        price,
+        number,
+        url,
+        add_time,
+        update_time,
+        deleted
+        from
+        cskaoyan_mall_goods_product
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <resultMap id="ResultForQueryInfo" type="com.cskaoyan.bean.Goods">
+        <id property="id" column="id"/>
+        <result property="goodsSn" column="goods_sn"/>
+        <result property="name" column="name"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="gallery" column="gallery" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler2"/>
+        <result property="keywords" column="keywords"/>
+        <result property="brief" column="brief"/>
+        <result property="isOnSale" column="is_on_sale"/>
+        <result property="sortOrder" column=""/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="shareUrl" column="share_url"/>
+        <result property="isNew" column="is_new"/>
+        <result property="isHot" column="is_hot"/>
+        <result property="unit" column="unit"/>
+        <result property="counterPrice" column="counter_price"/>
+        <result property="retailPrice" column="retail_price"/>
+        <result property="detail" column="detail"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="queryInfo" resultMap="ResultForQueryInfo">
+        select
+        id,
+        goods_sn,
+        name,
+        category_id,
+        brand_id,
+        gallery,
+        keywords,
+        brief,
+        is_on_sale,
+        pic_url,
+        share_url,
+        is_new,
+        is_hot,
+        unit,
+        counter_price,
+        retail_price,
+        detail,
+        add_time,
+        update_time,
+        deleted
+        from
+        cskaoyan_mall_goods
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <resultMap id="ResultForQueryCommentDate" type="com.cskaoyan.bean.Comment">
+        <id property="id" column="id"/>
+        <result property="valueId" column="value_id"/>
+        <result property="type" column="type"/>
+        <result property="content" column="content"/>
+        <result property="userId" column="user_id"/>
+        <result property="hasPicture" column="has_picture"/>
+        <result property="picUrls" column="pic_urls" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler2"/>
+        <result property="star" column="star"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="queryCommentDate" resultMap="ResultForQueryCommentDate">
+        select
+        id,
+        value_id,
+        type,
+        content,
+        user_id,
+        has_picture,
+        pic_urls,
+        star,
+        add_time,
+        update_time,
+        deleted
+        from
+        cskaoyan_mall_comment
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <select id="queryCommentCount" resultType="_int">
+        select
+        count(*)
+        from
+        cskaoyan_mall_comment
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+</mapper>
