@@ -4,6 +4,7 @@ import com.cskaoyan.bean.Goods;
 
 
 import java.util.List;
+import java.util.Map;
 
 public interface WxGoodsService {
     Integer queryGoodsCount();

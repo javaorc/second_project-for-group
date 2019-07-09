@@ -1,8 +1,7 @@
 package com.cskaoyan.controller.wxGoods;
 
 
-import com.cskaoyan.bean.Category;
-import com.cskaoyan.bean.Goods;
+import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.wxGoods.WxCategoryGoodsServiceImpl;
 import com.cskaoyan.service.wxGoods.WxGoodsServiceImpl;
