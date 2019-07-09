@@ -2,11 +2,13 @@ package com.cskaoyan.bean.wxBean;
 
 import com.cskaoyan.bean.GoodsSpecification;
 
+import java.util.List;
+
 public class WxGoodsSpecification {
 
     private String name;
 
-    private GoodsSpecification[] goodsSpecifications;
+    private List<GoodsSpecification> valueList;
 
     public String getName() {
         return name;
@@ -16,20 +18,21 @@ public class WxGoodsSpecification {
         this.name = name;
     }
 
-    public GoodsSpecification[] getGoodsSpecifications() {
-        return goodsSpecifications;
+    public List<GoodsSpecification> getValueList() {
+        return valueList;
     }
 
-    public void setGoodsSpecifications(GoodsSpecification[] goodsSpecifications) {
-        this.goodsSpecifications = goodsSpecifications;
+    public void setValueList(List<GoodsSpecification> valueList) {
+        this.valueList = valueList;
+    }
+
+    public WxGoodsSpecification(String name, List<GoodsSpecification> valueList) {
+        this.name = name;
+        this.valueList = valueList;
     }
 
     public WxGoodsSpecification() {
 
     }
 
-    public WxGoodsSpecification(String name, GoodsSpecification[] goodsSpecifications) {
-        this.name = name;
-        this.goodsSpecifications = goodsSpecifications;
-    }
 }

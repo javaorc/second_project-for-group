@@ -31,6 +31,8 @@
         <where>
             category_id = #{categoryId}
         </where>
+        limit 1,6
+
     </select>
 
     <select id="queryCategoryId" resultType="java.lang.String">
@@ -67,7 +69,7 @@
         from
         cskaoyan_mall_goods_specification
         <where>
-            id = #{id}
+            goods_id = #{id}
         </where>
     </select>
 
@@ -114,7 +116,7 @@
         from
         cskaoyan_mall_goods_attribute
         <where>
-            id = #{id}
+            goods_id = #{id}
         </where>
     </select>
 
@@ -132,19 +134,23 @@
 
     <select id="queryBrand" resultMap="ResultForQueryBrand">
         select
-        id,
-        name,
-        `desc`,
-        pic_url,
-        sort_order,
-        floor_price,
-        add_time,
-        update_time,
-        deleted
+        brand.id,
+        brand.name,
+        brand.desc,
+        brand.pic_url,
+        brand.sort_order,
+        brand.floor_price,
+        brand.add_time,
+        brand.update_time,
+        brand.deleted
         from
-        cskaoyan_mall_brand
+        cskaoyan_mall_goods goods
+        left join
+        cskaoyan_mall_brand brand
+        on
+        brand.id = goods.brand_id
         <where>
-            id = #{id}
+            goods.goods_sn = #{id}
         </where>
     </select>
 
@@ -174,7 +180,7 @@
         from
         cskaoyan_mall_goods_product
         <where>
-            id = #{id}
+            goods_id = #{id}
         </where>
     </select>
 
@@ -261,7 +267,7 @@
         from
         cskaoyan_mall_comment
         <where>
-            id = #{id}
+            value_id = #{id}
         </where>
     </select>
 
@@ -271,7 +277,7 @@
         from
         cskaoyan_mall_comment
         <where>
-            id = #{id}
+            value_id = #{id}
         </where>
     </select>
 

@@ -4,9 +4,11 @@ import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.wxBean.WxComment;
 import com.cskaoyan.bean.wxBean.WxGoodsSpecification;
 
+import java.util.List;
+
 public class GoodsQuery {
 
-    private WxGoodsSpecification specificationList;
+    private List<WxGoodsSpecification> specificationList;
 
     private Groupon[] groupon;
 
@@ -22,15 +24,15 @@ public class GoodsQuery {
 
     private Brand brand;
 
-    private GoodsProduct[] productList;
+    private List<GoodsProduct> productList;
 
     private Goods info;
 
-    public WxGoodsSpecification getSpecificationList() {
+    public List<WxGoodsSpecification> getSpecificationList() {
         return specificationList;
     }
 
-    public void setSpecificationList(WxGoodsSpecification specificationList) {
+    public void setSpecificationList(List<WxGoodsSpecification> specificationList) {
         this.specificationList = specificationList;
     }
 
@@ -90,11 +92,11 @@ public class GoodsQuery {
         this.brand = brand;
     }
 
-    public GoodsProduct[] getProductList() {
+    public List<GoodsProduct> getProductList() {
         return productList;
     }
 
-    public void setProductList(GoodsProduct[] productList) {
+    public void setProductList(List<GoodsProduct> productList) {
         this.productList = productList;
     }
 
@@ -110,7 +112,7 @@ public class GoodsQuery {
 
     }
 
-    public GoodsQuery(WxGoodsSpecification specificationList, Groupon[] groupon, Issue[] issue, Integer userHasCollect, String shareImage, WxComment comment, GoodsAttribute[] attribute, Brand brand, GoodsProduct[] productList, Goods info) {
+    public GoodsQuery(List<WxGoodsSpecification> specificationList, Groupon[] groupon, Issue[] issue, Integer userHasCollect, String shareImage, WxComment comment, GoodsAttribute[] attribute, Brand brand, List<GoodsProduct> productList, Goods info) {
         this.specificationList = specificationList;
         this.groupon = groupon;
         this.issue = issue;

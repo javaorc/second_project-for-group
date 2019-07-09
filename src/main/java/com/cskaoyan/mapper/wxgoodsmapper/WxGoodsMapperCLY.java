@@ -12,7 +12,7 @@ public interface WxGoodsMapperCLY {
 
     String queryCategoryId(@Param("id") String id);
 
-    GoodsSpecification[] querySpecificationList(@Param("id") String id);
+    List<GoodsSpecification> querySpecificationList(@Param("id") String id);
 
     Issue[] queryIssue();
 
@@ -20,11 +20,11 @@ public interface WxGoodsMapperCLY {
 
     Brand queryBrand(@Param("id") String id);
 
-    GoodsProduct[] queryProductList(@Param("id")String id);
+    List<GoodsProduct> queryProductList(@Param("id")String id);
 
     Goods queryInfo(@Param("id") String id);
 
-    Comment[] queryCommentDate(@Param("id") String id);
+    List<Comment> queryCommentDate(@Param("id") String id);
 
     Integer queryCommentCount(@Param("id") String id);
 
