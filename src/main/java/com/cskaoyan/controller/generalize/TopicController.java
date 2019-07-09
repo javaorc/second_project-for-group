@@ -5,6 +5,7 @@ import com.cskaoyan.bean.Topic;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.generalize.TopicService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("admin")
+@Api(tags = "专题管理",description = "TopicController是推广管理模块中专题管理模块的Controller")
 public class TopicController {
 
     @Autowired

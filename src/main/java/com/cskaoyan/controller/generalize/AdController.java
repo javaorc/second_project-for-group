@@ -7,6 +7,8 @@ import com.cskaoyan.bean.Storage;
 import com.cskaoyan.oss.MyOssClient;
 import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.generalize.AdService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ import java.util.*;
  **/
 @Controller
 @RequestMapping("admin")
+@Api(tags = "广告管理",description = "AdController是推广管理模块中广告管理的Controller")
 public class AdController {
 
     @Autowired
@@ -39,6 +42,7 @@ public class AdController {
 
     @RequestMapping("ad/list")
     @ResponseBody
+    @ApiOperation(value = "findAdList",notes = "广告管理的展示以及查找功能")
     public ResponseVO<Map<String, Object>> findAdList(int page, int limit, String name,
                                                       String content, String sort, String order) {
         return adService.findAdList(name,content,page,limit);
@@ -46,6 +50,7 @@ public class AdController {
 
     @RequestMapping("ad/update")
     @ResponseBody
+    @ApiOperation(value = "updateAd",notes = "广告管理的修改功能")
     public ResponseVO<Ad> updateAd(@RequestBody Ad ad) {
         ResponseVO<Ad> adResponseVO = new ResponseVO<>();
         adResponseVO.setErrno(0);
@@ -63,6 +68,7 @@ public class AdController {
 
     @RequestMapping("ad/delete")
     @ResponseBody
+    @ApiOperation(value = "deleteAd",notes = "广告管理的删除功能")
     public ResponseVO<Object> deleteAd(@RequestBody Ad ad) {
         ResponseVO<Object> adResponseVO = new ResponseVO<>();
         adResponseVO.setErrno(0);
@@ -80,11 +86,11 @@ public class AdController {
     /*添加*/
     @RequestMapping("storage/create")
     @ResponseBody
+    @ApiOperation(value = "uploadfile",notes = "文件上传")
     public ResponseVO<Storage> file(MultipartFile file) throws IOException {
         ResponseVO<Storage> storageResponseVO = new ResponseVO<>();
         storageResponseVO.setErrno(0);
         storageResponseVO.setErrmsg("成功");
-
         String url = myOssClient.ossFileUpload(file);
         //设置返回参数的值
         Storage storage = new Storage();
@@ -119,6 +125,7 @@ public class AdController {
 
     @RequestMapping("ad/create")
     @ResponseBody
+    @ApiOperation(value = "insertAd",notes = "添加广告功能")
     public ResponseVO<Ad> insertAd(@RequestBody Ad ad) {
         ResponseVO<Ad> adResponseVO = new ResponseVO<>();
         adResponseVO.setErrno(0);

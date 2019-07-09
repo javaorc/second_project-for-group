@@ -8,6 +8,7 @@ import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.goods.GoodsService;
 import com.cskaoyan.service.generalize.GrouponRulesService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.util.*;
  **/
 @Controller
 @RequestMapping("admin")
+@Api(tags = "团购规则",description = "GrouponRulesController是推广管理模块中团购规则模块的Controller")
 public class GrouponRulesController {
 
     @Autowired
