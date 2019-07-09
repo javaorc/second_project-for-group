@@ -36,6 +36,25 @@ public class AdminController {
 
     }
 
+    @RequestMapping("/auth/logout")
+    @ResponseBody
+    public ResponseVO<String> logout(@RequestBody Map map) {
+        String username=(String)map.get("username");
+        String password=(String)map.get("password");
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            subject.login(new UsernamePasswordToken(username,password));
+            ResponseVO<String> responseVO = new ResponseVO<>();
+            responseVO.setData((String) subject.getSession().getId());
+            responseVO.setErrmsg("成功");
+            responseVO.setErrno(0);
+            return responseVO;
+        }catch (Exception e)
+        {
+            return null;
+        }
+
+    }
     @RequestMapping("auth/info")
     @ResponseBody
     public ResponseVO<Map> info(String token) {
