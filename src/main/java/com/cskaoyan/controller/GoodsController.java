@@ -1,11 +1,15 @@
 package com.cskaoyan.controller;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.QueryList;
 import com.cskaoyan.bean.vo.QueryMapVO;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.vo.ResponseVO2;
+import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.goods.GoodsService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,11 +25,15 @@ public class GoodsController {
     @Autowired
     GoodsService goodsService;
 
+    @Autowired
+    SystemService systemService;
+
     /*获取列表*/
     /*精确查询商品编号*/
     /*模糊查询商品名称*/
     @RequestMapping("admin/goods/list")
     @ResponseBody
+    @RequiresPermissions(value = "admin:goods:list")
     public ResponseVO<QueryList> queryList(int page, int limit, String sort, String order, String goodsSn, String name) {
         ResponseVO<QueryList> responseVO = new ResponseVO<>();
 
@@ -41,6 +49,9 @@ public class GoodsController {
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
 
+        String opName = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"获取商品列表",opName);
         return responseVO;
     }
 
@@ -77,6 +88,7 @@ public class GoodsController {
     /*删除商品*/
     @RequestMapping("admin/goods/delete")
     @ResponseBody
+    @RequiresPermissions(value = "admin:goods:delete")
     public ResponseVO2 delete(@RequestBody Goods goods) {
 
         ResponseVO2 responseVO2 = new ResponseVO2();
@@ -89,12 +101,17 @@ public class GoodsController {
             responseVO2.setErrmsg("失败");
             responseVO2.setErrno(-1);
         }
+
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"删除商品",name);
         return responseVO2;
     }
 
     /*更新商品信息*/
     @RequestMapping("admin/goods/update")
     @ResponseBody
+    @RequiresPermissions(value = "admin:goods:update")
     public ResponseVO2 update(@RequestBody QueryMapVO queryMapVO) {
         ResponseVO2 responseVO2 = new ResponseVO2();
 
@@ -107,12 +124,16 @@ public class GoodsController {
             responseVO2.setErrmsg("失败");
             responseVO2.setErrno(-2);
         }
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"更新商品",name);
         return responseVO2;
     }
 
     /*添加商品*/
     @RequestMapping("admin/goods/create")
     @ResponseBody
+    @RequiresPermissions(value = "admin:goods:create")
     public ResponseVO2 add(@RequestBody QueryMapVO queryMapVO) {
 
         ResponseVO2 responseVO2 = new ResponseVO2();
@@ -125,6 +146,9 @@ public class GoodsController {
             responseVO2.setErrmsg("失败");
             responseVO2.setErrno(-3);
         }
+        String name = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"添加商品",name);
         return responseVO2;
     }
 

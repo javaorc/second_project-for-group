@@ -33,5 +33,11 @@ public class WxGrouponController {
         return grouponService.gouponMy(showType);
     }
 
+    @RequestMapping("groupon/detail")
+    @ResponseBody
+    public ResponseVO<Map<String,Object>> gouponDetail(Integer grouponId){
+        return grouponService.gouponDetail(grouponId);
+    }
+
 
 }
