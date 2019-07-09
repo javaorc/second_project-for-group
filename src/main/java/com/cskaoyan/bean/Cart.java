@@ -26,7 +26,7 @@ public class Cart {
 
     private Short number;
 
-    private String specifications;
+    private String[] specifications;
 
     private boolean checked;
 
@@ -126,11 +126,11 @@ public class Cart {
         this.number = number;
     }
 
-    public String getSpecifications() {
+    public String[] getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(String specifications) {
+    public void setSpecifications(String[] specifications) {
         this.specifications = specifications;
     }
 

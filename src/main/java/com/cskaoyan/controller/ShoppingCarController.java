@@ -1,8 +1,9 @@
 package com.cskaoyan.controller;
 
+import com.cskaoyan.bean.Address;
 import com.cskaoyan.bean.Cart;
 import com.cskaoyan.bean.LzgOrder;
-import com.cskaoyan.bean.Order;
+import com.cskaoyan.service.MallRegionService;
 import com.cskaoyan.service.ShoppingCarService;
 import com.cskaoyan.tokenManager.UserTokenManager;
 import com.cskaoyan.util.CartUtil;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,11 +24,13 @@ import java.util.Map;
 public class ShoppingCarController {
     @Autowired
     ShoppingCarService shoppingCarService;
+    @Autowired
+    MallRegionService mallRegionService;
     @RequestMapping("cart/goodscount")
     @ResponseBody
     public Map cartCount(){
         Map map = new HashMap();
-        map.put("data",1);
+        map.put("data",10);
         map.put("errmsg","成功");
         map.put("errno",0);
         return map;
@@ -90,16 +94,12 @@ public class ShoppingCarController {
         map.put("errno",0);
         return map;
     }
-
-/*
-
- @RequestMapping("address/list")
-
-
-
-@
-@RequestMapping("coupon/selectlist")
-@RequestMapping("order/submit")
-@RequestMapping("order/prepay")*/
-
+    @RequestMapping("cart/fastadd")
+    public Map cartFastadd(int goodsId,int number,int productId){
+        Map map=new HashMap();
+        map.put("data",186);
+        map.put("errmsg","成功");
+        map.put("errno",0);
+        return map;
+    }
 }

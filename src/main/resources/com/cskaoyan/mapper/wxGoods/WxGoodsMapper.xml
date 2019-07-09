@@ -24,7 +24,6 @@
           unit,
           counter_price,
           retail_price,
-
           add_time,
           update_time,
           deleted
@@ -65,6 +64,23 @@
         <include refid="baseColumn"/>
         from cskaoyan_mall_goods
         where category_id=#{categoryId}
+        order by CONVERT(name USING gbk)
+    </select>
+
+
+    <select id="queryGoodsByBrandId" resultMap="goodsMap">
+        <include refid="baseColumn"/>
+        from cskaoyan_mall_goods
+        where brand_id=#{brandId}
+        order by CONVERT(name USING gbk)
+    </select>
+
+
+    <select id="queryGoodsByName" resultMap="goodsMap">
+        <include refid="baseColumn"/>
+        from cskaoyan_mall_goods
+        where name like CONCAT('%',#{name},'%')
+        order by CONVERT(name USING gbk)
     </select>
 
 

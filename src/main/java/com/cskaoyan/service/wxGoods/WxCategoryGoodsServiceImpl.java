@@ -18,8 +18,10 @@ public class WxCategoryGoodsServiceImpl implements WxCategoryGoodsService {
         return categories;
     }
 
+
+
     @Override
-    public List<Category> queryBrotherCategoryByPid(Integer categoryPid) {
+    public List<Category> queryCategoryByPid(Integer categoryPid) {
         List<Category> categories = wxCategoryGoodsMapper.queryCategoryByPid(categoryPid);
         return categories;
     }
@@ -30,11 +32,6 @@ public class WxCategoryGoodsServiceImpl implements WxCategoryGoodsService {
         return category;
     }
 
-    @Override
-    public Category queryFirstCategoryByPid(Integer categoryPid) {
-        Category category = wxCategoryGoodsMapper.queryFirstCategoryByPid(categoryPid);
-        return category;
-    }
 
 
 }

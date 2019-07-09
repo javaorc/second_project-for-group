@@ -1,5 +1,6 @@
 package com.cskaoyan.service;
 
+import com.cskaoyan.bean.Address;
 import com.cskaoyan.bean.Cart;
 import com.cskaoyan.bean.LzgOrder;
 import com.cskaoyan.mapper.ShoppingCarMapper;
@@ -45,6 +46,16 @@ ShoppingCarMapper shoppingCarMapper;
     @Override
     public LzgOrder cartCheckout(int cartId, int addressId, int couponId, int grouponRulesId) {
         return shoppingCarMapper.cartCheckout(cartId,addressId,couponId,grouponRulesId);
+    }
+
+    @Override
+    public List<Address> addressList(Integer uid) {
+        return shoppingCarMapper.addressList(uid);
+    }
+
+    @Override
+    public String addressSearch(Integer provinceId) {
+        return shoppingCarMapper.addressSearch(provinceId);
     }
 
 }

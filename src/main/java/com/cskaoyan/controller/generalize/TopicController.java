@@ -1,8 +1,12 @@
 package com.cskaoyan.controller.generalize;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.Topic;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.generalize.TopicService;
+import io.swagger.annotations.Api;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,10 +23,14 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("admin")
+@Api(tags = "专题管理",description = "TopicController是推广管理模块中专题管理模块的Controller")
 public class TopicController {
 
     @Autowired
     TopicService topicService;
+
+    @Autowired
+    SystemService systemService;
 
     @RequestMapping("topic/list")
     @ResponseBody
@@ -41,6 +49,9 @@ public class TopicController {
         int i = topicService.updateTopic(topic);
         if (i == 1) {
             topicResponseVO.setData(topic);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"update专题",name);
             return topicResponseVO;
         }
         return null;
@@ -54,6 +65,9 @@ public class TopicController {
         if (i == 1) {
             topicResponseVO.setErrmsg("成功");
             topicResponseVO.setErrno(0);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"delete专题",name);
             return topicResponseVO;
         }
         return null;
@@ -71,6 +85,9 @@ public class TopicController {
         int i =topicService.insertTopic(topic);
         if(i==1){
             topicResponseVO.setData(topic);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"create专题",name);
             return topicResponseVO;
         }
         return null;

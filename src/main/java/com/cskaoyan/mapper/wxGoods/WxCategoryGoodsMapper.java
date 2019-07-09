@@ -9,5 +9,4 @@ public interface WxCategoryGoodsMapper {
     int queryCategoryPidById(@Param("categoryId")int categoryId);
     List<Category> queryCategoryByPid(@Param("categoryPid")int categoryPid);
     Category queryCategoryById(@Param("categoryId")int categoryId);
-    Category queryFirstCategoryByPid(@Param("categoryPid")int categoryPid);
 }

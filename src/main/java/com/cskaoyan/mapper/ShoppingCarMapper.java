@@ -1,5 +1,6 @@
 package com.cskaoyan.mapper;
 
+import com.cskaoyan.bean.Address;
 import com.cskaoyan.bean.Cart;
 import com.cskaoyan.bean.LzgOrder;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,8 @@ public interface ShoppingCarMapper {
     void cartDelete(@Param("productIds")int[] productIds, @Param("uid")int uid);
 
     LzgOrder cartCheckout(@Param("cartId") int cartId, @Param("addressId")int addressId, @Param("couponId")int couponId, @Param("grouponRulesId") int grouponRulesId);
+
+    List<Address> addressList(int uid);
+
+    String addressSearch(Integer provinceId);
 }

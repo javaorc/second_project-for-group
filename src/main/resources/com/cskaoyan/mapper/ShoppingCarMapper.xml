@@ -166,4 +166,24 @@ left join cskaoyan_mall_cart cmc on cmc.id=cmcu.user_id
 left join cskaoyan_mall_address  cma on cma.user_id= cmu.id
 where cmc.id=#{cartId} and cma.is_default=1
  </select>
+    <select id="addressList" resultType="com.cskaoyan.bean.Address">
+      SELECT
+id,
+name,
+mobile,
+is_default,
+user_id,
+area_id,
+province_id
+from
+cskaoyan_mall_address
+where user_id=#{uid}
+    </select>
+    <select id="addressSearch" resultType="string">
+        select
+        name
+        from
+        cskaoyan_mall_region
+        where id=#{def}
+    </select>
 </mapper>
