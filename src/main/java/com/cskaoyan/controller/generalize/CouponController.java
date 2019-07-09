@@ -6,6 +6,7 @@ import com.cskaoyan.bean.CouponUser;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.generalize.CouponService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.*;
  **/
 @Controller
 @RequestMapping("admin")
+@Api(tags = "优惠券管理",description = "CouponController是推广管理模块中优惠券管理的Controller")
 public class CouponController {
 
     @Autowired
