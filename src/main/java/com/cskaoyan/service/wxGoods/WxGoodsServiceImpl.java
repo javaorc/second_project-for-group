@@ -25,4 +25,16 @@ public class WxGoodsServiceImpl implements WxGoodsService {
         List<Goods> goods = wxGoodsMapper.queryGoodsByCategoryId(categoryId);
         return goods;
     }
+
+    @Override
+    public List<Goods> queryGoodsByBrandId(int brandId) {
+        List<Goods> goods = wxGoodsMapper.queryGoodsByBrandId(brandId);
+        return goods;
+    }
+
+    @Override
+    public List<Goods> queryGoodsByName(String name) {
+        List<Goods> goods = wxGoodsMapper.queryGoodsByName(name);
+        return goods;
+    }
 }

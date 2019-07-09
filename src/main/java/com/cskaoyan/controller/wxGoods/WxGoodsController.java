@@ -24,22 +24,59 @@ public class WxGoodsController {
 
     @Autowired
     WxCategoryGoodsServiceImpl wxCategoryGoodsService;
-    
+
+
+
 
     @RequestMapping("wx/goods/list")
     @ResponseBody
-    public ResponseVO<Map> queryGoodsList(Integer categoryId,int page,int size){
+    public ResponseVO<Map> queryGoodsList(String keyword,Integer brandId , Integer categoryId,int page,int size){
         ResponseVO<Map> mapResponseVO = new ResponseVO<>();
         mapResponseVO.setErrmsg("成功");
         mapResponseVO.setErrno(0);
-        List<Category> categories = wxCategoryGoodsService.queryBrotherCategory(categoryId);
-        List<Goods> goods = goodsService.queryGoodsByCategoryId(categoryId);
+        List<Goods> goods;
+        List<Category> categories = null;
+        if (categoryId != null&& categoryId != 0){
+            categories = wxCategoryGoodsService.queryBrotherCategory(categoryId);
+            goods = goodsService.queryGoodsByCategoryId(categoryId);
+        }else if (brandId != null){
+            goods = goodsService.queryGoodsByBrandId(brandId);
+            categories = wxCategoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+        }else {
+            goods = goodsService.queryGoodsByName(keyword);
+            categories = wxCategoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+        }
         Map<Object, Object> map = new HashMap<>();
         map.put("filterCategoryList",categories);
         map.put("goodsList",goods);
         map.put("count",goods.size());
         mapResponseVO.setData(map);
         return mapResponseVO;
-
     }
+
+
+
+
+   /* @RequestMapping("wx/goods/list")
+    @ResponseBody
+    public ResponseVO<Map> queryGoodsList(Integer brandId , Integer categoryId,int page,int size){
+        ResponseVO<Map> mapResponseVO = new ResponseVO<>();
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        List<Goods> goods;
+        List<Category> categories = null;
+        if (brandId == null){
+            categories = wxCategoryGoodsService.queryBrotherCategory(categoryId);
+            goods = goodsService.queryGoodsByCategoryId(categoryId);
+        }else{
+            goods = goodsService.queryGoodsByBrandId(brandId);
+            categories = wxCategoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+        }
+        Map<Object, Object> map = new HashMap<>();
+        map.put("filterCategoryList",categories);
+        map.put("goodsList",goods);
+        map.put("count",goods.size());
+        mapResponseVO.setData(map);
+        return mapResponseVO;
+    }*/
 }
