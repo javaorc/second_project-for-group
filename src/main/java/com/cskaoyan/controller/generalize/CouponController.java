@@ -1,9 +1,12 @@
 package com.cskaoyan.controller.generalize;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.Coupon;
 import com.cskaoyan.bean.CouponUser;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.generalize.CouponService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +26,8 @@ public class CouponController {
 
     @Autowired
     CouponService couponService;
+    @Autowired
+    SystemService systemService;
 
     @RequestMapping("coupon/list")
     @ResponseBody
@@ -44,6 +49,9 @@ public class CouponController {
         coupon.setDeleted(false);
         int i= couponService.insertCoupon(coupon);
         if(i==1){
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"增加优惠券",name);
             responseVO.setData(coupon);
             return responseVO;
         }
@@ -81,6 +89,9 @@ public class CouponController {
         responseVO.setErrno(0);
         int i =couponService.updateCoupon(coupon);
         if(i==1){
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"update优惠券",name);
             responseVO.setData(coupon);
             return responseVO;
         }
@@ -95,6 +106,9 @@ public class CouponController {
         if(i==1){
             responseVO.setErrmsg("成功");
             responseVO.setErrno(0);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"delete优惠券",name);
             return responseVO;
         }
         return null;

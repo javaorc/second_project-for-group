@@ -1,11 +1,14 @@
 package com.cskaoyan.controller.generalize;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.Goods;
 import com.cskaoyan.bean.Groupon;
 import com.cskaoyan.bean.GrouponRules;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.goods.GoodsService;
 import com.cskaoyan.service.generalize.GrouponRulesService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +30,8 @@ public class GrouponRulesController {
     GrouponRulesService grouponRulesService;
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    SystemService systemService;
 
     @RequestMapping("groupon/list")
     @ResponseBody
@@ -45,6 +50,9 @@ public class GrouponRulesController {
         int i = grouponRulesService.updateGrouponRules(grouponRules);
         if (i == 1) {
             //grouponRulesResponseVO.setData(grouponRules);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"修改团购规则",name);
             return grouponRulesResponseVO;
         }
         return null;
@@ -58,6 +66,9 @@ public class GrouponRulesController {
         if (i == 1) {
             responseVO.setErrmsg("成功");
             responseVO.setErrno(0);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"delete团购",name);
             return responseVO;
         }
         return null;
@@ -85,6 +96,9 @@ public class GrouponRulesController {
                 grouponRulesResponseVO.setErrmsg("成功");
                 grouponRulesResponseVO.setErrno(0);
                 grouponRulesResponseVO.setData(grouponRules);
+                String name = (String) SecurityUtils.getSubject().getPrincipal();
+                OperationLog operationLog=new OperationLog();
+                operationLog.logInsert(systemService,"create团购",name);
                 return grouponRulesResponseVO;
             }
 

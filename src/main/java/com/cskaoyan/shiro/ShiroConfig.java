@@ -29,7 +29,7 @@ public class ShiroConfig {
 		HashMap<String, String> filterMap = new HashMap<>();
 		filterMap.put("/admin/auth/login","anon");
 		filterMap.put("admin/auth/logout","logout");
-		filterMap.put("/**","authc");
+		filterMap.put("/admin/**","authc");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 
 		return shiroFilterFactoryBean;
@@ -46,7 +46,7 @@ public class ShiroConfig {
 	@Bean
 	public MallShiroSessionManager mallShiroSessionManager(){
 		MallShiroSessionManager mallShiroSessionManager = new MallShiroSessionManager();
-		mallShiroSessionManager.setGlobalSessionTimeout(6000000);
+		mallShiroSessionManager.setGlobalSessionTimeout(600000000);
 		return mallShiroSessionManager;
 	}
 }

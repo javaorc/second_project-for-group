@@ -1,10 +1,13 @@
 package com.cskaoyan.controller.generalize;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.Ad;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.Storage;
 import com.cskaoyan.oss.MyOssClient;
+import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.generalize.AdService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +29,8 @@ public class AdController {
 
     @Autowired
     AdService adService;
+    @Autowired
+    SystemService systemService;
 
     @Autowired
     MyOssClient myOssClient;
@@ -48,6 +53,9 @@ public class AdController {
         int i = adService.updateAd(ad);
         if (i == 1) {
             adResponseVO.setData(ad);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"update广告",name);
             return adResponseVO;
         }
         return null;
@@ -61,6 +69,9 @@ public class AdController {
         adResponseVO.setErrmsg("成功");
         int i = adService.deleteAd(ad);
         if (i == 1) {
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"delete广告",name);
             return adResponseVO;
         }
         return null;
@@ -97,6 +108,9 @@ public class AdController {
             int id = adService.queryStorageIdByKey(key);
             storage.setId(id);
             storageResponseVO.setData(storage);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"上传图片",name);
             return storageResponseVO;
         }
         return null;
@@ -116,6 +130,9 @@ public class AdController {
         int i = adService.insertAd(ad);
         if (i == 1) {
             adResponseVO.setData(ad);
+            String name = (String) SecurityUtils.getSubject().getPrincipal();
+            OperationLog operationLog=new OperationLog();
+            operationLog.logInsert(systemService,"insert广告",name);
             return adResponseVO;
         }
         return null;
