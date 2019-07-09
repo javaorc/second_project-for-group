@@ -5,7 +5,6 @@ import com.cskaoyan.bean.Log;
 import com.cskaoyan.bean.Role;
 import com.cskaoyan.bean.Storage;
 import com.cskaoyan.mapper.SystemMapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +51,9 @@ public class SystemServiceImpl implements SystemService{
     }
 
     @Override
-    public void asminssInsert(Admin admin) {
-        systemMapper.asminssInsert(admin);
+    public int asminssInsert(Admin admin) {
+       systemMapper.asminssInsert(admin);
+        return admin.getId();
     }
 
     @Override
@@ -94,6 +94,21 @@ public class SystemServiceImpl implements SystemService{
     @Override
     public void logInsert(Log log) {
         systemMapper.logInsert(log);
+    }
+
+    @Override
+    public List assignPermissions(int roleId) {
+        return systemMapper.assignPermissions(roleId);
+    }
+
+    @Override
+    public List systemPermissions() {
+        return systemMapper.systemPermissions();
+    }
+
+    @Override
+    public void permissionsInsert(List permissions, int roleId) {
+        systemMapper.permissionsInsert(permissions,roleId);
     }
 
 

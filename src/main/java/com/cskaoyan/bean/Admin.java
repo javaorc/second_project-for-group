@@ -23,6 +23,8 @@ public class Admin {
 
     private int[] roleIds;
 
+    String rolesIds;
+
     public Integer getId() {
         return id;
     }
@@ -101,5 +103,13 @@ public class Admin {
 
     public void setRoleIds(int[] roleIds) {
         this.roleIds = roleIds;
+    }
+
+    public String getRolesIds() {
+        return rolesIds;
+    }
+
+    public void setRolesIds(String rolesIds) {
+        this.rolesIds = rolesIds;
     }
 }

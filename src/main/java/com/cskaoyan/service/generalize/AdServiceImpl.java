@@ -3,6 +3,7 @@ package com.cskaoyan.service.generalize;
 import com.cskaoyan.bean.Ad;
 import com.cskaoyan.bean.Storage;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxBean.WxBanner;
 import com.cskaoyan.mapper.generalize.AdMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -76,7 +77,7 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public List<Ad> queryAds() {
+    public List<WxBanner> queryAds() {
         return adMapper.queryAds();
     }
 }

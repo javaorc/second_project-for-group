@@ -57,12 +57,6 @@ public class MyOssClient {
 		long size = myfile.getSize();
 		String contentType = myfile.getContentType();
 
-
-		/*String bucket = "cskaoyan";
-		String endpoint = "oss-cn-beijing.aliyuncs.com";
-		String accessKey = "LTAI8EgTxlc4QQZr";
-		String secret = "RBDvSGZOR8DaUJxlLrW4Ed46RVnAkR";*/
-
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 
 		ObjectMetadata objectMetadata = new ObjectMetadata();

@@ -22,7 +22,7 @@ public interface SystemService {
 
     List rolesOptions(Role role);
 
-    void asminssInsert(Admin admin);
+    int asminssInsert(Admin admin);
 
     void adminsUpdate(Admin admin);
 
@@ -39,4 +39,10 @@ public interface SystemService {
     List logSearch(String name);
 
     void logInsert(Log log);
+
+    List assignPermissions(int roleId);
+
+    List systemPermissions();
+
+    void permissionsInsert(List permissions, int roleId);
 }

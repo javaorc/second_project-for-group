@@ -107,18 +107,18 @@
     </update>
 
 
-    <resultMap id="kindCategoryMap2" type="com.cskaoyan.bean.Kind">
+    <resultMap id="channelMap" type="com.cskaoyan.bean.wxBean.WxChannel">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="icon_url" property="iconUrl"/>
     </resultMap>
-    <select id="queryKindCategories" resultMap="kindCategoryMap2">
+    <select id="queryKindCategories" resultMap="channelMap">
         select
           id,
           name,
           icon_url
         from cskaoyan_mall_category
-        where level = 'L1'
+        where level = 'L1' and deleted = 0
     </select>
 
 </mapper>

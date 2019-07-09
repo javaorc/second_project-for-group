@@ -128,21 +128,32 @@
                                                                       )
     </insert>
 
-    <select id="queryAds" resultMap="adResult" >
-        SELECT
+    <resultMap id="bannerMap" type="com.cskaoyan.bean.wxBean.WxBanner">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="link" property="link"/>
+        <result column="url" property="url"/>
+        <result column="position" property="position"/>
+        <result column="content" property="content"/>
+        <result column="enabled" property="enabled"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <select id="queryAds" resultMap="bannerMap" >
+        select
             id,
-            NAME,
+            name,
             link,
             url,
-            POSITION,
+            position,
             content,
-            start_time,
-            end_time,
             enabled,
             add_time,
             update_time,
             deleted
-        FROM cskaoyan_mall_ad
+        from cskaoyan_mall_ad
+        where deleted = 0
     </select>
 
 </mapper>

@@ -7,6 +7,9 @@ import com.cskaoyan.service.MallBrandService;
 import com.cskaoyan.service.MallCategoryService;
 import com.cskaoyan.service.generalize.AdService;
 import com.cskaoyan.service.generalize.CouponService;
+import com.cskaoyan.service.generalize.GrouponRulesService;
+import com.cskaoyan.service.generalize.TopicService;
+import com.cskaoyan.service.goods.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +36,15 @@ public class MallHomeController {
 
     @Autowired
     CouponService couponService;
+
+    @Autowired
+    GoodsService goodsService;
+
+    @Autowired
+    GrouponRulesService grouponRulesService;
+
+    @Autowired
+    TopicService topicService;
 
     @RequestMapping("admin/dashboard")
     @ResponseBody
@@ -72,13 +84,17 @@ public class MallHomeController {
         //
         map.put("floorGoodsList",null);
 
-        //团购
-        map.put("grouponList",null);
+        //团购专区
+        map.put("grouponList", grouponRulesService.queryGrouponRules());
 
-        //
-        map.put("hotGoodsList",null);
-        map.put("new GoodsList",null);
-        map.put("topicList",null);
+        //人气推荐
+        map.put("hotGoodsList",goodsService.queryHotGoods());
+
+        //新品首发
+        map.put("newGoodsList",goodsService.queryNewGoods());
+
+        //专题精选
+        map.put("topicList",topicService.queryTopics());
 
         responseVO.setData(map);
         responseVO.setErrno(0);
