@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxgroupon.WxGrouponMapper">
+
+    <resultMap id="groupon_goods" type="com.cskaoyan.bean.GrouponRules">
+        <result column="ru.discount" property="discount"/>
+        <result column="ru.discount_member" property="discountMember"/>
+        <association property="goods" javaType="com.cskaoyan.bean.Goods">
+            <result column="goods.id" property="id"/>
+            <result column="goods.brief" property="brief"/>
+            <result column="goods.counter_price" property="counterPrice"/>
+            <result column="goods.`name`" property="name"/>
+            <result column="goods.pic_url" property="picUrl"/>
+            <result column="goods.retail_price" property="retailPrice"/>
+        </association>
+    </resultMap>
+<select id="gouponList" resultMap="groupon_goods">
+          SELECT
+          ru.discount,
+          ru.discount_member,
+          goods.id,
+          goods.brief,
+          goods.counter_price,
+          goods.`name`,
+          goods.pic_url,
+          goods.retail_price
+          from
+          cskaoyan_mall_groupon_rules as ru
+          LEFT JOIN
+          cskaoyan_mall_goods as goods
+          on ru.goods_id = goods.id
+</select>
+
+    <resultMap id="grouponMyLeftList" type="com.cskaoyan.bean.wxgrouponrela.GrouponMy">
+        <result column="creator" property="creator"/>
+        <result column="actual_price" property="actualPrice"/>
+        <result column="orderId" property="orderId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="order_status" property="orderStatus"/>
+        <association property="groupon" javaType="com.cskaoyan.bean.Groupon">
+            <result column="groupon_add_time" property="addTime"/>
+            <result column="creator_user_id" property="creatorUserId"/>
+            <result column="groupon_deleted" property="deleted"/>
+            <result column="groupon_id" property="grouponId"/>
+            <result column="grouponId" property="id"/>
+            <result column="order_id" property="orderId"/>
+            <result column="payed" property="payed"/>
+            <result column="rules_id" property="rulesId"/>
+            <result column="share_url" property="shareUrl"/>
+            <result column="groupon_update_time" property="updateTime"/>
+            <result column="user_id" property="userId"/>
+        </association>
+        <association property="handleOption" javaType="com.cskaoyan.bean.wxgrouponrela.HandleOption">
+            <result column="cancel" property="cancel"/>
+            <result column="comment" property="comment"/>
+            <result column="confirm" property="confirm"/>
+            <result column="delete" property="delete"/>
+            <result column="pay" property="pay"/>
+            <result column="rebuy" property="rebuy"/>
+            <result column="refund" property="refund"/>
+        </association>
+        <association property="grouponRules" javaType="com.cskaoyan.bean.GrouponRules">
+            <result column="rules_add_time" property="addTime"/>
+            <result column="rules_deleted" property="deleted"/>
+            <result column="discount" property="discount"/>
+            <result column="discount_member" property="discountMember"/>
+            <result column="rules_expire_time" property="expireTime"/>
+            <result column="goods_id" property="goodsId"/>
+            <result column="goods_name" property="goodsName"/>
+            <result column="rulesId" property="id"/>
+            <result column="pic_url" property="picUrl"/>
+            <result column="rules_update_time" property="updateTime"/>
+        </association>
+
+    </resultMap>
+    <select id="grouponMy" resultMap="grouponMyLeftList">
+        SELECT
+              groupon.id as grouponId,
+              groupon.order_id,
+              groupon.groupon_id,
+              groupon.rules_id,
+              groupon.user_id,
+              groupon.creator_user_id,
+              groupon.add_time as groupon_add_time,
+              groupon.update_time as groupon_update_time,
+              groupon.share_url,
+              groupon.payed,
+              groupon.deleted as groupon_deleted,
+              myorder.id as orderId,
+              myorder.order_sn,
+              myorder.order_status,
+              myorder.actual_price,
+              myuser.username as creator,
+              handleoption.cancel,
+              handleoption.`comment`,
+              handleoption.confirm,
+              handleoption.`delete`,
+              handleoption.pay,
+              handleoption.rebuy,
+              handleoption.refund,
+              rules.id as rulesId,
+              rules.goods_id,
+              rules.goods_name,
+              rules.pic_url,
+              rules.discount,
+              rules.discount_member,
+              rules.add_time as rules_add_time,
+              rules.update_time as rules_update_time,
+              rules.expire_time as rules_expire_time,
+              rules.deleted as rules_deleted
+        FROM
+        cskaoyan_mall_groupon  groupon
+        LEFT JOIN cskaoyan_mall_order  myorder
+        ON groupon.order_id = myorder.id
+        LEFT JOIN cskaoyan_mall_handleoption  handleoption
+        ON myorder.order_status = handleoption.order_status
+        LEFT JOIN cskaoyan_mall_groupon_rules rules
+        ON groupon.rules_id = rules.id
+        LEFT JOIN cskaoyan_mall_user myuser
+        ON myuser.id = groupon.creator_user_id
+    </select>
+
+</mapper>

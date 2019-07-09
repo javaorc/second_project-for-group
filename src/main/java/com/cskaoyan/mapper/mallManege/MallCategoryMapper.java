@@ -2,6 +2,7 @@ package com.cskaoyan.mapper.mallManege;
 
 import com.cskaoyan.bean.Category;
 import com.cskaoyan.bean.Kind;
+import com.cskaoyan.bean.wxBean.WxChannel;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +19,5 @@ public interface MallCategoryMapper {
 
     int updateCategory(@Param("category")Category category);
 
-
-
+    List<WxChannel> queryKindCategories();
 }

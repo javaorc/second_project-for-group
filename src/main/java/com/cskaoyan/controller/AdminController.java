@@ -1,7 +1,11 @@
 package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.vo.ResponseVO;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,12 +18,22 @@ public class AdminController {
 
     @RequestMapping("auth/login")
     @ResponseBody
-    public ResponseVO<String> login(String username, String password) {
-        ResponseVO<String> responseVO = new ResponseVO<>();
-        responseVO.setData("69b2bd47-42d3-440f-99f6-17dea371c0e9");
-        responseVO.setErrmsg("成功");
-        responseVO.setErrno(0);
-        return responseVO;
+    public ResponseVO<String> login(@RequestBody Map map) {
+        String username=(String)map.get("username");
+        String password=(String)map.get("password");
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            subject.login(new UsernamePasswordToken(username,password));
+            ResponseVO<String> responseVO = new ResponseVO<>();
+            responseVO.setData((String) subject.getSession().getId());
+            responseVO.setErrmsg("成功");
+            responseVO.setErrno(0);
+            return responseVO;
+        }catch (Exception e)
+        {
+            return null;
+        }
+
     }
 
     @RequestMapping("auth/info")

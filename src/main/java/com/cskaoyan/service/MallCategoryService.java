@@ -2,6 +2,7 @@ package com.cskaoyan.service;
 
 import com.cskaoyan.bean.Category;
 import com.cskaoyan.bean.Kind;
+import com.cskaoyan.bean.wxBean.WxChannel;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface MallCategoryService {
     int createCategory(Category category);
 
     int updateCategory(Category category);
+
+    List<WxChannel> queryKindCategories();
 }
