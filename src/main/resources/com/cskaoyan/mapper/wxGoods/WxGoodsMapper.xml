@@ -84,4 +84,11 @@
     </select>
 
 
+    <select id="queryGoodsById" resultMap="goodsMap">
+        <include refid="baseColumn"/>
+        from cskaoyan_mall_goods
+        where goods_sn=#{id}
+    </select>
+
+
 </mapper>

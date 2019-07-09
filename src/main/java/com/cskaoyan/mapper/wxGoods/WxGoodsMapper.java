@@ -10,4 +10,5 @@ public interface WxGoodsMapper {
     List<Goods> queryGoodsByCategoryId(@Param("categoryId")int categoryId);
     List<Goods> queryGoodsByBrandId(@Param("brandId")int brandId);
     List<Goods> queryGoodsByName(@Param("name")String name);
+    Goods queryGoodsById(@Param("id")int id);
 }

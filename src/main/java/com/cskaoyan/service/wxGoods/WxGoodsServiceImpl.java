@@ -16,8 +16,6 @@ public class WxGoodsServiceImpl implements WxGoodsService {
     @Autowired
     WxGoodsMapper wxGoodsMapper;
 
-    @Autowired
-    GoodsMapper goodsMapper;
 
     @Override
     public Integer queryGoodsCount() {
@@ -40,6 +38,12 @@ public class WxGoodsServiceImpl implements WxGoodsService {
     @Override
     public List<Goods> queryGoodsByName(String name) {
         List<Goods> goods = wxGoodsMapper.queryGoodsByName(name);
+        return goods;
+    }
+
+    @Override
+    public Goods queryGoodsById(int id) {
+        Goods goods = wxGoodsMapper.queryGoodsById(id);
         return goods;
     }
 }
