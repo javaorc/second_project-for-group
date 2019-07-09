@@ -28,7 +28,7 @@ public class Cart {
 
     private String specifications;
 
-    private Boolean checked;
+    private boolean checked;
 
     private String picUrl;
 
@@ -36,7 +36,7 @@ public class Cart {
 
     private Date updateTime;
 
-    private Boolean deleted;
+    private boolean deleted;
 
     public Integer getId() {
         return id;
@@ -134,11 +134,11 @@ public class Cart {
         this.specifications = specifications;
     }
 
-    public Boolean getChecked() {
+    public boolean getChecked() {
         return checked;
     }
 
-    public void setChecked(Boolean checked) {
+    public void setChecked(boolean checked) {
         this.checked = checked;
     }
 
@@ -166,11 +166,11 @@ public class Cart {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDeleted() {
+    public boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 }

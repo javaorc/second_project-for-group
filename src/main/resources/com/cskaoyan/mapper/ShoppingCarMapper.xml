@@ -23,4 +23,147 @@ from
 cskaoyan_mall_goods cmg
 LEFT JOIN cskaoyan_mall_goods_product cmgp on cmgp.goods_id=cmg.id
     </select>
+<insert id="cartAdd" >
+insert
+cskaoyan_mall_cart
+(goods_id,specifiction,price,number,url,add_time,update_time,deleted)
+VALUES(#{goodsId},#{specifications},#{price},#{number},#{picUrl},now(),now(),#{deleted})
+</insert>
+    <select id="itemsCount" resultType="_int">
+        select count(1) from cskaoyan_mall_cart where user_id=#{def}
+    </select>
+    <resultMap id="cartGoodsListMap" type="com.cskaoyan.bean.Cart">
+        <result column="id" property="id"/>
+        <result column="add_time" property="addTime"/>
+        <result column="checked" property="checked"/>
+        <result column="deleted" property="deleted"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="goods_sn" property="goodsSn"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="price" property="price"/>
+        <result column="product_id" property="productId"/>
+        <result column="specifications" property="specifications" typeHandler="com.cskaoyan.typeHandler.StringtoStringArray"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="user_id" property="userId"/>
+
+    </resultMap>
+<select id="cartGoodsList" resultMap="cartGoodsListMap">
+    SELECT
+id,
+add_time,
+checked,
+deleted,
+goods_id,
+goods_name,
+goods_sn,
+number,
+pic_url,
+price,
+product_id,
+specifications,
+update_time,
+user_id
+from
+cskaoyan_mall_cart
+where user_id=#{def}
+</select>
+<update id="goodsCheck">
+    update
+    cskaoyan_mall_cart
+    set
+    checked=#{isChecked}
+    where
+    product_id in
+    <foreach collection="productIds" item="id" open="(" close=")" separator=",">
+        #{id}
+    </foreach>
+</update>
+<delete id="cartDelete" >
+    delete from cskaoyan_mall_cart
+    where
+    user_id=#{uid} and
+    product_id in
+    <foreach collection="productIds" item="id" open="(" close=")" separator=",">
+        #{id}
+    </foreach>
+</delete>
+ <resultMap id="cartCheckoutMap" type="com.cskaoyan.bean.LzgOrder">
+     <result column="actualPrice" property="actualPrice"/>
+     <result column="couponPrice" property="couponPrice"/>
+     <result column="freightPrice" property="freightPrice"/>
+     <result column="goodsTotalPrice" property="orderTotalPrice"/>
+     <result column="orderTotalPrice" property="orderTotalPrice"/>
+
+     <association property="address" javaType="com.cskaoyan.bean.Address">
+         <result property="addTime" column="addTimeA"/>
+         <result property="id" column="addressId"/>
+         <result property="address" column="address"/>
+         <result property="areaId" column="areaId"/>
+         <result property="cityId" column="cityId"/>
+         <result property="deleted" column="deletedA"/>
+         <result property="isDefault" column="isDefault"/>
+         <result property="mobile" column="mobile"/>
+         <result property="name" column="name"/>
+         <result property="provinceId" column="provinceId"/>
+         <result property="updateTime" column="updateTimeA"/>
+         <result property="userId" column="userId"/>
+     </association>
+     <collection property="carts" ofType="com.cskaoyan.bean.Cart">
+         <result column="addTime" property="addTime"/>
+         <result column="checked" property="checked"/>
+         <result column="deleted" property="deleted"/>
+         <result column="goodsId" property="goodsId"/>
+         <result column="goodsName" property="goodsName"/>
+         <result column="goodsSn" property="goodsSn"/>
+         <result column="id" property="id"/>
+         <result column="number" property="number"/>
+         <result column="picUrl" property="picUrl"/>
+         <result column="price" property="price"/>
+         <result column="productId" property="productId"/>
+         <result column="specifications" property="specifications"/>
+         <result column="updateTime" property="updateTime"/>
+         <result column="userId" property="userId"/>
+     </collection>
+
+ </resultMap>
+ <select id="cartCheckout" resultMap="cartCheckoutMap">
+     SELECT
+cmo.actual_price as actualPrice ,
+cmo.coupon_price as couponPrice,
+cmo.freight_price as freightPrice,
+cmo.order_price as orderTotalPrice,
+cmo.groupon_price as grouponPrice,
+cma.id as addressId,
+cma.add_time as addTimeA,
+cma.address as address,
+cma.city_id as cityId,
+cma.area_id as areaId,
+cma.deleted as deletedA,
+cma.is_default as isDefault,
+cma.mobile,
+cma.name,
+cma.province_id as provinceId,
+cma.update_time as updateTimeA,
+cma.user_id as userId,
+cmc.add_time as addTime,
+cmc.checked,
+cmc.deleted,
+cmc.goods_id as goodsId,
+cmc.goods_name as goodsName,
+cmc.goods_sn as goodsSn,
+cmc.id ,
+cmc.number,
+cmc.pic_url as picUrl,
+cmc.price as price,
+cmc.product_id as productId
+from
+cskaoyan_mall_order cmo
+left join
+cskaoyan_mall_user  cmu on cmu.id=cmo.user_id
+left join cskaoyan_mall_coupon_user cmcu on cmcu.user_id=cmu.id
+left join cskaoyan_mall_cart cmc on cmc.id=cmcu.user_id
+left join cskaoyan_mall_address  cma on cma.user_id= cmu.id
+where cmc.id=#{cartId} and cma.is_default=1
+ </select>
 </mapper>
