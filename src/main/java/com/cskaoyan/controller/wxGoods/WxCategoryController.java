@@ -32,7 +32,7 @@ public class WxCategoryController {
             parentCategory = categoryGoodsService.queryCategoryById(currentCategory.getPid());
         }else {
             parentCategory = category;
-            currentCategory = categoryGoodsService.queryFirstCategoryByPid(parentCategory.getId());
+            currentCategory = categoryGoodsService.queryCategoryByPid(parentCategory.getId()).get(0);
         }
         List<Category> brotherCategory = categoryGoodsService.queryBrotherCategory(currentCategory.getId());
         map.put("brotherCategory",brotherCategory);
