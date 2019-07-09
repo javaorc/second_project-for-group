@@ -11,4 +11,8 @@ import java.util.Map;
  **/
 public interface WxCouponService {
     ResponseVO<Map<String, Object>> couponList(int page, int size);
+
+    ResponseVO<Map<String, Object>> queryCouponByStatus(Integer status, Integer page, Integer size);
+
+    ResponseVO<Map<String, Object>> couponExchange(String code);
 }

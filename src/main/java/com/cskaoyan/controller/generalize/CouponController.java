@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Desc
@@ -40,12 +37,13 @@ public class CouponController {
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
         Date date = new Date();
+        String s = UUID.randomUUID().toString().replaceAll("-", "");
+        String substring = s.substring(1,8);
+        coupon.setCode(substring);
         coupon.setAddTime(date);
         coupon.setDeleted(false);
         int i= couponService.insertCoupon(coupon);
         if(i==1){
-            //(未写)再查出id等等信息再setData;
-            //Coupon coupon1= couponService.queryCouponByAddTime(date);
             responseVO.setData(coupon);
             return responseVO;
         }
