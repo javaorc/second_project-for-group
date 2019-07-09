@@ -6,6 +6,7 @@ import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
 import com.cskaoyan.bean.vo.QueryList;
 import com.cskaoyan.bean.vo.QueryMapVO;
+import com.cskaoyan.bean.wxBean.WxHotOrNewGoods;
 import com.cskaoyan.mapper.goods.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -205,5 +206,20 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         return 1;
+    }
+
+    @Override
+    public Integer queryTotalRecords() {
+        return goodsMapper.queryTotalRecords(null, null);
+    }
+
+    @Override
+    public List<WxHotOrNewGoods> queryHotGoods() {
+        return goodsMapper.queryHotGoods();
+    }
+
+    @Override
+    public List<WxHotOrNewGoods> queryNewGoods() {
+        return goodsMapper.queryNewGoods();
     }
 }

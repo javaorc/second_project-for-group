@@ -1,6 +1,7 @@
 package com.cskaoyan.mapper.generalize;
 
 import com.cskaoyan.bean.Topic;
+import com.cskaoyan.bean.wxBean.WxTopic;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface TopicMapper {
     int deleteTopic(@Param("topic") Topic topic);
 
     int insertTopic(@Param("topic") Topic topic);
+
+    List<WxTopic> queryTopics();
 }

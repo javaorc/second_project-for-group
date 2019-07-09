@@ -3,6 +3,7 @@ package com.cskaoyan.service.generalize;
 import com.cskaoyan.bean.Groupon;
 import com.cskaoyan.bean.GrouponRules;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxBean.WxGroupon;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,6 @@ public interface GrouponRulesService {
     int insertGrouponRules(GrouponRules grouponRules);
 
     List<Groupon> queryGrouponAndRulesAndGoods(Integer goodsId);
+
+    List<WxGroupon> queryGrouponRules();
 }

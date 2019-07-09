@@ -3,6 +3,7 @@ package com.cskaoyan.service.generalize;
 import com.cskaoyan.bean.Coupon;
 import com.cskaoyan.bean.CouponUser;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxBean.WxCoupon;
 
 import java.util.Date;
 import java.util.List;
@@ -28,4 +29,6 @@ public interface CouponService {
     int updateCoupon(Coupon coupon);
 
     int deleteCoupon(Coupon coupon);
+
+    List<WxCoupon> queryCoupons();
 }

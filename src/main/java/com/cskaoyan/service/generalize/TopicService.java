@@ -2,7 +2,9 @@ package com.cskaoyan.service.generalize;
 
 import com.cskaoyan.bean.Topic;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxBean.WxTopic;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +20,6 @@ public interface TopicService {
     int deleteTopic(Topic topic);
 
     int insertTopic(Topic topic);
+
+    List<WxTopic> queryTopics();
 }

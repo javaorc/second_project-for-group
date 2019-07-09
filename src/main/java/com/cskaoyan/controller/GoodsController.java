@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("admin")
 public class GoodsController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class GoodsController {
     /*获取列表*/
     /*精确查询商品编号*/
     /*模糊查询商品名称*/
-    @RequestMapping("goods/list")
+    @RequestMapping("admin/goods/list")
     @ResponseBody
     public ResponseVO<QueryList> queryList(int page, int limit, String sort, String order, String goodsSn, String name) {
         ResponseVO<QueryList> responseVO = new ResponseVO<>();
@@ -46,7 +46,7 @@ public class GoodsController {
 
     /*查询所有分类*/
     /*查询所有品牌商*/
-    @RequestMapping("goods/catAndBrand")
+    @RequestMapping("admin/goods/catAndBrand")
     @ResponseBody
     public ResponseVO<Map> queryCatAndBrand() {
 
@@ -75,7 +75,7 @@ public class GoodsController {
     }
 
     /*删除商品*/
-    @RequestMapping("goods/delete")
+    @RequestMapping("admin/goods/delete")
     @ResponseBody
     public ResponseVO2 delete(@RequestBody Goods goods) {
 
@@ -93,7 +93,7 @@ public class GoodsController {
     }
 
     /*更新商品信息*/
-    @RequestMapping("goods/update")
+    @RequestMapping("admin/goods/update")
     @ResponseBody
     public ResponseVO2 update(@RequestBody QueryMapVO queryMapVO) {
         ResponseVO2 responseVO2 = new ResponseVO2();
@@ -111,7 +111,7 @@ public class GoodsController {
     }
 
     /*添加商品*/
-    @RequestMapping("goods/create")
+    @RequestMapping("admin/goods/create")
     @ResponseBody
     public ResponseVO2 add(@RequestBody QueryMapVO queryMapVO) {
 
@@ -126,5 +126,20 @@ public class GoodsController {
             responseVO2.setErrno(-3);
         }
         return responseVO2;
+    }
+
+    /*查询商品总数*/
+    @RequestMapping("wx/goods/count")
+    @ResponseBody
+    public ResponseVO<Map> count() {
+        ResponseVO<Map> responseVO = new ResponseVO<>();
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("goodsCount", goodsService.queryTotalRecords());
+
+        responseVO.setData(map);
+        responseVO.setErrmsg("成功");
+        responseVO.setErrno(0);
+        return responseVO;
     }
 }

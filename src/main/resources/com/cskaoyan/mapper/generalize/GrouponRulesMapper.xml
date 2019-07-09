@@ -185,4 +185,32 @@
             </if>
         </where>
     </select>
+
+
+    <resultMap id="grouponRulesMap" type="com.cskaoyan.bean.wxBean.WxGroupon">
+        <result column="discount_member" property="groupon_member"/>
+        <result column="groupon_price" property="groupon_price"/>
+        <association property="goods" javaType="com.cskaoyan.bean.wxBean.WxGoods">
+            <result column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="counter_price" property="counterPrice"/>
+            <result column="retail_price" property="retailPrice"/>
+            <result column="pic_url" property="picUrl"/>
+            <result column="brief" property="brief"/>
+        </association>
+    </resultMap>
+    <select id="queryGrouponRules" resultMap="grouponRulesMap">
+        select
+          discount_member,
+          goods.retail_price - discount as groupon_price,
+
+          goods.id,
+          goods.name,
+          goods.counter_price,
+          goods.retail_price,
+          goods.pic_url,
+          goods.brief
+        from cskaoyan_mall_groupon_rules as rules
+        left join cskaoyan_mall_goods as goods on rules.goods_id = goods.id
+    </select>
 </mapper>

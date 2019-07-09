@@ -1,6 +1,7 @@
 package com.cskaoyan.mapper.mallManege;
 
 import com.cskaoyan.bean.Brand;
+import com.cskaoyan.bean.wxBean.WxBrand;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface MallBrandMapper {
 
     int insertBrand(@Param("brand") Brand brand);
 
+    List<WxBrand> queryBrands();
 }

@@ -2,6 +2,7 @@ package com.cskaoyan.mapper.generalize;
 
 import com.cskaoyan.bean.Coupon;
 import com.cskaoyan.bean.CouponUser;
+import com.cskaoyan.bean.wxBean.WxCoupon;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -31,4 +32,6 @@ public interface CouponMapper {
     int updateCoupon(@Param("coupon") Coupon coupon);
 
     int deleteCoupon(@Param("coupon") Coupon coupon);
+
+    List<WxCoupon> queryCoupons();
 }

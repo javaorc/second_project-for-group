@@ -6,6 +6,8 @@ import com.cskaoyan.bean.GoodsProduct;
 import com.cskaoyan.bean.GoodsSpecification;
 import com.cskaoyan.bean.vo.Node;
 import com.cskaoyan.bean.vo.Node2;
+import com.cskaoyan.bean.wxBean.WxGoods;
+import com.cskaoyan.bean.wxBean.WxHotOrNewGoods;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -54,4 +56,8 @@ public interface GoodsMapper {
     List<Node2> queryBrandList();
 
     int insertGoods(@Param("goods") Goods goods);
+
+    List<WxHotOrNewGoods> queryHotGoods();
+
+    List<WxHotOrNewGoods> queryNewGoods();
 }
