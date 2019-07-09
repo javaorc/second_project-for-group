@@ -24,26 +24,11 @@ public class WxGoodsController {
 
     @Autowired
     WxCategoryGoodsServiceImpl wxCategoryGoodsService;
-
-    @RequestMapping("wx/goods/count")
-    @ResponseBody
-    public ResponseVO<Map> queryGoodsCount(){
-
-        Integer goodsCount = goodsService.queryGoodsCount();
-        ResponseVO<Map> mapResponseVO = new ResponseVO<>();
-        mapResponseVO.setErrmsg("成功");
-        mapResponseVO.setErrno(0);
-        Map<Object, Object> map = new HashMap<>();
-        map.put("goodsCount", goodsCount);
-        mapResponseVO.setData(map);
-        return mapResponseVO;
-    }
+    
 
     @RequestMapping("wx/goods/list")
     @ResponseBody
     public ResponseVO<Map> queryGoodsList(Integer categoryId,int page,int size){
-
-
         ResponseVO<Map> mapResponseVO = new ResponseVO<>();
         mapResponseVO.setErrmsg("成功");
         mapResponseVO.setErrno(0);
