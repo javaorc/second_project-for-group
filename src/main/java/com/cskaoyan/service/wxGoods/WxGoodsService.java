@@ -11,4 +11,5 @@ public interface WxGoodsService {
     List<Goods> queryGoodsByCategoryId(int categoryId);
     List<Goods> queryGoodsByBrandId(int brandId);
     List<Goods> queryGoodsByName(String name);
+    Goods queryGoodsById(int id);
 }

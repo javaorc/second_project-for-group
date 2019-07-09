@@ -27,7 +27,7 @@ public class AddressController {
     @ResponseBody
     public ResponseVO<Map> queryAddress(int page, int limit, Integer userId, String name){
         ResponseVO<Map> mapResponseVO = new ResponseVO<>();
-        List<Address> addresses = new ArrayList<>();
+        List<Address> addresses;
         if (userId==null&&name==null){
             addresses = addressService.queryAddress();
         }else if (userId!=null&&name==null){
