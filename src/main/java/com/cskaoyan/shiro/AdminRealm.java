@@ -28,7 +28,7 @@ public class AdminRealm extends AuthorizingRealm {
         int[] roleIds=admin.getRoleIds();
         List<Permission> list=systemMapper.permissionsSearch(roleIds);
         for (Permission permission:list){
-           info.addStringPermission(permission.getPermission());
+            info.addStringPermission(permission.getPermission());
         }
         return info;
     }
