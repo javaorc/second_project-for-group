@@ -8,11 +8,13 @@ import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.generalize.CouponService;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
@@ -21,7 +23,7 @@ import java.util.*;
  * @Author xushuai
  * @CreateTime 2019/7/4 14:07
  **/
-@Controller
+@RestController
 @RequestMapping("admin")
 @Api(tags = "优惠券管理",description = "CouponController是推广管理模块中优惠券管理的Controller")
 public class CouponController {
@@ -32,13 +34,13 @@ public class CouponController {
     SystemService systemService;
 
     @RequestMapping("coupon/list")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:coupon:list")
     public ResponseVO<Map<String, Object>> couponList(String name,Short type,Short status, int page,int limit,String sort,String order){
         return couponService.findCouponList(name,type,status,page,limit);
     }
 
     @RequestMapping("coupon/create")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:coupon:create")
     public ResponseVO<Coupon> couponCreate(@RequestBody Coupon coupon){
         ResponseVO<Coupon> responseVO =new ResponseVO<>();
         responseVO.setErrmsg("成功");
@@ -61,7 +63,7 @@ public class CouponController {
     }
 
     @RequestMapping("coupon/read")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:coupon:read")
     public ResponseVO<Coupon> read(int id){
         ResponseVO<Coupon> responseVO =new ResponseVO<>();
         responseVO.setErrmsg("成功");
@@ -70,7 +72,7 @@ public class CouponController {
         return responseVO;
     }
     @RequestMapping("coupon/listuser")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:coupon:listuser")
     public ResponseVO<Map<String, Object>> listUser(Integer userId,Integer status,int page,int limit,int couponId){
         ResponseVO<Map<String, Object>> mapResponseVO = new ResponseVO<>();
         mapResponseVO.setErrmsg("成功");
@@ -84,7 +86,7 @@ public class CouponController {
     }
 
     @RequestMapping("coupon/update")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:coupon:update")
     public ResponseVO<Coupon> upadateCoupon(@RequestBody Coupon coupon){
         ResponseVO<Coupon> responseVO =new ResponseVO<>();
         responseVO.setErrmsg("成功");
@@ -101,7 +103,7 @@ public class CouponController {
     }
 
     @RequestMapping("coupon/delete")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:coupon:delete")
     public ResponseVO<Object> deleteCoupon(@RequestBody Coupon coupon){
         ResponseVO<Object> responseVO = new ResponseVO<>();
         int i= couponService.deleteCoupon(coupon);
