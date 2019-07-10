@@ -1,12 +1,16 @@
 package com.cskaoyan.controller.wxgroupon;
 
+import com.cskaoyan.bean.Feedback;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.wxgroupon.WxGrouponService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +42,20 @@ public class WxGrouponController {
     public ResponseVO<Map<String,Object>> gouponDetail(Integer grouponId){
         return grouponService.gouponDetail(grouponId);
     }
+
+    @RequestMapping("feedback/submit")
+    @ResponseBody
+    public ResponseVO<Map<String,Object>> feedback(@RequestBody Map<String,Object> map){
+
+        return grouponService.feedback(map);
+    }
+    @RequestMapping("footprint/list")
+    @ResponseBody
+    public ResponseVO<Map<String,Object>> footprint(Integer page,Integer size){
+        return grouponService.footprint(page,size);
+    }
+
+
 
 
 }

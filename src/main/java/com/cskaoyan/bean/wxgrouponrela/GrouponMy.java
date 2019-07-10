@@ -22,7 +22,16 @@ public class GrouponMy {
     private int [] goodsList;
     private Groupon groupon;
     private HandleOption handleOption;
-    private GrouponRules grouponRules;
+    private GrouponRules rules;
+
+
+    public GrouponRules getRules() {
+        return rules;
+    }
+
+    public void setRules(GrouponRules rules) {
+        this.rules = rules;
+    }
 
     public Integer getOrderStatus() {
         return orderStatus;
@@ -118,13 +127,8 @@ public class GrouponMy {
         this.handleOption = handleOption;
     }
 
-    public GrouponRules getGrouponRules() {
-        return grouponRules;
-    }
 
-    public void setGrouponRules(GrouponRules grouponRules) {
-        this.grouponRules = grouponRules;
-    }
+
 
 
 }

@@ -61,7 +61,7 @@
             <result column="rebuy" property="rebuy"/>
             <result column="refund" property="refund"/>
         </association>
-        <association property="grouponRules" javaType="com.cskaoyan.bean.GrouponRules">
+        <association property="rules" javaType="com.cskaoyan.bean.GrouponRules">
             <result column="rules_add_time" property="addTime"/>
             <result column="rules_deleted" property="deleted"/>
             <result column="discount" property="discount"/>
@@ -238,5 +238,22 @@ cskaoyan_mall_groupon_rules rules ON groupon.rules_id = rules.id
 LEFT JOIN
 cskaoyan_mall_user myuser ON groupon.creator_user_id = myuser.id
     </select>
+
+
+    <insert id="feedback">
+        insert into cskaoyan_mall_feedback
+        (
+        mobile,
+        feed_type,
+        content,
+        has_picture
+                  )
+        values (
+        #{feedback.mobile},
+        #{feedback.feedType},
+        #{feedback.content},
+        #{feedback.hasPicture}
+        )
+    </insert>
 
 </mapper>
