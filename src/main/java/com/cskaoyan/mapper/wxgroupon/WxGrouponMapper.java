@@ -1,6 +1,8 @@
 package com.cskaoyan.mapper.wxgroupon;
 
+import com.cskaoyan.bean.Feedback;
 import com.cskaoyan.bean.GrouponRules;
+import com.cskaoyan.bean.wxgrouponrela.FootPrintBean;
 import com.cskaoyan.bean.wxgrouponrela.GrouponDetail;
 import com.cskaoyan.bean.wxgrouponrela.GrouponMy;
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +20,8 @@ public interface WxGrouponMapper {
     List<GrouponMy> grouponMy(@Param("showType") Integer showType);
 
     GrouponDetail queryGrouponDetailByGrouponId(@Param("grouponId") Integer grouponId);
+
+    int feedback(@Param("feedback") Feedback feedback);
+
+    List<FootPrintBean> footprint();
 }

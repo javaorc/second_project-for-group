@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.userManege.FootprintMapper">
+
+    <resultMap id="footprintMap" type="com.cskaoyan.bean.Footprint">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        select
+          id,
+          user_id,
+          goods_id,
+          add_time,
+          update_time,
+          deleted
+        from cskaoyan_mall_footprint
+    </sql>
+
+
+    <select id="queryFootprint" resultMap="footprintMap">
+        <include refid="baseColumn"/>
+    </select>
+
+</mapper>

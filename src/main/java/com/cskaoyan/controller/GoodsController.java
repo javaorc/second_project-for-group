@@ -8,6 +8,8 @@ import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.vo.ResponseVO2;
 import com.cskaoyan.service.SystemService;
 import com.cskaoyan.service.goods.GoodsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@Api(tags = "商品管理",description = "GoodsController是商品管理的Controller")
 public class GoodsController {
 
     @Autowired
@@ -33,8 +36,9 @@ public class GoodsController {
     /*模糊查询商品名称*/
     @RequestMapping("admin/goods/list")
     @ResponseBody
+    @ApiOperation(value = "queryGoodsList",notes = "商品列表的展示以及查找功能")
     @RequiresPermissions(value = "admin:goods:list")
-    public ResponseVO<QueryList> queryList(int page, int limit, String sort, String order, String goodsSn, String name) {
+    public ResponseVO<QueryList> queryGoodsList(int page, int limit, String sort, String order, String goodsSn, String name) {
         ResponseVO<QueryList> responseVO = new ResponseVO<>();
 
         if ("".equals(goodsSn))
@@ -72,9 +76,11 @@ public class GoodsController {
     }
 
     /*获取商品的详情*/
-    @RequestMapping("goods/detail")
+    @RequestMapping("admin/goods/detail")
     @ResponseBody
-    public ResponseVO<Map> detail(int id) {
+    @ApiOperation(value = "editGoods",notes = "商品列表的编辑功能")
+    @RequiresPermissions(value = "admin:goods:read")
+    public ResponseVO<Map> editGoods(int id) {
         ResponseVO<Map> responseVO = new ResponseVO<>();
 
         Map map = goodsService.queryGoodsDetailById(id);
@@ -88,8 +94,9 @@ public class GoodsController {
     /*删除商品*/
     @RequestMapping("admin/goods/delete")
     @ResponseBody
+    @ApiOperation(value = "deleteGoods",notes = "商品管理的删除功能")
     @RequiresPermissions(value = "admin:goods:delete")
-    public ResponseVO2 delete(@RequestBody Goods goods) {
+    public ResponseVO2 deleteGoods(@RequestBody Goods goods) {
 
         ResponseVO2 responseVO2 = new ResponseVO2();
         int ret = goodsService.deleteGoods(goods);
@@ -111,8 +118,9 @@ public class GoodsController {
     /*更新商品信息*/
     @RequestMapping("admin/goods/update")
     @ResponseBody
+    @ApiOperation(value = "updateGoods",notes = "商品管理的更新功能")
     @RequiresPermissions(value = "admin:goods:update")
-    public ResponseVO2 update(@RequestBody QueryMapVO queryMapVO) {
+    public ResponseVO2 updateGoods(@RequestBody QueryMapVO queryMapVO) {
         ResponseVO2 responseVO2 = new ResponseVO2();
 
         int ret = goodsService.updateGoods(queryMapVO);
@@ -133,8 +141,9 @@ public class GoodsController {
     /*添加商品*/
     @RequestMapping("admin/goods/create")
     @ResponseBody
+    @ApiOperation(value = "addGoods",notes = "商品管理的添加功能")
     @RequiresPermissions(value = "admin:goods:create")
-    public ResponseVO2 add(@RequestBody QueryMapVO queryMapVO) {
+    public ResponseVO2 addGoods(@RequestBody QueryMapVO queryMapVO) {
 
         ResponseVO2 responseVO2 = new ResponseVO2();
 

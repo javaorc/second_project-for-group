@@ -213,4 +213,6 @@
         from cskaoyan_mall_groupon_rules as rules
         left join cskaoyan_mall_goods as goods on rules.goods_id = goods.id
     </select>
+
+
 </mapper>

@@ -4,19 +4,12 @@ import java.util.Date;
 
 public class Footprint {
     private Integer id;
-
     private Integer userId;
-
     private  User user;
-
     private Integer goodsId;
-
     private  Goods goods;
-
     private Date addTime;
-
     private Date updateTime;
-
     private Boolean deleted;
 
     public User getUser() {

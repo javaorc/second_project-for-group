@@ -57,30 +57,30 @@
 
     <select id="queryGoodsCounts" resultType="_int">
         SELECT COUNT(*) FROM cskaoyan_mall_goods
+        where deleted = 0
     </select>
-
-
-    <select id="queryGoodsByCategoryId" resultMap="goodsMap">
-        <include refid="baseColumn"/>
-        from cskaoyan_mall_goods
-        where category_id=#{categoryId}
-        order by CONVERT(name USING gbk)
-    </select>
-
 
     <select id="queryGoodsByBrandId" resultMap="goodsMap">
         <include refid="baseColumn"/>
         from cskaoyan_mall_goods
         where brand_id=#{brandId}
-        order by CONVERT(name USING gbk)
     </select>
 
 
-    <select id="queryGoodsByName" resultMap="goodsMap">
+    <select id="queryGoodsByCategoryIdAndName" resultMap="goodsMap">
         <include refid="baseColumn"/>
         from cskaoyan_mall_goods
-        where name like CONCAT('%',#{name},'%')
-        order by CONVERT(name USING gbk)
+
+        <where>
+          <if test="keyword != null">
+              name like CONCAT('%',#{keyword},'%')
+          </if>
+          <if test="categoryId != 0">
+              and category_id = #{categoryId}
+          </if>
+        </where>
+
+        order by ${sort} ${order}
     </select>
 
 

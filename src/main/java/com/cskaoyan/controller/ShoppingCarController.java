@@ -2,19 +2,14 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.Cart;
 import com.cskaoyan.bean.LzgOrder;
-import com.cskaoyan.bean.Order;
 import com.cskaoyan.service.MallRegionService;
 import com.cskaoyan.service.ShoppingCarService;
 import com.cskaoyan.tokenManager.UserTokenManager;
 import com.cskaoyan.typeHandler.IntArrayToString;
 import com.cskaoyan.util.CartUtil;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -129,7 +124,7 @@ public class ShoppingCarController {
         Map map1=cartUtil.cartUtil(shoppingCarService,uid);
         return map1;
     }
-    @RequestMapping("cart/checkout")
+    @GetMapping("cart/checkout")
     @ResponseBody
     public Map cartCheckout(int cartId,int addressId,int couponId,int grouponRulesId,HttpServletRequest httpServletRequest){
         String tokenKey=httpServletRequest.getHeader("X-Litemall-Token");
@@ -143,18 +138,52 @@ public class ShoppingCarController {
         int checkedGoodsCount=(int)map3.get("checkedGoodsCount");
         int goodsAmount=(int)map3.get("goodsAmount");
         int goodsCount=(int)map3.get("goodsCount");
-        Order order1=new Order();
-            order1.setOrderPrice(BigDecimal.valueOf(checkedGoodsAmount));
-            order1.setUserId(uid);
-            order1.setActualPrice(BigDecimal.valueOf(checkedGoodsAmount));
-
-
        LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
+       order.setGrouponRulesId(0);
+       order.setOrderTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
+       order.setCouponPrice(BigDecimal.valueOf(0));
+       order.setGoodsTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
+      double actual=checkedGoodsAmount-Double.parseDouble(String.valueOf(order.getFreightPrice()));
+       order.setActualPrice(BigDecimal.valueOf(actual));
+       order.setCouponId(0);
        order.setAddressId(addressId);
        order.setGrouponRulesId(grouponRulesId);
        order.setCouponId(couponId);
        Map map=new HashMap();
        map.put("data",order);
+        map.put("errmsg","成功");
+        map.put("errno",0);
+        return map;
+    }
+    @PostMapping("cart/checkout")
+    @ResponseBody
+    public Map cartCheckout1(int cartId,int addressId,int couponId,int grouponRulesId,HttpServletRequest httpServletRequest){
+        String tokenKey=httpServletRequest.getHeader("X-Litemall-Token");
+        Integer uid= UserTokenManager.getUserId(tokenKey);
+        double couponPrice=shoppingCarService.couponPriceGet(uid,couponId);
+        int available=shoppingCarService.couponNumber(uid);
+        CartUtil cartUtil=new CartUtil();
+        Map map1=cartUtil.cartUtil(shoppingCarService,uid);
+        Map map2=(Map) map1.get("data");
+        List cartList=(List) map2.get("cartList");
+        Map map3=(Map) map2.get("cartTotal");
+        int checkedGoodsAmount=(int)map3.get("checkedGoodsAmount");
+        int checkedGoodsCount=(int)map3.get("checkedGoodsCount");
+        int goodsAmount=(int)map3.get("goodsAmount");
+        int goodsCount=(int)map3.get("goodsCount");
+        LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
+        order.setGrouponRulesId(0);
+        order.setOrderTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
+        order.setCouponPrice(BigDecimal.valueOf(couponPrice));
+        double actual=checkedGoodsAmount-Double.parseDouble(String.valueOf(order.getFreightPrice()))-couponPrice;
+        order.setActualPrice(BigDecimal.valueOf(actual));
+        order.setGoodsTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
+        order.setCouponId(couponId);
+        order.setAddressId(addressId);
+        order.setGrouponRulesId(grouponRulesId);
+        order.setCouponId(couponId);
+        Map map=new HashMap();
+        map.put("data",order);
         map.put("errmsg","成功");
         map.put("errno",0);
         return map;
