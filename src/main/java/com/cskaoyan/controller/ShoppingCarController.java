@@ -138,13 +138,16 @@ public class ShoppingCarController {
         int checkedGoodsCount=(int)map3.get("checkedGoodsCount");
         int goodsAmount=(int)map3.get("goodsAmount");
         int goodsCount=(int)map3.get("goodsCount");
-       LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
+       LzgOrder order= new LzgOrder();
        order.setGrouponRulesId(0);
        order.setOrderTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
-       order.setCouponPrice(BigDecimal.valueOf(0));
+
+           order.setCouponPrice(BigDecimal.valueOf(0));
+
+           order.setActualPrice(BigDecimal.valueOf(checkedGoodsAmount));
+           order.setFreightPrice(BigDecimal.valueOf(15));
+
        order.setGoodsTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
-      double actual=checkedGoodsAmount-Double.parseDouble(String.valueOf(order.getFreightPrice()));
-       order.setActualPrice(BigDecimal.valueOf(actual));
        order.setCouponId(0);
        order.setAddressId(addressId);
        order.setGrouponRulesId(grouponRulesId);
@@ -190,7 +193,7 @@ public class ShoppingCarController {
     }
     @RequestMapping("cart/fastadd")
     @ResponseBody
-    public Map cartFastadd(int goodsId,int number,int productId){
+    public Map cartFastadd(@RequestBody Map map1){
         Map map=new HashMap();
         map.put("data",186);
         map.put("errmsg","成功");
