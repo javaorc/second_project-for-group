@@ -8,8 +8,7 @@ import java.util.Map;
 
 public interface WxGoodsService {
     Integer queryGoodsCount();
-    List<Goods> queryGoodsByCategoryId(int categoryId);
     List<Goods> queryGoodsByBrandId(int brandId);
-    List<Goods> queryGoodsByName(String name);
     Goods queryGoodsById(int id);
+    List<Goods> queryGoodsByCategoryIdAndName(Integer categoryId, String keyword, String sort, String order);
 }

@@ -76,9 +76,11 @@ public class GoodsController {
     }
 
     /*获取商品的详情*/
-    @RequestMapping("goods/detail")
+    @RequestMapping("admin/goods/detail")
     @ResponseBody
-    public ResponseVO<Map> detail(int id) {
+    @ApiOperation(value = "editGoods",notes = "商品列表的编辑功能")
+    @RequiresPermissions(value = "admin:goods:read")
+    public ResponseVO<Map> editGoods(int id) {
         ResponseVO<Map> responseVO = new ResponseVO<>();
 
         Map map = goodsService.queryGoodsDetailById(id);

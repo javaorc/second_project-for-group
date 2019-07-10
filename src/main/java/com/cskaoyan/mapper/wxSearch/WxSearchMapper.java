@@ -16,4 +16,6 @@ public interface WxSearchMapper {
     int clearHistoryKeyword(@Param("uid") int uid);
 
     int insertSearchKeyword(@Param("searchKeyword") WxSearchKeyword searchKeyword);
+
+    int isExist(@Param("uid") int uid, @Param("keyword") String keyword);
 }
