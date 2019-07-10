@@ -2,6 +2,7 @@ package com.cskaoyan.bean.vo;
 
 import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.wxBean.WxComment;
+import com.cskaoyan.bean.wxBean.WxComment3;
 import com.cskaoyan.bean.wxBean.WxGoodsSpecification;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class GoodsQuery {
 
     private List<WxGoodsSpecification> specificationList;
 
-    private Groupon[] groupon;
+    private List<Groupon> groupon;
 
     private Issue[] issue;
 
@@ -36,11 +37,11 @@ public class GoodsQuery {
         this.specificationList = specificationList;
     }
 
-    public Groupon[] getGroupon() {
+    public List<Groupon> getGroupon() {
         return groupon;
     }
 
-    public void setGroupon(Groupon[] groupon) {
+    public void setGroupon(List<Groupon> groupon) {
         this.groupon = groupon;
     }
 
@@ -112,7 +113,7 @@ public class GoodsQuery {
 
     }
 
-    public GoodsQuery(List<WxGoodsSpecification> specificationList, Groupon[] groupon, Issue[] issue, Integer userHasCollect, String shareImage, WxComment comment, GoodsAttribute[] attribute, Brand brand, List<GoodsProduct> productList, Goods info) {
+    public GoodsQuery(List<WxGoodsSpecification> specificationList, List<Groupon> groupon, Issue[] issue, Integer userHasCollect, String shareImage, WxComment comment, GoodsAttribute[] attribute, Brand brand, List<GoodsProduct> productList, Goods info) {
         this.specificationList = specificationList;
         this.groupon = groupon;
         this.issue = issue;
