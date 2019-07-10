@@ -1,5 +1,6 @@
 package com.cskaoyan.service.wxgroupon;
 
+import com.cskaoyan.bean.Feedback;
 import com.cskaoyan.bean.GrouponRules;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.wxgrouponrela.GrouponDetail;
@@ -52,6 +53,14 @@ public class WxGrouponServiceImpl implements WxGrouponService {
 
     @Override
     public ResponseVO<Map<String, Object>> gouponMy(Integer showType) {
+        if(showType==1){
+            map.put("data","");
+            map.put("count",0);
+            mapResponseVO.setData(map);
+            mapResponseVO.setErrmsg("成功");
+            mapResponseVO.setErrno(0);
+            return mapResponseVO;
+        }
         List<GrouponMy> grouponMyList = wxGrouponMapper.grouponMy(showType);
         for (GrouponMy grouponMy : grouponMyList) {
             grouponMy.setId(grouponMy.getGroupon().getId());
@@ -119,6 +128,25 @@ public class WxGrouponServiceImpl implements WxGrouponService {
         mapResponseVO.setData(map);
         mapResponseVO.setErrmsg("成功");
         mapResponseVO.setErrno(0);
+        return mapResponseVO;
+    }
+
+    @Override
+    public ResponseVO<Map<String, Object>> feedback(Map map) {
+        Feedback feedback =null;
+        feedback.setContent((String) map.get("content"));
+        feedback.setFeedType((String) map.get("feedType"));
+        feedback.setHasPicture((Boolean) map.get("hasPicture"));
+        feedback.setMobile((String) map.get("mobile"));
+        List<String> picUrls = (List<String>) map.get("picUrls");
+        feedback.setPicUrls(picUrls);
+        int i = wxGrouponMapper.feedback(feedback);
+        if(i==1){
+            map=null;
+            mapResponseVO.setData(map);
+            mapResponseVO.setErrmsg("成功");
+            mapResponseVO.setErrno(0);
+        }
         return mapResponseVO;
     }
 }
