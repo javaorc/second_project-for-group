@@ -58,4 +58,14 @@ ShoppingCarMapper shoppingCarMapper;
         return shoppingCarMapper.addressSearch(provinceId);
     }
 
+    @Override
+    public Cart cartsGet(int pid, Integer uid) {
+        return shoppingCarMapper.cartsGet(pid,uid);
+    }
+
+    @Override
+    public void cartAdd1(Cart cart1) {
+        shoppingCarMapper.cartAdd1(cart1);
+    }
+
 }

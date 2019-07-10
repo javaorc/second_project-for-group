@@ -21,12 +21,16 @@ from
 cskaoyan_mall_goods cmg
 LEFT JOIN cskaoyan_mall_goods_product cmgp on cmgp.goods_id=cmg.id
 where goods_id=#{goodsId}
+and user_id=#{uid}
     </select>
 <insert id="cartAdd" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
 insert
 cskaoyan_mall_cart
-(goods_id,goods_name,goods_sn,user_id,specifications,price,number,pic_url,add_time,update_time,deleted)
-VALUES(#{goodsId},#{goodsName},#{goodsSn},#{userId},#{specification},#{price},#{number},#{picUrl},now(),now(),#{deleted})
+(goods_id,goods_name,goods_sn,product_id,user_id,specifications,price,number,pic_url,add_time,update_time,deleted)
+VALUES(#{goodsId},#{goodsName},#{goodsSn},#{productId},#{userId},#{specification},#{price},#{number},#{picUrl},now(),now(),#{deleted})
 </insert>
     <select id="itemsCount" resultType="_int">
         select count(1) from cskaoyan_mall_cart where user_id=#{def}
@@ -133,7 +137,6 @@ cmo.actual_price as actualPrice ,
 cmo.coupon_price as couponPrice,
 cmo.freight_price as freightPrice,
 cmo.order_price as orderTotalPrice,
-cmo.groupon_price as grouponPrice,
 cma.id as addressId,
 cma.add_time as addTimeA,
 cma.address as address,
@@ -164,7 +167,7 @@ cskaoyan_mall_user  cmu on cmu.id=cmo.user_id
 left join cskaoyan_mall_coupon_user cmcu on cmcu.user_id=cmu.id
 left join cskaoyan_mall_cart cmc on cmc.id=cmcu.user_id
 left join cskaoyan_mall_address  cma on cma.user_id= cmu.id
-where cmc.id=#{cartId} and cma.is_default=1
+where cmu.id=#{uid} and cma.is_default=1
  </select>
     <select id="addressList" resultType="com.cskaoyan.bean.Address">
       SELECT
@@ -186,4 +189,20 @@ where user_id=#{uid}
         cskaoyan_mall_region
         where id=#{def}
     </select>
+ <select id="cartsGet" resultType="com.cskaoyan.bean.Cart" >
+     select
+     product_id,
+     user_id,
+     number
+     from
+     cskaoyan_mall_cart
+     where product_id=#{pid}
+     and user_id=#{uid}
+ </select>
+    <update id="cartAdd1">
+        update
+        cskaoyan_mall_cart
+        set number=#{number}
+        where product_id=#{productId}
+    </update>
 </mapper>
