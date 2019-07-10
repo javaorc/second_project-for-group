@@ -1,11 +1,11 @@
 package com.cskaoyan.bean;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.List;
 
 public class LzgOrder {
     Address address;
-    Cart[] carts;
+    List<Cart> carts;
     BigDecimal actualPrice;
     int addressId;
     int couponId;
@@ -19,7 +19,7 @@ public class LzgOrder {
     public String toString() {
         return "LzgOrder{" +
                 "address=" + address +
-                ", carts=" + Arrays.toString(carts) +
+                ", carts=" + carts +
                 ", actualPrice=" + actualPrice +
                 ", addressId=" + addressId +
                 ", couponId=" + couponId +
@@ -39,11 +39,11 @@ public class LzgOrder {
         this.address = address;
     }
 
-    public Cart[] getCarts() {
+    public List<Cart> getCarts() {
         return carts;
     }
 
-    public void setCarts(Cart[] carts) {
+    public void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
 
