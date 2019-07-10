@@ -1,6 +1,8 @@
 package com.cskaoyan.controller;
 
 
+import com.cskaoyan.bean.History;
+import com.cskaoyan.service.userManegeService.HistoryServiceImpl;
 import com.cskaoyan.service.userManegeService.UserServiceImpl;
 import com.cskaoyan.bean.User;
 import com.cskaoyan.bean.vo.ResponseVO;
@@ -21,6 +23,8 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    HistoryServiceImpl historyService;
 
     @RequestMapping("admin/user/list")
     @ResponseBody
@@ -47,6 +51,22 @@ public class UserController {
         userResponseVO.setErrno(0);
         userResponseVO.setErrmsg("成功");
         return userResponseVO;
+    }
+
+    @RequestMapping("admin/history/list")
+    @ResponseBody
+    public ResponseVO<Map> queryHistory(Integer page,Integer limit){
+        ResponseVO<Map> mapResponseVO = new ResponseVO<>();
+        PageHelper.startPage(page,limit);
+        List<History> histories = historyService.queryHistory();
+        PageInfo<History> historyPageInfo = new PageInfo<>(histories);
+        Map<Object, Object> map = new HashMap<>();
+        map.put("items",histories);
+        map.put("total",historyPageInfo.getTotal());
+        mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        return mapResponseVO;
     }
 
 

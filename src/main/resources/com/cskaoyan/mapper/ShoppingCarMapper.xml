@@ -206,4 +206,13 @@ where user_id=#{uid}
         set number=#{number}
         where product_id=#{productId}
     </update>
+ <select id="couponPriceGet" resultType="_double"   >
+     select
+discount
+from
+cskaoyan_mall_coupon cmc
+left join cskaoyan_mall_coupon_user cmcu on cmcu.coupon_id=cmc.id
+left join cskaoyan_mall_user cmu on cmu.id=cmcu.user_id
+where cmc.id=#{couponId} and cmu.id=#{uid}
+ </select>
 </mapper>
