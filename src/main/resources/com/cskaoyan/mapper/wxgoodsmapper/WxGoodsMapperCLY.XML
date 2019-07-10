@@ -281,4 +281,43 @@
         </where>
     </select>
 
+    <resultMap id="goodsById" type="com.cskaoyan.bean.Goods">
+        <result column="id" property="id"/>
+        <result column="brief" property="brief"/>
+        <result column="name" property="name"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="retail_price" property="retailPrice"/>
+    </resultMap>
+    <select id="queryGoodsById" resultMap="goodsById">
+        SELECT
+goods.id,
+goods.brief,
+goods.`name`,
+goods.pic_url,
+goods.retail_price
+from cskaoyan_mall_goods goods
+<where>
+    id = #{id}
+</where>
+    </select>
+
+    <insert id="insertFootprint">
+        insert into cskaoyan_mall_footprint
+        (
+        user_id,
+        goods_id,
+        add_time,
+        update_time,
+        deleted
+        )
+        values
+        (
+        #{foot.userId},
+        #{foot.goodsId},
+        #{foot.addTime},
+        #{foot.updateTime},
+        #{foot.deleted}
+        )
+    </insert>
+
 </mapper>

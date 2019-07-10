@@ -256,4 +256,28 @@ cskaoyan_mall_user myuser ON groupon.creator_user_id = myuser.id
         )
     </insert>
 
+    <resultMap id="footprintLeft" type="com.cskaoyan.bean.wxgrouponrela.FootPrintBean">
+        <result column="add_time"   property="addTime"/>
+        <result column="brief"      property="brief"/>
+        <result column="goods_id"   property="goodsId"/>
+        <result column="id"         property="id"/>
+        <result column="name"       property="name"/>
+        <result column="pic_url"    property="picUrl"/>
+        <result column="retail_price" property="retailPrice"/>
+    </resultMap>
+    <select id="footprint" resultMap="footprintLeft">
+        SELECT
+foot.add_time,
+goods.brief,
+foot.goods_id,
+foot.id,
+goods.`name`,
+goods.pic_url,
+goods.retail_price
+FROM
+cskaoyan_mall_footprint foot LEFT JOIN
+cskaoyan_mall_goods goods ON foot.goods_id = goods.id
+order by add_time desc
+    </select>
+
 </mapper>

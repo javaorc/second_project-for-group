@@ -1,5 +1,7 @@
 package com.cskaoyan.service.wxgoodsservice;
 
+import com.cskaoyan.bean.Footprint;
+import com.cskaoyan.bean.Goods;
 import com.cskaoyan.bean.vo.GoodsQuery;
 import com.cskaoyan.bean.wxBean.WxComment;
 import com.cskaoyan.bean.wxBean.WxGoods2;
@@ -43,6 +45,16 @@ public class WxGoodsServiceImplCLY implements WxGoodsServiceCLY {
     @Override
     public List<WxGoods2> getRelated(String id) {
         return wxGoodsMapperCLY.queryRelated(wxGoodsMapperCLY.queryCategoryId(id));
+    }
+
+    @Override
+    public Goods queryGoodsById(String id) {
+        return wxGoodsMapperCLY.queryGoodsById(id);
+    }
+
+    @Override
+    public void insertFootprint(Footprint footPrintBean) {
+         wxGoodsMapperCLY.insertFootprint(footPrintBean);
     }
 
 }

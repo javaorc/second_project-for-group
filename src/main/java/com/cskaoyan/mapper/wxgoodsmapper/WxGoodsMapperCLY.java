@@ -28,4 +28,7 @@ public interface WxGoodsMapperCLY {
 
     Integer queryCommentCount(@Param("id") String id);
 
+    Goods queryGoodsById(@Param("id") String id);
+
+    void insertFootprint(@Param("foot") Footprint footPrintBean);
 }
