@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class WxCollectControllerZLX {
@@ -51,4 +48,29 @@ public class WxCollectControllerZLX {
         mapResponseVO.setErrno(0);
         return mapResponseVO;
     }
+
+
+    @RequestMapping("wx/collect/addordelete")
+    @ResponseBody
+    public ResponseVO<Map> addOrDelete(int valueId, HttpServletRequest request){
+        PageInfo<Goods> goodsPageInfo= new PageInfo<>();
+        Map<Object, Object> map = new HashMap<>();
+        ResponseVO<Map> mapResponseVO = new ResponseVO<>();
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
+        Collect collect = collectZLXService.queryCollectByGoodsId(userId, valueId);
+        if (collect != null){
+            map.put("type","delete");
+            collectZLXService.updateDeletedFalse(collect.getId());
+        }else {
+            map.put("type","add");
+            collectZLXService.addCollectByGoodsId(userId,valueId);
+        }
+        mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        return mapResponseVO;
+
+    }
+
 }
