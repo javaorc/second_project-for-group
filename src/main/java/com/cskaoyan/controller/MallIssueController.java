@@ -8,6 +8,7 @@ import com.cskaoyan.service.MallIssueService;
 import com.cskaoyan.service.SystemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("admin")
+@Api(tags = "通用问题",description = "MallIssueController是商场模块通用问题的Controller")
 public class MallIssueController {
     @Autowired(required = false)
     MallIssueService mallIssueService;

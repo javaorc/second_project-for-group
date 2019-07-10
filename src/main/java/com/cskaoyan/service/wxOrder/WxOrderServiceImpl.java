@@ -36,4 +36,19 @@ public class WxOrderServiceImpl implements WxOrderService {
     public OrderGoods queryOGByOidAndGid(Integer orderId, Integer goodsId) {
         return wxOrderMapper.queryOGByOidAndGid(orderId,goodsId);
     }
+
+    @Override
+    public OrderGoods queryOGById(Integer ogid) {
+        return wxOrderMapper.queryOGById(ogid);
+    }
+
+    @Override
+    public int createNewComment(OrderGoods orderGoods,Integer userId,Integer temp,Integer star,String comment) {
+        return wxOrderMapper.createNewComment(orderGoods,userId,temp,star,comment);
+    }
+
+    @Override
+    public int updateComment(OrderGoods orderGoods) {
+        return wxOrderMapper.updateComment(orderGoods);
+    }
 }

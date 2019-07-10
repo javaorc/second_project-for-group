@@ -19,9 +19,9 @@
           address.mobile,
           address.is_default
         from cskaoyan_mall_address as address
-        left join cskaoyan_mall_region as r1 on address.province_id = r1.code
-        left join cskaoyan_mall_region as r2 on address.city_id = r2.code
-        left join cskaoyan_mall_region as r3 on address.area_id = r3.code
+        left join cskaoyan_mall_region as r1 on address.province_id = r1.id
+        left join cskaoyan_mall_region as r2 on address.city_id = r2.id
+        left join cskaoyan_mall_region as r3 on address.area_id = r3.id
         left join cskaoyan_mall_user as `user` on address.user_id = `user`.id
         where address.user_id = #{uid}
     </select>
@@ -44,19 +44,19 @@
         select
           address.id,
           address.name,
-          address.province_id,
+          r1.id as province_id,
           r1.name as province_name,
-          address.city_id,
+          r2.id as city_id,
           r2.name as city_name,
-          address.area_id,
+          r3.id as area_id,
           r3.name as area_name,
           address.address,
           mobile,
           is_default
         from cskaoyan_mall_address as address
-        left join cskaoyan_mall_region as r1 on address.province_id = r1.code
-        left join cskaoyan_mall_region as r2 on address.city_id = r2.code
-        left join cskaoyan_mall_region as r3 on address.area_id = r3.code
+        left join cskaoyan_mall_region as r1 on address.province_id = r1.id
+        left join cskaoyan_mall_region as r2 on address.city_id = r2.id
+        left join cskaoyan_mall_region as r3 on address.area_id = r3.id
         where address.id = #{addressId}
     </select>
 
@@ -70,15 +70,52 @@
           area_id = #{address.areaId},
           address = #{address.address},
           is_default = #{address.isDefault},
-          update_time = now()
+          update_time = #{address.updateTime}
           where id = #{address.id}
     </update>
 
-    <!--清除默认地址-->
+    <!--添加地址信息-->
+    <insert id="insertAddress">
+        <selectKey keyProperty="address.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into cskaoyan_mall_address(
+            name,
+            user_id,
+            province_id,
+            city_id,
+            area_id,
+            address,
+            mobile,
+            is_default,
+            add_time,
+            update_time,
+            deleted
+        ) values (
+            #{address.name},
+            #{address.userId},
+            #{address.provinceId},
+            #{address.cityId},
+            #{address.areaId},
+            #{address.address},
+            #{address.mobile},
+            #{address.isDefault},
+            #{address.addTime},
+            #{address.updateTime},
+            #{address.deleted}
+        )
 
+    </insert>
+
+    <!--清除默认地址-->
     <update id="clearDefaultAddress">
         update cskaoyan_mall_address a set
           a.is_default = 0
         where a.user_id = #{uid}
     </update>
+
+    <!--删除地址信息-->
+    <delete id="deleteAddressById">
+        delete from cskaoyan_mall_address where id = #{id}
+    </delete>
 </mapper>

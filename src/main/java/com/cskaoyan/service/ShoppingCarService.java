@@ -25,4 +25,9 @@ public interface ShoppingCarService {
     List<Address> addressList(Integer uid);
 
     String addressSearch(Integer provinceId);
+
+    Cart cartsGet(int pid, Integer uid);
+
+    void cartAdd1(Cart cart1);
+
 }

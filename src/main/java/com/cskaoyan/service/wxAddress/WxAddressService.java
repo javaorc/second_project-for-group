@@ -1,5 +1,6 @@
 package com.cskaoyan.service.wxAddress;
 
+import com.cskaoyan.bean.Address;
 import com.cskaoyan.bean.wxBean.WxAddress;
 import com.cskaoyan.bean.wxBean.WxAddress2;
 
@@ -10,5 +11,13 @@ public interface WxAddressService {
 
     WxAddress2 queryAddressById(int id);
 
-    int updateAddress(WxAddress2 address, int uid);
+    int saveAddress(Address address, Integer userId);
+
+    int updateAddress(Address address);
+
+    int insertAddress(Address address);
+
+    int deleteAddressById(int id);
+
+
 }
