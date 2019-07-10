@@ -9,6 +9,8 @@ import com.cskaoyan.mapper.mallManege.MallCategoryMapper;
 import com.cskaoyan.service.SystemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("admin")
+@Api(tags = "产品品牌",description = "MallCategoryController是商场中的商品品牌模块的Controller")
 public class MallCategoryController {
     @Autowired(required = false)
     MallCategoryMapper mallCategoryMapper;
@@ -30,6 +33,7 @@ public class MallCategoryController {
     @RequestMapping("category/list")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:list")
+    @ApiOperation(value = "showAllCategory",notes = "展示商品品牌功能")
     public ResponseVO<List<Kind>> showAllCategory(){
 
         List<Kind> kinds = mallCategoryMapper.showAllCategory();
@@ -48,6 +52,7 @@ public class MallCategoryController {
     @RequestMapping("category/l1")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:list")
+    @ApiOperation(value = "showKindCategory",notes = "展示查询的商品品牌功能")
     public ResponseVO<List<Map>> showKindCategory(){
 
         List<Kind> kinds = mallCategoryMapper.showKindCategory();
@@ -72,6 +77,7 @@ public class MallCategoryController {
     @RequestMapping("category/delete")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:delete")
+    @ApiOperation(value = "deleteKindCategory",notes = "删除部分商品品牌功能")
     public ResponseVO<Object> deleteKindCategory(@RequestBody Category category){
         int i = mallCategoryMapper.deleteCategory(category);
         String name1 = (String) SecurityUtils.getSubject().getPrincipal();
@@ -90,6 +96,7 @@ public class MallCategoryController {
     @RequestMapping("category/create")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:insert")
+    @ApiOperation(value = "createCategory",notes = "创建商品品牌功能")
     public ResponseVO<Object> createCategory(@RequestBody Category category){
         Date date = new Date(System.currentTimeMillis());
         category.setAddTime(date);
@@ -113,6 +120,7 @@ public class MallCategoryController {
     @RequestMapping("category/update")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:update")
+    @ApiOperation(value = "updateCategory",notes = "修改商品品牌功能")
     public ResponseVO<Object> updateCategory(@RequestBody Category category){
         Date date = new Date(System.currentTimeMillis());
         category.setUpdateTime(date);

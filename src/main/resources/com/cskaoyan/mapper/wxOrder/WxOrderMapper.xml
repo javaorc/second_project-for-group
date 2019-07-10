@@ -181,7 +181,7 @@
         where id=#{oid}
     </update>
     <resultMap id="orderGoodsMap" type="com.cskaoyan.bean.OrderGoods">
-        <result column="gid" property="id"/>
+        <result column="id" property="id"/>
         <result column="order_id" property="orderId"/>
         <result column="goods_id" property="goodsId"/>
         <result column="goods_name" property="goodsName"/>
@@ -192,9 +192,9 @@
         <result column="specifications" property="specifications"/>
         <result column="pic_url" property="picUrl"/>
         <result column="comment" property="comment"/>
-        <result column="gadd_time" property="addTime"/>
-        <result column="gupdate_time" property="updateTime"/>
-        <result column="gdelete" property="deleted"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete" property="deleted"/>
     </resultMap>
     <select id="queryOGByOidAndGid" resultMap="orderGoodsMap">
         select
@@ -215,4 +215,47 @@
         from cskaoyan_mall_order_goods
         where order_id=#{oid} and goods_id=#{gid}
     </select>
+
+    <select id="queryOGById" resultMap="orderGoodsMap">
+        select
+        id ,
+        order_id,
+        goods_id,
+        goods_name,
+        goods_sn,
+        product_id,
+        number,
+        price,
+        specifications,
+        pic_url,
+        comment,
+        add_time,
+        update_time,
+        deleted
+        from cskaoyan_mall_order_goods
+        where id=#{ogid}
+    </select>
+
+    <insert id="createNewComment">
+        insert into cskaoyan_mall_comment
+        (
+        value_id,
+        cskaoyan_mall_comment.type,
+        content,
+        user_id,
+        has_picture,
+        pic_urls,
+        star,
+        add_time,
+        update_time,
+        deleted) values(#{og.goodsId},#{temp},#{comment}
+        ,#{uid},#{temp},#{og.picUrl},#{star},NOW(),NOW(),#{temp})
+
+    </insert>
+
+    <update id="updateComment">
+        update cskaoyan_mall_order_goods
+        set comment=#{og.comment}
+        where id=#{og.id}
+    </update>
 </mapper>

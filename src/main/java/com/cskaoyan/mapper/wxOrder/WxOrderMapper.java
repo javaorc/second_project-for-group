@@ -3,6 +3,7 @@ package com.cskaoyan.mapper.wxOrder;
 import com.cskaoyan.bean.OrderGoods;
 import com.cskaoyan.bean.wxBean.WxOrder;
 import com.cskaoyan.bean.wxBean.WxOrderDetail;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 
@@ -18,4 +19,10 @@ public interface WxOrderMapper {
     int changeOrderStatus(@Param("status")Integer status,@Param("oid")Integer OrderId);
 
     OrderGoods queryOGByOidAndGid(@Param("oid")Integer orderId,@Param("gid")Integer goodsId);
+
+    OrderGoods queryOGById(@Param("ogid")Integer ogid);
+
+    int createNewComment(@Param("og")OrderGoods orderGoods, @Param("uid") Integer userId,@Param("temp")Integer temp,@Param("star")Integer star,@Param("comment")String comment);
+
+    int updateComment(@Param("og")OrderGoods orderGoods);
 }

@@ -2,6 +2,7 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.Cart;
 import com.cskaoyan.bean.LzgOrder;
+import com.cskaoyan.bean.Order;
 import com.cskaoyan.service.MallRegionService;
 import com.cskaoyan.service.ShoppingCarService;
 import com.cskaoyan.tokenManager.UserTokenManager;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -38,32 +41,60 @@ public class ShoppingCarController {
     @RequestMapping("cart/add")
     @ResponseBody
     public Map cartAdd(@RequestBody Cart cart, HttpServletRequest httpServletRequest) {
-        Cart cart1=shoppingCarService.cartGet(cart);
         String tokenKey=httpServletRequest.getHeader("X-Litemall-Token");
         Integer uid= UserTokenManager.getUserId(tokenKey);
-        cart1.setNumber(cart.getNumber());
-        cart1.setProductId(cart.getProductId());
-        cart1.setUserId(uid);
-        cart1.setChecked(true);
-        cart1.setDeleted(true);
-        cart1.setGoodsId(cart.getGoodsId());
-        cart1.setProductId(cart.getProductId());
-        String[] specifications =cart1.getSpecifications();
-        String specification = IntArrayToString.stringArrayToString(specifications);
-        cart1.setSpecification(specification);
-        shoppingCarService.cartAdd(cart1);
-        Map map = new HashMap();
-        int data=shoppingCarService.itemsCount(uid);
-        map.put("data",data+1);
-        map.put("errmsg","成功");
-        map.put("errno",0);
-        return map;
+        int pid=cart.getProductId();
+        Cart carts=shoppingCarService.cartsGet(pid,uid);
+        if (carts==null){
+            Cart cart1=shoppingCarService.cartGet(cart);
+
+            cart1.setNumber(cart.getNumber());
+            cart1.setProductId(cart.getProductId());
+            cart1.setUserId(uid);
+            cart1.setChecked(true);
+            cart1.setDeleted(true);
+            cart1.setGoodsId(cart.getGoodsId());
+            String[] specifications =cart1.getSpecifications();
+            String specification = IntArrayToString.stringArrayToString(specifications);
+            cart1.setSpecification(specification);
+            shoppingCarService.cartAdd(cart1);
+            Map map = new HashMap();
+            int data=shoppingCarService.itemsCount(uid);
+            map.put("data",data+1);
+            map.put("errmsg","成功");
+            map.put("errno",0);
+            return map;
+        }else {
+            Cart cart1=shoppingCarService.cartGet(cart);
+            int number=cart.getNumber()+carts.getNumber();
+            cart1.setProductId(cart.getProductId());
+            cart1.setUserId(uid);
+            cart1.setChecked(true);
+            cart1.setDeleted(true);
+            cart1.setGoodsId(cart.getGoodsId());
+            String[] specifications =cart1.getSpecifications();
+            String specification = IntArrayToString.stringArrayToString(specifications);
+            cart1.setSpecification(specification);
+            cart1.setNumber((short)number);
+            shoppingCarService.cartAdd1(cart1);
+            Map map = new HashMap();
+            int data=shoppingCarService.itemsCount(uid);
+            map.put("data",data+1);
+            map.put("errmsg","成功");
+            map.put("errno",0);
+            return map;
+        }
+
     }
     @RequestMapping("cart/checked")
     @ResponseBody
     public Map cartChecked(@RequestBody Map map, HttpServletRequest httpServletRequest){
-       int[] productIds=(int[]) map.get("productIds");
-       int isChecked=(int)map.get("isChecked");
+       List<Integer> productIds1=(List) map.get("productIds");
+       int[] productIds=new int[productIds1.size()];
+       for (int i=0;i<productIds1.size();i++){
+           productIds[i]=productIds1.get(i);
+       }
+         int isChecked=(int)map.get("isChecked");
         String tokenKey=httpServletRequest.getHeader("X-Litemall-Token");
         Integer uid= UserTokenManager.getUserId(tokenKey);
         shoppingCarService.goodsCheck(productIds,isChecked,uid);
@@ -86,7 +117,11 @@ public class ShoppingCarController {
     @RequestMapping("cart/delete")
     @ResponseBody
     public Map cartDelete(@RequestBody Map map ,HttpServletRequest httpServletRequest){
-        int[] productIds=(int[]) map.get("productIds");
+        List<Integer> productIds1=(List) map.get("productIds");
+        int[] productIds=new int[productIds1.size()];
+        for (int i=0;i<productIds1.size();i++){
+            productIds[i]=productIds1.get(i);
+        }
         String tokenKey=httpServletRequest.getHeader("X-Litemall-Token");
         Integer uid= UserTokenManager.getUserId(tokenKey);
         shoppingCarService.cartDelete(productIds,uid);
@@ -96,8 +131,25 @@ public class ShoppingCarController {
     }
     @RequestMapping("cart/checkout")
     @ResponseBody
-    public Map cartCheckout(int cartId,int addressId,int couponId,int grouponRulesId){
-       LzgOrder order= shoppingCarService.cartCheckout(cartId,addressId,couponId,grouponRulesId);
+    public Map cartCheckout(int cartId,int addressId,int couponId,int grouponRulesId,HttpServletRequest httpServletRequest){
+        String tokenKey=httpServletRequest.getHeader("X-Litemall-Token");
+        Integer uid= UserTokenManager.getUserId(tokenKey);
+        CartUtil cartUtil=new CartUtil();
+        Map map1=cartUtil.cartUtil(shoppingCarService,uid);
+        Map map2=(Map) map1.get("data");
+        List cartList=(List) map2.get("cartList");
+        Map map3=(Map) map2.get("cartTotal");
+        int checkedGoodsAmount=(int)map3.get("checkedGoodsAmount");
+        int checkedGoodsCount=(int)map3.get("checkedGoodsCount");
+        int goodsAmount=(int)map3.get("goodsAmount");
+        int goodsCount=(int)map3.get("goodsCount");
+        Order order1=new Order();
+            order1.setOrderPrice(BigDecimal.valueOf(checkedGoodsAmount));
+            order1.setUserId(uid);
+            order1.setActualPrice(BigDecimal.valueOf(checkedGoodsAmount));
+
+
+       LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
        order.setAddressId(addressId);
        order.setGrouponRulesId(grouponRulesId);
        order.setCouponId(couponId);

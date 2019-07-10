@@ -22,9 +22,13 @@ public interface ShoppingCarMapper {
 
     void cartDelete(@Param("productIds")int[] productIds, @Param("uid")int uid);
 
-    LzgOrder cartCheckout(@Param("cartId") int cartId, @Param("addressId")int addressId, @Param("couponId")int couponId, @Param("grouponRulesId") int grouponRulesId);
+    LzgOrder cartCheckout(@Param("uid") int cartId, @Param("addressId")int addressId, @Param("couponId")int couponId, @Param("grouponRulesId") int grouponRulesId);
 
     List<Address> addressList(int uid);
 
     String addressSearch(Integer provinceId);
+
+    Cart cartsGet(@Param("pid") int pid, @Param("uid") Integer uid);
+
+    void cartAdd1(Cart cart1);
 }

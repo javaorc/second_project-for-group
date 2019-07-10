@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxTopicZLX.WxTopicZLXMapper">
+
+    <resultMap id="topicList" type="com.cskaoyan.bean.Topic">
+        <result column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="subtitle" property="subtitle"/>
+        <result column="content" property="content"/>
+        <result column="price" property="price"/>
+        <result column="read_count" property="readCount"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="goods" property="goods" typeHandler="com.cskaoyan.typeHandler.IntArrayTypeHandler" />
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="queryTopic" resultMap="topicList">
+        select
+        id,
+        title,
+        subtitle,
+        content,
+        price,
+        read_count,
+        pic_url,
+        sort_order,
+        goods,
+        add_time,
+        update_time,
+        deleted
+        from cskaoyan_mall_topic
+        <where>
+            <if test="title!=null">
+                and title like CONCAT(CONCAT('%',#{title}),'%')
+            </if>
+            <if test="subtitle!=null">
+                and subtitle like CONCAT(CONCAT('%',#{subtitle}),'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryTopicDetail" resultMap="topicList">
+        select
+        id,
+        title,
+        subtitle,
+        content,
+        price,
+        read_count,
+        pic_url,
+        sort_order,
+        goods,
+        add_time,
+        update_time,
+        deleted
+        from cskaoyan_mall_topic
+        where id=#{id}
+    </select>
+</mapper>

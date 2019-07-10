@@ -10,6 +10,8 @@ import com.cskaoyan.mapper.mallManege.MallOrderMapper;
 import com.cskaoyan.service.SystemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("admin")
+@Api(tags = "商场订单",description = "MallIssueController是商场模块订单部分的Controller")
 public class MallOrderController {
     @Autowired(required = false)
     MallOrderMapper mallOrderMapper;
@@ -33,6 +36,7 @@ public class MallOrderController {
     @RequestMapping("order/list")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:list")
+    @ApiOperation(value = "createOrder",notes = "订单显示")
     public ResponseVO<Map<String,Object>> createOrder(Integer page,Integer limit,Integer orderStatusArray,Integer userId,String orderSn) {
         PageHelper.startPage(page,limit);
         Map<String, Object> map = new HashMap<>();
@@ -62,6 +66,7 @@ public class MallOrderController {
     @RequestMapping("order/detail")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:list")
+    @ApiOperation(value = "showOrderDetail",notes = "订单详情显示")
     public ResponseVO<Map<String,Object>> showOrderDetail(Integer id) {
         Map<String, Object> map = new HashMap<>();
         OrderCGoods orderCGoods = mallOrderMapper.searchOrderGoods(id);

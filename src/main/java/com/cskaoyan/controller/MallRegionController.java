@@ -11,6 +11,8 @@ import com.cskaoyan.bean.Province;
 import com.cskaoyan.service.SystemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("admin")
+@Api(tags = "商场地域",description = "MallRegionController是商场管理地域模块的Controller")
 public class MallRegionController {
     @Autowired
     MallRegionService mallRegionService;
@@ -30,6 +33,7 @@ public class MallRegionController {
     @RequestMapping("region/list")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:list")
+    @ApiOperation(value = "showArea",notes = "地域展示功能")
     public ResponseVO<List<Province>> showArea(){
 
         List<Province> provinces = mallRegionService.showArea();
