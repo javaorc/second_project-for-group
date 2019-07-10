@@ -3,6 +3,7 @@ package com.cskaoyan.service.wxgroupon;
 import com.cskaoyan.bean.Feedback;
 import com.cskaoyan.bean.GrouponRules;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.bean.wxgrouponrela.FootPrintBean;
 import com.cskaoyan.bean.wxgrouponrela.GrouponDetail;
 import com.cskaoyan.bean.wxgrouponrela.GrouponMy;
 import com.cskaoyan.bean.wxgrouponrela.OrderInfo;
@@ -132,14 +133,15 @@ public class WxGrouponServiceImpl implements WxGrouponService {
     }
 
     @Override
-    public ResponseVO<Map<String, Object>> feedback(Map map) {
-        Feedback feedback =null;
-        feedback.setContent((String) map.get("content"));
+    public ResponseVO<Map<String, Object>> feedback( Map<String,Object> map) {
+        Feedback feedback =new Feedback();
+        String content = (String) map.get("content");
+        feedback.setContent(content);
         feedback.setFeedType((String) map.get("feedType"));
         feedback.setHasPicture((Boolean) map.get("hasPicture"));
         feedback.setMobile((String) map.get("mobile"));
-        List<String> picUrls = (List<String>) map.get("picUrls");
-        feedback.setPicUrls(picUrls);
+        /*List<String> picUrls = (List<String>) map.get("picUrls");
+        feedback.setPicUrls(picUrls);*/
         int i = wxGrouponMapper.feedback(feedback);
         if(i==1){
             map=null;
@@ -147,6 +149,20 @@ public class WxGrouponServiceImpl implements WxGrouponService {
             mapResponseVO.setErrmsg("成功");
             mapResponseVO.setErrno(0);
         }
+        return mapResponseVO;
+    }
+
+    @Override
+    public ResponseVO<Map<String, Object>> footprint(Integer page, Integer size) {
+        List<FootPrintBean> footPrintBeanList = wxGrouponMapper.footprint();
+
+        PageHelper.startPage(page,size);
+        PageInfo<FootPrintBean> footPrintBeanPageInfo = new PageInfo<>(footPrintBeanList);
+        map.put("footprintList",footPrintBeanList);
+        map.put("totalPages",footPrintBeanPageInfo.getTotal());
+        mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
         return mapResponseVO;
     }
 }

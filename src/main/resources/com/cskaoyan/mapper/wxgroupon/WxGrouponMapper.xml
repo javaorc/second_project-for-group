@@ -242,18 +242,17 @@ cskaoyan_mall_user myuser ON groupon.creator_user_id = myuser.id
 
     <insert id="feedback">
         insert into cskaoyan_mall_feedback
-        (id,
+        (
         mobile,
         feed_type,
         content,
-        has_picture,
-        pic_urls)
+        has_picture
+                  )
         values (
         #{feedback.mobile},
         #{feedback.feedType},
         #{feedback.content},
-        #{feedback.hasPicture},
-        #{feedback.picUrls,typeHandler=com.cskaoyan.typeHandler.StringToListTypeHandler}
+        #{feedback.hasPicture}
         )
     </insert>
 

@@ -15,4 +15,6 @@ public interface WxCouponService {
     ResponseVO<Map<String, Object>> queryCouponByStatus(Integer status, Integer page, Integer size);
 
     ResponseVO<Map<String, Object>> couponExchange(String code);
+
+    ResponseVO<Map<String, Object>> selectList(Integer cartId, Integer grouponRulesId);
 }

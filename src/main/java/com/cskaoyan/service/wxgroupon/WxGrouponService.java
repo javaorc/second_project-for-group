@@ -17,5 +17,7 @@ public interface WxGrouponService {
 
     ResponseVO<Map<String, Object>> gouponDetail(Integer grouponId);
 
-    ResponseVO<Map<String, Object>> feedback(Map map);
+    ResponseVO<Map<String, Object>> feedback(Map<String,Object> map);
+
+    ResponseVO<Map<String, Object>> footprint(Integer page, Integer size);
 }
