@@ -33,8 +33,11 @@ public class CartUtil {
         Map map = new HashMap();
         map.put("cartList",list);
         map.put("cartTotal",map1);
-        map.put("errmsg","成功");
-        map.put("errno",0);
-        return map;
+     /*   */
+        Map map2=new HashMap();
+        map2.put("data",map);
+        map2.put("errmsg","成功");
+        map2.put("errno",0);
+        return map2;
     }
 }

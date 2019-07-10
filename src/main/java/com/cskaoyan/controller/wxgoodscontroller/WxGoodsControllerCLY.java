@@ -29,9 +29,14 @@ public class WxGoodsControllerCLY {
         return responseVO;
     }
 
+
     @RequestMapping(value = "related")
     public Map getRelated(String id){
+
+
+        ResponseVO<List<WxGoods2>> responseVO = new ResponseVO<>();
         List<WxGoods2> goodsList = wxGoodsServiceCLY.getRelated(id);
+
         Map map=new HashMap();
         Map map1=new HashMap();
         map1.put("goodsList",goodsList);

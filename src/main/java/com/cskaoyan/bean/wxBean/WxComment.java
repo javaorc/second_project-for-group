@@ -2,17 +2,19 @@ package com.cskaoyan.bean.wxBean;
 
 import com.cskaoyan.bean.Comment;
 
+import java.util.List;
+
 public class WxComment {
 
-    Comment[] data;
+    List<Comment> data;
 
     Integer count;
 
-    public Comment[] getData() {
+    public List<Comment> getData() {
         return data;
     }
 
-    public void setData(Comment[] data) {
+    public void setData(List<Comment> data) {
         this.data = data;
     }
 
@@ -24,13 +26,13 @@ public class WxComment {
         this.count = count;
     }
 
-    public WxComment(Comment[] data, Integer count) {
-        this.data = data;
-        this.count = count;
-    }
-
     public WxComment() {
 
+    }
+
+    public WxComment(List<Comment> data, Integer count) {
+        this.data = data;
+        this.count = count;
     }
 
 }

@@ -38,6 +38,8 @@ public class Cart {
 
     private boolean deleted;
 
+    private String specification;
+
     public Integer getId() {
         return id;
     }
@@ -172,5 +174,17 @@ public class Cart {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
     }
 }

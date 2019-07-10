@@ -7,8 +7,7 @@
     <result property="goodsName" column="name"/>
     <result property="goodsSn" column="goodsSn"/>
     <result property="price" column="price"/>
-    <result property="number" column="number"/>
-    <result property="specifications" column="specifications"/>
+    <result property="specifications" column="specifications" typeHandler="com.cskaoyan.typeHandler.StringtoStringArray"/>
     <result property="picUrl" column="url"/>
 </resultMap>
     <select id="cartGet" resultMap="cartGetMap">
@@ -16,18 +15,18 @@ select
 cmg.name as name,
 cmg.goods_sn as goodsSn,
 cmgp.price as price,
-cmgp.number as number,
 cmgp.specifications as specifications,
 cmgp.url as url
 from
 cskaoyan_mall_goods cmg
 LEFT JOIN cskaoyan_mall_goods_product cmgp on cmgp.goods_id=cmg.id
+where goods_id=#{goodsId}
     </select>
 <insert id="cartAdd" >
 insert
 cskaoyan_mall_cart
-(goods_id,specifiction,price,number,url,add_time,update_time,deleted)
-VALUES(#{goodsId},#{specifications},#{price},#{number},#{picUrl},now(),now(),#{deleted})
+(goods_id,goods_name,goods_sn,user_id,specifications,price,number,pic_url,add_time,update_time,deleted)
+VALUES(#{goodsId},#{goodsName},#{goodsSn},#{userId},#{specification},#{price},#{number},#{picUrl},now(),now(),#{deleted})
 </insert>
     <select id="itemsCount" resultType="_int">
         select count(1) from cskaoyan_mall_cart where user_id=#{def}
@@ -74,6 +73,7 @@ where user_id=#{def}
     set
     checked=#{isChecked}
     where
+    user_id=#{uid} and
     product_id in
     <foreach collection="productIds" item="id" open="(" close=")" separator=",">
         #{id}
@@ -121,7 +121,7 @@ where user_id=#{def}
          <result column="picUrl" property="picUrl"/>
          <result column="price" property="price"/>
          <result column="productId" property="productId"/>
-         <result column="specifications" property="specifications"/>
+         <result column="specifications" property="specifications " typeHandler="com.cskaoyan.typeHandler.StringtoStringArray"/>
          <result column="updateTime" property="updateTime"/>
          <result column="userId" property="userId"/>
      </collection>
