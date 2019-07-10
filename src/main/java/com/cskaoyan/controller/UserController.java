@@ -27,7 +27,7 @@ public class UserController {
     public ResponseVO<Map> queryUser(int page, int limit, String username, String mobile){
         ResponseVO<Map> userResponseVO = new ResponseVO<>();
         PageHelper.startPage(page,limit);
-        List<User> users = new ArrayList<>();
+        List<User> users;
         if (username!=null&&mobile==null){
             users = userService.queryUserByUsername(username);
         }else if (username == null&&mobile==null){
