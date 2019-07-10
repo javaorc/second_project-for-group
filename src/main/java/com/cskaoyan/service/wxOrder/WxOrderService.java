@@ -17,4 +17,10 @@ public interface WxOrderService {
     int changeOrderStatus(Integer status,Integer OrderId);
 
     OrderGoods queryOGByOidAndGid(Integer orderId,Integer goodsId);
+
+    OrderGoods queryOGById(Integer ogid);
+
+    int createNewComment(OrderGoods orderGoods,Integer userId,Integer temp,Integer star,String comment);
+
+    int updateComment(OrderGoods orderGoods);
 }

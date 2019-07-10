@@ -10,11 +10,13 @@ import com.cskaoyan.service.goods.GoodsService;
 import com.cskaoyan.service.generalize.GrouponRulesService;
 import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
@@ -23,7 +25,7 @@ import java.util.*;
  * @Author xushuai
  * @CreateTime 2019/7/5 15:52
  **/
-@Controller
+@RestController
 @RequestMapping("admin")
 @Api(tags = "团购规则",description = "GrouponRulesController是推广管理模块中团购规则模块的Controller")
 public class GrouponRulesController {
@@ -36,14 +38,14 @@ public class GrouponRulesController {
     SystemService systemService;
 
     @RequestMapping("groupon/list")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:groupon:list")
     public ResponseVO<Map<String, Object>> grouponList(Integer goodsId,
                                                        int page, int limit, String sort, String order) {
         return grouponRulesService.grouponList(goodsId,page,limit);
     }
 
     @RequestMapping("groupon/update")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:groupon:update")
     public ResponseVO<GrouponRules> updateGrouponRules(@RequestBody GrouponRules grouponRules) {
         ResponseVO<GrouponRules> grouponRulesResponseVO = new ResponseVO<>();
         grouponRulesResponseVO.setErrmsg("成功");
@@ -61,7 +63,7 @@ public class GrouponRulesController {
     }
 
     @RequestMapping("groupon/delete")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:groupon:delete")
     public ResponseVO<Object> deleteGrouponRules(@RequestBody GrouponRules grouponRules) {
         ResponseVO<Object> responseVO = new ResponseVO<>();
         int i = grouponRulesService.deleteGrouponRules(grouponRules);
@@ -77,7 +79,7 @@ public class GrouponRulesController {
     }
 
     @RequestMapping("groupon/create")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:groupon:create")
     public ResponseVO<GrouponRules> createGrouponRules(@RequestBody GrouponRules grouponRules) {
         //根据goodsid 查出相应的商品信息 将这些信息赋值给grules ，再插入和返回
         ResponseVO<GrouponRules> grouponRulesResponseVO = new ResponseVO<>();
@@ -108,7 +110,7 @@ public class GrouponRulesController {
     }
 
     @RequestMapping("groupon/listRecord")
-    @ResponseBody
+    @RequiresPermissions(value = "admin:groupon:list")
     public ResponseVO<Map<Object,Object>> listRecord(Integer goodsId,
                                                      int page, int limit, String sort, String order){
         ResponseVO<Map<Object,Object>> responseVO = new ResponseVO<>();
@@ -124,7 +126,7 @@ public class GrouponRulesController {
             map.put("goods",goods);
             map.put("groupon",groupon);
             map.put("rules",rules);
-            map.put("subGroupons","");
+            map.put("subGroupons",new int[] {});
             items.add(map);
         }
         datamap.put("items",items);
