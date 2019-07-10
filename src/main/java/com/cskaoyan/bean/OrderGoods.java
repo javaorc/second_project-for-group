@@ -192,4 +192,7 @@ public class OrderGoods {
         this.updateTime = updateTime;
         this.deleted = deleted;
     }
+
+    public OrderGoods() {
+    }
 }
