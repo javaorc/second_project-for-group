@@ -1,5 +1,8 @@
 package com.cskaoyan.service.wxOrder;
 
+import com.cskaoyan.bean.Address;
+import com.cskaoyan.bean.Cart;
+import com.cskaoyan.bean.Order;
 import com.cskaoyan.bean.OrderGoods;
 import com.cskaoyan.bean.wxBean.WxOrder;
 import com.cskaoyan.bean.wxBean.WxOrderDetail;
@@ -50,5 +53,30 @@ public class WxOrderServiceImpl implements WxOrderService {
     @Override
     public int updateComment(OrderGoods orderGoods) {
         return wxOrderMapper.updateComment(orderGoods);
+    }
+
+    @Override
+    public Cart queryCartByCid(Integer cid) {
+        return wxOrderMapper.queryCartByCid(cid);
+    }
+
+    @Override
+    public List<Cart> queryCartByChecked() {
+        return wxOrderMapper.queryCartByChecked();
+    }
+
+    @Override
+    public Address queryAddressByAid(Integer aid) {
+        return wxOrderMapper.queryAddressByAid(aid);
+    }
+
+    @Override
+    public int insertOrder(Order order) {
+        return wxOrderMapper.insertOrder(order);
+    }
+
+    @Override
+    public int insertOrderGoods(OrderGoods orderGoods) {
+        return wxOrderMapper.insertOrderGoods(orderGoods);
     }
 }

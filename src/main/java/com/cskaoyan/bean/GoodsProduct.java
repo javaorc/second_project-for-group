@@ -11,8 +11,8 @@ public class GoodsProduct {
     private double       price;
     private int          number;
     private String       url;
-    private Date      addTime;
-    private Date       updateTime;
+    private Date         addTime;
+    private Date         updateTime;
     private boolean      deleted;
 
     public int getId() {

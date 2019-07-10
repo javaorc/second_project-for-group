@@ -258,4 +258,370 @@
         set comment=#{og.comment}
         where id=#{og.id}
     </update>
+    <resultMap id="orderCartMap" type="com.cskaoyan.bean.Cart">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="goods_sn" property="goodsSn"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="product_id" property="productId"/>
+        <result column="price" property="price"/>
+        <result column="number" property="number"/>
+        <result column="specifications" property="specification"/>
+        <result column="checked" property="checked"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+
+
+        <association property="goods" javaType="com.cskaoyan.bean.Goods">
+            <result column="gid" property="id"/>
+            <result column="gsn" property="goodsSn"/>
+            <result column="name" property="name"/>
+            <result column="category_id" property="categoryId"/>
+            <result column="brand_id" property="brandId"/>
+            <result column="keywords" property="keywords"/>
+            <result column="brief" property="brief"/>
+            <result column="is_on_sale" property="isOnSale"/>
+            <result column="sort_order" property="sortOrder"/>
+            <result column="gpic" property="picUrl"/>
+            <result column="share_url" property="shareUrl"/>
+            <result column="is_new" property="isNew"/>
+            <result column="is_hot" property="isHot"/>
+            <result column="unit" property="unit"/>
+            <result column="counter_price" property="counterPrice"/>
+            <result column="retail_price" property="retailPrice"/>
+            <result column="detail" property="detail"/>
+            <result column="gadd" property="addTime"/>
+            <result column="gup" property="updateTime"/>
+            <result column="gdeleted" property="deleted"/>
+            <collection property="gallery" ofType="java.util.List">
+                <result column="gallery"/>
+            </collection>
+        </association>
+        <association property="goodsProduct" javaType="com.cskaoyan.bean.GoodsProduct">
+            <result column="pid" property="id"/>
+            <result column="gpid" property="goodsId"/>
+            <result column="gp" property="price"/>
+            <result column="gn" property="number"/>
+            <result column="url" property="url"/>
+            <result column="pa" property="addTime"/>
+            <result column="pu" property="updateTime"/>
+            <result column="pd" property="deleted"/>
+            <collection property="specifications" ofType="java.util.List">
+                <result column="gsp"/>
+            </collection>
+        </association>
+    </resultMap>
+    <select id="queryCartByCid" resultMap="orderCartMap">
+        select
+        cskaoyan_mall_cart.id,
+        cskaoyan_mall_cart.user_id,
+        cskaoyan_mall_cart.goods_id,
+        cskaoyan_mall_cart.goods_sn,
+        cskaoyan_mall_cart.goods_name,
+        cskaoyan_mall_cart.product_id,
+        cskaoyan_mall_cart.price,
+        cskaoyan_mall_cart.number,
+        cskaoyan_mall_cart.specifications,
+        cskaoyan_mall_cart.checked,
+        cskaoyan_mall_cart.pic_url,
+        cskaoyan_mall_cart.add_time,
+        cskaoyan_mall_cart.update_time,
+        cskaoyan_mall_cart.deleted,
+
+        cskaoyan_mall_goods_product.id as pid,
+        cskaoyan_mall_goods_product.goods_id as gpid,
+        cskaoyan_mall_goods_product.specifications as gsp,
+        cskaoyan_mall_goods_product.price as gp,
+        cskaoyan_mall_goods_product.number as gn,
+        cskaoyan_mall_goods_product.url,
+        cskaoyan_mall_goods_product.add_time as pa,
+        cskaoyan_mall_goods_product.update_time as pu,
+        cskaoyan_mall_goods_product.deleted as pd,
+
+
+        cskaoyan_mall_goods.id as gid,
+        cskaoyan_mall_goods.goods_sn as gsn,
+        cskaoyan_mall_goods.name,
+        cskaoyan_mall_goods.category_id,
+        cskaoyan_mall_goods.brand_id,
+        cskaoyan_mall_goods.gallery,
+        cskaoyan_mall_goods.keywords,
+        cskaoyan_mall_goods.brief,
+        cskaoyan_mall_goods.is_on_sale,
+        cskaoyan_mall_goods.sort_order,
+        cskaoyan_mall_goods.pic_url as gpic,
+        cskaoyan_mall_goods.share_url,
+        cskaoyan_mall_goods.is_new,
+        cskaoyan_mall_goods.is_hot,
+        cskaoyan_mall_goods.unit,
+        cskaoyan_mall_goods.counter_price,
+        cskaoyan_mall_goods.retail_price,
+        cskaoyan_mall_goods.detail,
+        cskaoyan_mall_goods.add_time as gadd,
+        cskaoyan_mall_goods.update_time as  gup,
+        cskaoyan_mall_goods.deleted as gdeleted
+        from cskaoyan_mall_cart
+        left join cskaoyan_mall_goods
+        on  cskaoyan_mall_cart.goods_id=cskaoyan_mall_goods.id
+        left join cskaoyan_mall_goods_product
+        on cskaoyan_mall_goods_product.goods_id=cskaoyan_mall_goods.id
+        where cskaoyan_mall_cart.id=#{cid}
+    </select>
+    <select id="queryCartByChecked" resultMap="orderCartMap">
+    select
+        cskaoyan_mall_cart.id,
+        cskaoyan_mall_cart.user_id,
+        cskaoyan_mall_cart.goods_id,
+        cskaoyan_mall_cart.goods_sn,
+        cskaoyan_mall_cart.goods_name,
+        cskaoyan_mall_cart.product_id,
+        cskaoyan_mall_cart.price,
+        cskaoyan_mall_cart.number,
+        cskaoyan_mall_cart.specifications,
+        cskaoyan_mall_cart.checked,
+        cskaoyan_mall_cart.pic_url,
+        cskaoyan_mall_cart.add_time,
+        cskaoyan_mall_cart.update_time,
+        cskaoyan_mall_cart.deleted,
+
+        cskaoyan_mall_goods.id as gid,
+        cskaoyan_mall_goods.goods_sn as gsn,
+        cskaoyan_mall_goods.name,
+        cskaoyan_mall_goods.category_id,
+        cskaoyan_mall_goods.brand_id,
+        cskaoyan_mall_goods.gallery,
+        cskaoyan_mall_goods.keywords,
+        cskaoyan_mall_goods.brief,
+        cskaoyan_mall_goods.is_on_sale,
+        cskaoyan_mall_goods.sort_order,
+        cskaoyan_mall_goods.pic_url as gpic,
+        cskaoyan_mall_goods.share_url,
+        cskaoyan_mall_goods.is_new,
+        cskaoyan_mall_goods.is_hot,
+        cskaoyan_mall_goods.unit,
+        cskaoyan_mall_goods.counter_price,
+        cskaoyan_mall_goods.retail_price,
+        cskaoyan_mall_goods.detail,
+        cskaoyan_mall_goods.add_time as gadd,
+        cskaoyan_mall_goods.update_time as  gup,
+        cskaoyan_mall_goods.deleted as gdelete
+        from cskaoyan_mall_cart
+        left join cskaoyan_mall_goods
+        on  cskaoyan_mall_cart.goods_id=cskaoyan_mall_goods.id
+        where cskaoyan_mall_cart.checked=1
+    </select>
+
+    <resultMap id="orderAddressMap" type="com.cskaoyan.bean.Address">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="user_id" property="userId"/>
+        <result column="province_id" property="provinceId"/>
+        <result column="city_id" property="cityId"/>
+        <result column="area_id" property="areaId"/>
+        <result column="address" property="address"/>
+        <result column="mobile" property="mobile"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+    <select id="queryAddressByAid" resultMap="orderAddressMap">
+        select
+        id,
+        name,
+        user_id,
+        province_id,
+        city_id,
+        area_id,
+        address,
+        mobile,
+        is_default,
+        add_time,
+        update_time,
+        deleted
+        from cskaoyan_mall_address
+        where id=#{aid}
+
+    </select>
+
+    <insert id="insertOrder" parameterType="com.cskaoyan.bean.Order" useGeneratedKeys="true">
+        <selectKey keyProperty="order.id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        insert into cskaoyan_mall_order
+        (
+          user_id,
+          order_sn,
+          order_status,
+          consignee,
+          mobile,
+          address,
+          message,
+          goods_price,
+          freight_price,
+          coupon_price,
+          integral_price,
+          groupon_price,
+          order_price,
+          actual_price,
+          pay_id,
+          pay_time,
+          ship_sn,
+          ship_channel,
+          ship_time,
+          confirm_time,
+          comments,
+          end_time,
+          add_time,
+          update_time,
+          deleted) values(
+                          #{order.userId},
+                          #{order.orderSn},
+                          #{order.orderStatus},
+                          #{order.consignee},
+                          #{order.mobile},
+                          #{order.address},
+                          #{order.message},
+                          #{order.goodsPrice},
+                          #{order.freightPrice},
+                          #{order.couponPrice},
+                          #{order.integralPrice},
+                          #{order.grouponPrice},
+                          #{order.orderPrice},
+                          #{order.actualPrice},
+                          #{order.payId},
+                          #{order.payTime},
+                          #{order.shipSn},
+                          #{order.shipChannel},
+                          #{order.shipTime},
+                          #{order.confirmTime},
+                          #{order.comments},
+                          #{order.endTime},
+                          #{order.addTime},
+                          #{order.updateTime},
+                          #{order.deleted})
+
+    </insert>
+
+    <insert id="insertOrderGoods">
+        insert into cskaoyan_mall_order_goods
+        (
+        id,
+        order_id,
+        goods_id,
+        goods_name,
+        goods_sn,
+        product_id,
+        number,
+        price,
+        specifications,
+        pic_url,
+        comment,
+        add_time,
+        update_time,
+        deleted)  values (
+                            #{og.id},
+                            #{og.orderId},
+                            #{og.goodsId},
+                            #{og.goodsName},
+                            #{og.goodsSn},
+                            #{og.productId},
+                            #{og.number},
+                            #{og.price},
+                            #{og.specifications},
+                            #{og.picUrl},
+                            #{og.comment},
+                            #{og.addTime},
+                            #{og.updateTime},
+                            #{og.deleted})
+
+    </insert>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

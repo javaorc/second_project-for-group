@@ -1,12 +1,11 @@
 package com.cskaoyan.controller.wxOrderController;
 
-import com.cskaoyan.bean.Order;
-import com.cskaoyan.bean.OrderGoods;
-import com.cskaoyan.bean.Storage;
+import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.wxBean.WxCommentBackInfo;
 import com.cskaoyan.bean.wxBean.WxOrder;
 import com.cskaoyan.bean.wxBean.WxOrderDetail;
+import com.cskaoyan.bean.wxBean.WxSubmitInfo;
 import com.cskaoyan.mapper.wxOrder.WxOrderMapper;
 import com.cskaoyan.oss.MyOssClient;
 import com.cskaoyan.service.MallOrderService;
@@ -27,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Controller
@@ -258,5 +258,60 @@ public class wxOrderController {
         return null;
     }
 
+    @RequestMapping("wx/order/submit")
+    @ResponseBody
+    public ResponseVO<Object> orderSubmit(@RequestBody WxSubmitInfo wxSubmitInfo,HttpServletRequest request) {
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
+        Address address = wxOrderService.queryAddressByAid(wxSubmitInfo.getAddressId());
+        ResponseVO<Object> responseVO = new ResponseVO<>();
+        if(wxSubmitInfo.getCartId()!=0){
+            Cart cart = wxOrderService.queryCartByCid(wxSubmitInfo.getCartId());
+            Short s = 1;
+            short s2 = 101;
+            Order order = new Order(userId, null, "",
+                    s2, "1", address.getMobile(),
+                    address.getAddress(), address.getAddress(), new BigDecimal(cart.getGoods().getRetailPrice()),
+                    cart.getPrice(), cart.getPrice(),
+                    new BigDecimal(cart.getGoods().getCounterPrice()), new BigDecimal(0),
+                    new BigDecimal(cart.getGoods().getRetailPrice()), new BigDecimal(cart.getGoods().getRetailPrice()),
+                    "0", new Date(), "abcd",
+                    "1", new Date(), null,
+                    s, new Date(), new Date(), new Date(),
+                    false);
+            int i = wxOrderService.insertOrder(order);
+            responseVO.setData(order.getId());
+        }else {
+            List<Cart> carts = wxOrderService.queryCartByChecked();
+            for (Cart cart : carts) {
+                Short s = 1;
+                short s2 = 101;
+                Order order = new Order(userId, null, "",
+                        s2, "1", address.getMobile(),
+                        address.getAddress(), address.getAddress(), new BigDecimal(cart.getGoods().getRetailPrice()),
+                        cart.getPrice(), cart.getPrice(),
+                        new BigDecimal(cart.getGoods().getCounterPrice()), new BigDecimal(0),
+                        new BigDecimal(cart.getGoods().getRetailPrice()), new BigDecimal(cart.getGoods().getRetailPrice()),
+                        "0", new Date(), "abcd",
+                        "1", new Date(), null,
+                        s, new Date(), new Date(), new Date(),
+                        false);
+                int i = wxOrderService.insertOrder(order);
+
+                OrderGoods orderGoods = new OrderGoods(order.getId(), null, cart.getGoods().getId(),
+                        null, cart.getGoods().getName(), cart.getGoods().getGoodsSn(), cart.getProductId(),
+                        cart.getGoodsProduct(), s, new BigDecimal(cart.getGoodsProduct().getPrice()),
+                        cart.getGoodsProduct().getSpecifications().toString(), cart.getGoodsProduct().getUrl(), 0,
+                        new Date(), new Date(), false);
+                int j = wxOrderService.insertOrderGoods(orderGoods);
+                responseVO.setData(order.getId());
+            }
+
+            }
+            responseVO.setErrmsg("成功");
+            responseVO.setErrno(0);
+            return responseVO;
+
+    }
 
 }
