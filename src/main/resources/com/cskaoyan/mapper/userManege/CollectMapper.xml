@@ -30,22 +30,23 @@
 
 <select id="queryCollect" resultMap="collectMap">
     <include refid="baseColumn"/>
+    where deleted=0
 </select>
 
 <select id="queryCollectByUserIdAndValueID" resultMap="collectMap">
     <include refid="baseColumn"/>
-  where user_id=#{userId} and value_id=#{valueId}
+  where user_id=#{userId} and value_id=#{valueId} and deleted=0
 </select>
 
 <select id="queryCollectByValueID" resultMap="collectMap">
     <include refid="baseColumn"/>
-  where value_id=#{valueId}
+  where value_id=#{valueId} and deleted=0
 </select>
 
 
 <select id="queryCollectByUserId" resultMap="collectMap">
     <include refid="baseColumn"/>
-  where user_id=#{userId}
+  where user_id=#{userId} and deleted=0
 </select>
 
 </mapper>
