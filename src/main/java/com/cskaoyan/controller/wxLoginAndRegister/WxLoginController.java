@@ -77,4 +77,13 @@ public class WxLoginController {
         return responseVO;
     }
 
+    @RequestMapping("wx/auth/logout")
+    @ResponseBody
+    public ResponseVO<Object> logout() {
+        ResponseVO<Object> responseVO = new ResponseVO<>();
+        responseVO.setErrmsg("成功");
+        responseVO.setErrno(0);
+        return responseVO;
+    }
+
 }

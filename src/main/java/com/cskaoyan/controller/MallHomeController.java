@@ -12,6 +12,8 @@ import com.cskaoyan.service.generalize.CouponService;
 import com.cskaoyan.service.generalize.GrouponRulesService;
 import com.cskaoyan.service.generalize.TopicService;
 import com.cskaoyan.service.goods.GoodsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
+@Api(tags = "首页信息",description = "MallHomeController是首页模块统计的Controller")
 public class MallHomeController {
 
     @Autowired(required = false)
@@ -56,6 +59,7 @@ public class MallHomeController {
     @RequestMapping("admin/dashboard")
     @ResponseBody
     @RequiresPermissions(value = "admin:storage:list")
+    @ApiOperation(value = "showHome",notes = "显示主页功能")
     public ResponseVO<Map<String,Object>> showHome(){
         HomeData homeData = mallHomeMapper.showHome();
         Map<String, Object> map = new HashMap<>();
