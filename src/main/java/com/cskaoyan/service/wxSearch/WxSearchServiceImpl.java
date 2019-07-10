@@ -1,9 +1,11 @@
 package com.cskaoyan.service.wxSearch;
 
+import com.cskaoyan.bean.wxBean.WxSearchKeyword;
 import com.cskaoyan.mapper.wxSearch.WxSearchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,5 +34,24 @@ public class WxSearchServiceImpl implements WxSearchService {
     @Override
     public int clearHistoryKeyword(Integer userId) {
         return searchMapper.clearHistoryKeyword(userId);
+    }
+
+    /*添加关键字*/
+    @Override
+    public int insertSearchKeyword(Integer uid, String keyword) {
+        if (uid == null) {
+            return 0;
+        }
+
+        Date date = new Date();
+        WxSearchKeyword searchKeyword = new WxSearchKeyword();
+        searchKeyword.setUserId(uid);
+        searchKeyword.setKeyword(keyword);
+        searchKeyword.setAddTime(date);
+        searchKeyword.setUpdateTime(date);
+        searchKeyword.setFrom("wx");
+        searchKeyword.setDeleted(false);
+
+        return searchMapper.insertSearchKeyword(searchKeyword);
     }
 }
