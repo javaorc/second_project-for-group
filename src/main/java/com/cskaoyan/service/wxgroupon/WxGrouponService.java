@@ -1,5 +1,6 @@
 package com.cskaoyan.service.wxgroupon;
 
+import com.cskaoyan.bean.Feedback;
 import com.cskaoyan.bean.vo.ResponseVO;
 
 import java.util.Map;
@@ -15,4 +16,8 @@ public interface WxGrouponService {
     ResponseVO<Map<String, Object>> gouponMy(Integer showType);
 
     ResponseVO<Map<String, Object>> gouponDetail(Integer grouponId);
+
+    ResponseVO<Map<String, Object>> feedback(Map<String,Object> map);
+
+    ResponseVO<Map<String, Object>> footprint(Integer page, Integer size);
 }

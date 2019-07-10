@@ -33,8 +33,12 @@
     </select>
 
     <!--查询历史关键字列表-->
-    <select id="queryHistoryKeywordList" resultType="com.cskaoyan.bean.wxBean.WxSearchKeyword">
-        select keyword
+    <resultMap id="searchKeywordMap" type="com.cskaoyan.bean.wxBean.WxSearchKeyword">
+        <result column="keyword" property="keyword"/>
+    </resultMap>
+    <select id="queryHistoryKeywordList" resultMap="searchKeywordMap">
+        select
+          keyword
         from cskaoyan_mall_search_history
         where user_id = #{uid}
         order by add_time desc
@@ -62,5 +66,27 @@
         delete from cskaoyan_mall_search_history
         where user_id = #{uid}
     </delete>
+
+    <!--添加搜索记录-->
+    <insert id="insertSearchKeyword">
+        <selectKey keyProperty="searchKeyword.id" resultType="_int" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+        insert into cskaoyan_mall_search_history(
+            user_id,
+            keyword,
+            `from`,
+            add_time,
+            update_time,
+            deleted
+        ) values (
+          #{searchKeyword.userId},
+          #{searchKeyword.keyword},
+          #{searchKeyword.from},
+          #{searchKeyword.addTime},
+          #{searchKeyword.updateTime},
+          #{searchKeyword.deleted}
+        )
+    </insert>
 
 </mapper>

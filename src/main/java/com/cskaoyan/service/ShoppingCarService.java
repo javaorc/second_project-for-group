@@ -30,4 +30,8 @@ public interface ShoppingCarService {
 
     void cartAdd1(Cart cart1);
 
+    double couponPriceGet(Integer uid, int couponId);
+
+    int couponNumber(Integer uid);
+
 }

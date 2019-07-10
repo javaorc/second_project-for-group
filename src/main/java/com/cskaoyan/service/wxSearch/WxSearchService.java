@@ -6,4 +6,6 @@ public interface WxSearchService {
     Map<String, Object> queryKeywordList(Integer uid);
 
     int clearHistoryKeyword(Integer userId);
+
+    int insertSearchKeyword(Integer uid, String searchKeyword);
 }

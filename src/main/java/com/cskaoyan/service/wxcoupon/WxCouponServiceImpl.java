@@ -68,5 +68,14 @@ public class WxCouponServiceImpl implements WxCouponService {
         return mapResponseVO;
     }
 
+    @Override
+    public ResponseVO<Map<String, Object>> selectList(Integer cartId, Integer grouponRulesId) {
+
+        mapResponseVO.setData(null);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
+        return mapResponseVO;
+    }
+
 
 }

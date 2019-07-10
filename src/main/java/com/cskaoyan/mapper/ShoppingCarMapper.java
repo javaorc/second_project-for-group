@@ -31,4 +31,6 @@ public interface ShoppingCarMapper {
     Cart cartsGet(@Param("pid") int pid, @Param("uid") Integer uid);
 
     void cartAdd1(Cart cart1);
+
+    double couponPriceGet(@Param("uid") Integer uid, @Param("couponId") int couponId);
 }
