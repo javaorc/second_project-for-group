@@ -1,5 +1,6 @@
 package com.cskaoyan.controller.wxAddress;
 
+import com.cskaoyan.bean.Address;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.bean.wxBean.WxAddress;
 import com.cskaoyan.bean.wxBean.WxAddress2;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WxAddressController {
@@ -51,15 +53,30 @@ public class WxAddressController {
     /*保存地址信息*/
     @RequestMapping("wx/address/save")
     @ResponseBody
-    public ResponseVO<Integer> save(@RequestBody WxAddress2 address, HttpServletRequest request) {
+    public ResponseVO<Integer> save(@RequestBody Address address, HttpServletRequest request) {
         ResponseVO<Integer> responseVO = new ResponseVO<>();
 
         String tokenKey = request.getHeader("X-Litemall-Token");
         Integer userId = UserTokenManager.getUserId(tokenKey);
 
-        int ret = addressService.updateAddress(address, userId);
+        int ret = addressService.saveAddress(address, userId);
 
         responseVO.setData(address.getId());
+        responseVO.setErrmsg("成功");
+        responseVO.setErrno(0);
+        return responseVO;
+    }
+
+    /*删除地址信息*/
+    @RequestMapping("wx/address/delete")
+    @ResponseBody
+    public ResponseVO<Integer> delete(@RequestBody Map map) {
+        ResponseVO<Integer> responseVO = new ResponseVO<>();
+
+        int id = (Integer) map.get("id");
+        int ret = addressService.deleteAddressById(id);
+
+        responseVO.setData(null);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
         return responseVO;

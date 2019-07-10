@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxRegion.WxRegionMapper">
+
+    <resultMap id="regionMap" type="com.cskaoyan.bean.Region">
+        <result column="id" property="id"/>
+        <result column="pid" property="pid"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="code" property="code"/>
+    </resultMap>
+    <select id="queryRegionListByPid" resultMap="regionMap">
+        select
+          id,
+          pid,
+          name,
+          type,
+          code
+        from cskaoyan_mall_region
+        where pid = #{pid}
+    </select>
+
+</mapper>

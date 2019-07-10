@@ -39,14 +39,6 @@ public class Address {
         this.region = region;
     }
 
-    public Boolean getDefault() {
-        return isDefault;
-    }
-
-    public void setDefault(Boolean aDefault) {
-        isDefault = aDefault;
-    }
-
     public User getUser() {
         return user;
     }
