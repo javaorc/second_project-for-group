@@ -8,6 +8,7 @@ import com.cskaoyan.mapper.wxgoodsmapper.WxGoodsMapperCLY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,8 +22,10 @@ public class WxGoodsServiceImplCLY implements WxGoodsServiceCLY {
         GoodsQuery goodsQuery = new GoodsQuery();
         WxGoodsSpecification wxGoodsSpecification = new WxGoodsSpecification();
         wxGoodsSpecification.setName("规格");
-        wxGoodsSpecification.setGoodsSpecifications(wxGoodsMapperCLY.querySpecificationList(id));
-        goodsQuery.setSpecificationList(wxGoodsSpecification);
+        wxGoodsSpecification.setValueList(wxGoodsMapperCLY.querySpecificationList(id));
+        List<WxGoodsSpecification> list = new ArrayList<>();
+        list.add(wxGoodsSpecification);
+        goodsQuery.setSpecificationList(list);
         goodsQuery.setIssue(wxGoodsMapperCLY.queryIssue());
         goodsQuery.setUserHasCollect(0);
         goodsQuery.setShareImage("");

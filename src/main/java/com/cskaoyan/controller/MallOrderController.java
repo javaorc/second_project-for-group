@@ -1,13 +1,17 @@
 package com.cskaoyan.controller;
 
+import com.cskaoyan.OperationLog.OperationLog;
 import com.cskaoyan.bean.Kind;
 import com.cskaoyan.bean.Order;
 import com.cskaoyan.bean.OrderCGoods;
 import com.cskaoyan.bean.OrderGoods;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.mapper.mallManege.MallOrderMapper;
+import com.cskaoyan.service.SystemService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +28,11 @@ import java.util.Map;
 public class MallOrderController {
     @Autowired(required = false)
     MallOrderMapper mallOrderMapper;
+    @Autowired
+    SystemService systemService;
     @RequestMapping("order/list")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:list")
     public ResponseVO<Map<String,Object>> createOrder(Integer page,Integer limit,Integer orderStatusArray,Integer userId,String orderSn) {
         PageHelper.startPage(page,limit);
         Map<String, Object> map = new HashMap<>();
@@ -41,6 +48,9 @@ public class MallOrderController {
             map.put("items", orders);
             map.put("total", orderPageInfo.getTotal());
         }
+        String name1 = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"显示对象",name1);
         ResponseVO<Map<String, Object>> responseVO = new ResponseVO<>();
         responseVO.setData(map);
         responseVO.setErrmsg("成功");
@@ -51,6 +61,7 @@ public class MallOrderController {
 
     @RequestMapping("order/detail")
     @ResponseBody
+    @RequiresPermissions(value = "admin:storage:list")
     public ResponseVO<Map<String,Object>> showOrderDetail(Integer id) {
         Map<String, Object> map = new HashMap<>();
         OrderCGoods orderCGoods = mallOrderMapper.searchOrderGoods(id);
@@ -60,6 +71,9 @@ public class MallOrderController {
         map.put("order",orderCGoods);
         map.put("orderGoods",objects);
         map.put("user",orderCGoods.getUser());
+        String name1 = (String) SecurityUtils.getSubject().getPrincipal();
+        OperationLog operationLog=new OperationLog();
+        operationLog.logInsert(systemService,"显示对象",name1);
         responseVO.setData(map);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
