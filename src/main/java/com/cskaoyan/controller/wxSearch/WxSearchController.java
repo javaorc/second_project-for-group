@@ -56,7 +56,7 @@ public class WxSearchController {
     /*异步搜索*/
     @RequestMapping("wx/search/helper")
     @ResponseBody
-    public ResponseVO<List> helper() {
+    public ResponseVO<List> helper(String keyword) {
         ResponseVO<List> responseVO = new ResponseVO<>();
 
         List data = new ArrayList();

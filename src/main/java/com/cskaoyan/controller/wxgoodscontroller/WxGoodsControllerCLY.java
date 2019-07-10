@@ -25,16 +25,16 @@ public class WxGoodsControllerCLY {
     @RequestMapping(value = "detail")
     public ResponseVO<GoodsQuery> getDetail(String id){
         ResponseVO<GoodsQuery> responseVO = new ResponseVO<>();
-        GoodsQuery container = wxGoodsServiceCLY.getDetail(id);
-        responseVO.setData(container);
+        GoodsQuery goodsQuery = wxGoodsServiceCLY.getDetail(id);
+        responseVO.setData(goodsQuery);
         responseVO.setErrmsg("成功");
         responseVO.setErrno(0);
         return responseVO;
     }
 
-
     @RequestMapping(value = "related")
     public Map getRelated(String id){
+
         ResponseVO<List<WxGoods2>> responseVO = new ResponseVO<>();
         List<WxGoods2> goodsList = wxGoodsServiceCLY.getRelated(id);
         Map map=new HashMap();

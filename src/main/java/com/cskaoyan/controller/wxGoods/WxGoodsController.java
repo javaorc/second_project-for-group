@@ -5,13 +5,19 @@ import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.service.wxGoods.WxCategoryGoodsServiceImpl;
 import com.cskaoyan.service.wxGoods.WxGoodsServiceImpl;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
+import com.cskaoyan.service.wxGoods.WxSearchHistoryServiceImpl;
+
+import com.cskaoyan.service.wxSearch.WxSearchService;
+
+import com.cskaoyan.tokenManager.UserTokenManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +29,13 @@ public class WxGoodsController {
 
     @Autowired
     WxCategoryGoodsServiceImpl categoryGoodsService;
+
+    @Autowired
+
+    WxSearchHistoryServiceImpl searchHistoryService;
+    @Autowired
+    WxSearchService searchService;
+
 
     @RequestMapping("wx/goods/category")
     @ResponseBody
@@ -52,27 +65,44 @@ public class WxGoodsController {
 
     @RequestMapping("wx/goods/list")
     @ResponseBody
-    public ResponseVO<Map> queryGoodsList(String keyword,Integer brandId , Integer categoryId,int page,int size){
+
+    public ResponseVO<Map> queryGoodsList(HttpServletRequest request, String keyword, Integer brandId, Integer categoryId, int page, int size){
+
         ResponseVO<Map> mapResponseVO = new ResponseVO<>();
-        mapResponseVO.setErrmsg("成功");
-        mapResponseVO.setErrno(0);
+        Map<Object, Object> map = new HashMap<>();
         List<Goods> goods;
         List<Category> categories = null;
+
+        Integer userId = 1;
         if (categoryId != null&& categoryId != 0){
             categories = categoryGoodsService.queryBrotherCategory(categoryId);
             goods = goodsService.queryGoodsByCategoryId(categoryId);
-        }else if (brandId != null){
+        } else if (brandId != null){
             goods = goodsService.queryGoodsByBrandId(brandId);
-            categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
-        }else {
+            if (goods.size() > 0) {
+                categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+            }
+        } else {
+            String tokenKey = request.getHeader("X-Litemall-Token");
+            userId = UserTokenManager.getUserId(tokenKey);
+
+            /*添加搜索关键字*/
+            searchService.insertSearchKeyword(userId, keyword);
+
+
             goods = goodsService.queryGoodsByName(keyword);
-            categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+            if (goods.size() > 0) {
+                categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
+            }
         }
-        Map<Object, Object> map = new HashMap<>();
+
         map.put("filterCategoryList",categories);
         map.put("goodsList",goods);
         map.put("count",goods.size());
+
         mapResponseVO.setData(map);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setErrno(0);
         return mapResponseVO;
     }
 }

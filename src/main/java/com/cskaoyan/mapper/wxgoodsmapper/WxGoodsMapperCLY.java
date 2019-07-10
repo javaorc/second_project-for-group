@@ -1,6 +1,7 @@
 package com.cskaoyan.mapper.wxgoodsmapper;
 
 import com.cskaoyan.bean.*;
+import com.cskaoyan.bean.wxBean.WxComment3;
 import com.cskaoyan.bean.wxBean.WxGoods2;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,11 +25,13 @@ public interface WxGoodsMapperCLY {
 
     Goods queryInfo(@Param("id") String id);
 
-    List<Comment> queryCommentDate(@Param("id") String id);
+    List<WxComment3> queryCommentDate(@Param("id") String id);
 
     Integer queryCommentCount(@Param("id") String id);
 
     Goods queryGoodsById(@Param("id") String id);
 
     void insertFootprint(@Param("foot") Footprint footPrintBean);
+    List<Groupon> queryGroupon(String id);
+
 }

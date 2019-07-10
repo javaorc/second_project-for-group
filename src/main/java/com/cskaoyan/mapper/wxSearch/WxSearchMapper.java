@@ -14,4 +14,6 @@ public interface WxSearchMapper {
     List<Keyword> queryHotKeywordList();
 
     int clearHistoryKeyword(@Param("uid") int uid);
+
+    int insertSearchKeyword(@Param("searchKeyword") WxSearchKeyword searchKeyword);
 }

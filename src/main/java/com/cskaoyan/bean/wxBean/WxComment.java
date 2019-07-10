@@ -4,17 +4,17 @@ import com.cskaoyan.bean.Comment;
 
 import java.util.List;
 
-public class WxComment {
+public class WxComment<T> {
 
-    List<Comment> data;
+    List<T> data;
 
     Integer count;
 
-    public List<Comment> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List<Comment> data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 
@@ -30,7 +30,7 @@ public class WxComment {
 
     }
 
-    public WxComment(List<Comment> data, Integer count) {
+    public WxComment(List<T> data, Integer count) {
         this.data = data;
         this.count = count;
     }
