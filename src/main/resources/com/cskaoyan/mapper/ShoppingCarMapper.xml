@@ -12,6 +12,7 @@
 </resultMap>
     <select id="cartGet" resultMap="cartGetMap">
 select
+cmc.user_id,
 cmg.name as name,
 cmg.goods_sn as goodsSn,
 cmgp.price as price,
@@ -20,8 +21,8 @@ cmgp.url as url
 from
 cskaoyan_mall_goods cmg
 LEFT JOIN cskaoyan_mall_goods_product cmgp on cmgp.goods_id=cmg.id
-where goods_id=#{goodsId}
-and user_id=#{uid}
+left join cskaoyan_mall_cart cmc on cmc.goods_id=cmg.id
+where cmgp.goods_id=#{goodsId}
     </select>
 <insert id="cartAdd" >
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">

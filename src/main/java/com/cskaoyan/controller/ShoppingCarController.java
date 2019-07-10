@@ -2,6 +2,7 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.Cart;
 import com.cskaoyan.bean.LzgOrder;
+import com.cskaoyan.bean.Order;
 import com.cskaoyan.service.MallRegionService;
 import com.cskaoyan.service.ShoppingCarService;
 import com.cskaoyan.tokenManager.UserTokenManager;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +134,20 @@ public class ShoppingCarController {
     public Map cartCheckout(int cartId,int addressId,int couponId,int grouponRulesId,HttpServletRequest httpServletRequest){
         String tokenKey=httpServletRequest.getHeader("X-Litemall-Token");
         Integer uid= UserTokenManager.getUserId(tokenKey);
+        CartUtil cartUtil=new CartUtil();
+        Map map1=cartUtil.cartUtil(shoppingCarService,uid);
+        Map map2=(Map) map1.get("data");
+        List cartList=(List) map2.get("cartList");
+        Map map3=(Map) map2.get("cartTotal");
+        int checkedGoodsAmount=(int)map3.get("checkedGoodsAmount");
+        int checkedGoodsCount=(int)map3.get("checkedGoodsCount");
+        int goodsAmount=(int)map3.get("goodsAmount");
+        int goodsCount=(int)map3.get("goodsCount");
+        Order order1=new Order();
+            order1.setOrderPrice(BigDecimal.valueOf(checkedGoodsAmount));
+            order1.setUserId(uid);
+            order1.setActualPrice(BigDecimal.valueOf(checkedGoodsAmount));
+
 
        LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
        order.setAddressId(addressId);
