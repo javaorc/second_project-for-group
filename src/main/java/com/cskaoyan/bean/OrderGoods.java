@@ -4,39 +4,39 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderGoods {
-    private Integer id;
+    private Integer         id;
 
-    private Integer orderId;
+    private Integer         orderId;
 
-    private  Order  order;
+    private  Order          order;
 
-    private Integer goodsId;
+    private Integer         goodsId;
 
-    private Goods   goods;
+    private Goods           goods;
 
-    private String  goodsName;
+    private String          goodsName;
 
-    private String  goodsSn;
+    private String          goodsSn;
 
-    private Integer productId;
+    private Integer         productId;
 
-    private GoodsProduct goodsProduct;
+    private GoodsProduct    goodsProduct;
 
-    private Short   number;
+    private Short           number;
 
-    private  BigDecimal  price;
+    private  BigDecimal     price;
 
-    private String  specifications;
+    private String          specifications;
 
-    private String  picUrl;
+    private String          picUrl;
 
-    private Integer comment;
+    private Integer         comment;
 
-    private Date    addTime;
+    private Date            addTime;
 
-    private Date    updateTime;
+    private Date            updateTime;
 
-    private Boolean deleted;
+    private Boolean         deleted;
 
     public Order getOrder() {
         return order;
@@ -172,5 +172,27 @@ public class OrderGoods {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public OrderGoods(Integer orderId, Order order, Integer goodsId, Goods goods, String goodsName, String goodsSn, Integer productId, GoodsProduct goodsProduct, Short number, BigDecimal price, String specifications, String picUrl, Integer comment, Date addTime, Date updateTime, Boolean deleted) {
+        this.orderId = orderId;
+        this.order = order;
+        this.goodsId = goodsId;
+        this.goods = goods;
+        this.goodsName = goodsName;
+        this.goodsSn = goodsSn;
+        this.productId = productId;
+        this.goodsProduct = goodsProduct;
+        this.number = number;
+        this.price = price;
+        this.specifications = specifications;
+        this.picUrl = picUrl;
+        this.comment = comment;
+        this.addTime = addTime;
+        this.updateTime = updateTime;
+        this.deleted = deleted;
+    }
+
+    public OrderGoods() {
     }
 }

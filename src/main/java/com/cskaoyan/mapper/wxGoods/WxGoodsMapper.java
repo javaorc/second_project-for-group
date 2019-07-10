@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface WxGoodsMapper {
     Integer queryGoodsCounts();
-    List<Goods> queryGoodsByCategoryId(@Param("categoryId")int categoryId);
     List<Goods> queryGoodsByBrandId(@Param("brandId")int brandId);
-    List<Goods> queryGoodsByName(@Param("name")String name);
     Goods queryGoodsById(@Param("id")int id);
+
+    List<Goods> queryGoodsByCategoryIdAndName(@Param("categoryId") int categoryId, @Param("keyword") String keyword, @Param("sort") String sort, @Param("order") String order);
 }

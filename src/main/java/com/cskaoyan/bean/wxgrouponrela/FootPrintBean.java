@@ -64,6 +64,7 @@ public class FootPrintBean {
         this.picUrl = picUrl;
     }
 
+
     public Integer getRetailPrice() {
         return retailPrice;
     }

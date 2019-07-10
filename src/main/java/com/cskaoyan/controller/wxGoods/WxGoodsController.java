@@ -3,12 +3,17 @@ package com.cskaoyan.controller.wxGoods;
 
 import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.ResponseVO;
+import com.cskaoyan.service.wxGoods.WxCategoryGoodsService;
 import com.cskaoyan.service.wxGoods.WxCategoryGoodsServiceImpl;
+import com.cskaoyan.service.wxGoods.WxGoodsService;
 import com.cskaoyan.service.wxGoods.WxGoodsServiceImpl;
+
+import com.cskaoyan.service.wxGoods.WxSearchHistoryServiceImpl;
+
 import com.cskaoyan.service.wxSearch.WxSearchService;
+
 import com.cskaoyan.tokenManager.UserTokenManager;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +27,17 @@ import java.util.Map;
 @Controller
 public class WxGoodsController {
     @Autowired
-    WxGoodsServiceImpl goodsService;
+    WxGoodsService goodsService;
 
     @Autowired
-    WxCategoryGoodsServiceImpl categoryGoodsService;
+    WxCategoryGoodsService categoryGoodsService;
 
+    @Autowired
+
+    WxSearchHistoryServiceImpl searchHistoryService;
     @Autowired
     WxSearchService searchService;
+
 
     @RequestMapping("wx/goods/category")
     @ResponseBody
@@ -58,29 +67,29 @@ public class WxGoodsController {
 
     @RequestMapping("wx/goods/list")
     @ResponseBody
-    public ResponseVO<Map> queryGoodsList(HttpServletRequest request, String keyword, Integer brandId, Integer categoryId, int page, int size){
+    public ResponseVO<Map> queryGoodsList(HttpServletRequest request, Integer brandId, String keyword, Integer categoryId, int page, int size, String sort, String order){
+
+        String tokenKey = request.getHeader("X-Litemall-Token");
+        Integer userId = UserTokenManager.getUserId(tokenKey);
+
         ResponseVO<Map> mapResponseVO = new ResponseVO<>();
         Map<Object, Object> map = new HashMap<>();
         List<Goods> goods;
         List<Category> categories = null;
 
-        if (categoryId != null && categoryId != 0){
-            categories = categoryGoodsService.queryBrotherCategory(categoryId);
-            goods = goodsService.queryGoodsByCategoryId(categoryId);
-        } else if (brandId != null){
+        /*品牌商id不为空*/
+        if (brandId != null){
             goods = goodsService.queryGoodsByBrandId(brandId);
             if (goods.size() > 0) {
                 categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
             }
-        } else {
-
-            String tokenKey = request.getHeader("X-Litemall-Token");
-            Integer userId = UserTokenManager.getUserId(tokenKey);
-
+        }
+        else {
             /*添加搜索关键字*/
-            searchService.insertSearchKeyword(userId, keyword);
-
-            goods = goodsService.queryGoodsByName(keyword);
+            if (keyword != null && !"".equals(keyword)) {
+                searchService.insertSearchKeyword(userId, keyword);
+            }
+            goods = goodsService.queryGoodsByCategoryIdAndName(categoryId, keyword, sort, order);
             if (goods.size() > 0) {
                 categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
             }

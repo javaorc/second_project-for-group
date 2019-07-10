@@ -89,4 +89,10 @@
         )
     </insert>
 
+    <!--是否存在该关键字-->
+    <select id="isExist" resultType="_int">
+        select count(*)
+        from cskaoyan_mall_search_history
+        where user_id = #{uid} and keyword = #{keyword}
+    </select>
 </mapper>

@@ -43,6 +43,10 @@ public class WxSearchServiceImpl implements WxSearchService {
             return 0;
         }
 
+        if (searchMapper.isExist(uid, keyword) > 0) {
+            return 0;
+        }
+
         Date date = new Date();
         WxSearchKeyword searchKeyword = new WxSearchKeyword();
         searchKeyword.setUserId(uid);

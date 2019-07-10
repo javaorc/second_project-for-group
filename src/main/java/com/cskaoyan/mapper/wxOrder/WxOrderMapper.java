@@ -1,5 +1,8 @@
 package com.cskaoyan.mapper.wxOrder;
 
+import com.cskaoyan.bean.Address;
+import com.cskaoyan.bean.Cart;
+import com.cskaoyan.bean.Order;
 import com.cskaoyan.bean.OrderGoods;
 import com.cskaoyan.bean.wxBean.WxOrder;
 import com.cskaoyan.bean.wxBean.WxOrderDetail;
@@ -25,4 +28,14 @@ public interface WxOrderMapper {
     int createNewComment(@Param("og")OrderGoods orderGoods, @Param("uid") Integer userId,@Param("temp")Integer temp,@Param("star")Integer star,@Param("comment")String comment);
 
     int updateComment(@Param("og")OrderGoods orderGoods);
+
+    Cart queryCartByCid(@Param("cid")Integer cid);
+
+    List<Cart> queryCartByChecked();
+
+    Address queryAddressByAid(@Param("aid")Integer aid);
+
+    int insertOrder(@Param("order") Order order);
+
+    int insertOrderGoods(@Param("og")OrderGoods orderGoods);
 }

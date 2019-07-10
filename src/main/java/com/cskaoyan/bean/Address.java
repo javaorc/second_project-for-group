@@ -5,7 +5,7 @@ import java.util.Date;
 public class Address {
     private Integer id;
 
-    private String name;
+    private String  name;
 
     private Integer userId;
 
@@ -13,23 +13,23 @@ public class Address {
 
     private Integer cityId;
 
-    private Region region;
+    private Region  region;
 
     private Integer areaId;
 
-    private String address;
+    private String  address;
 
-    private String mobile;
+    private String  mobile;
 
     private Boolean isDefault;
 
-    private Date addTime;
+    private Date    addTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean deleted;
 
-    private User user;
+    private User    user;
 
     private String detailedAddress;
 

@@ -46,14 +46,6 @@
     </update>
 
 
-<!--    <update id="updateDeletedTrue">
-        UPDATE cskaoyan_mall_collect SET
-			deleted=0,
-			update_time=#{updateDate},
-			add_time=#{updateDate}
-
-		  WHERE id=#{collectId}
-    </update>-->
     
     <insert id="addCollect" parameterType="com.cskaoyan.bean.Collect">
         insert into cskaoyan_mall_collect(

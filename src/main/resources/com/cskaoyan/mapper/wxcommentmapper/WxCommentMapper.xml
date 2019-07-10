@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.wxcommentmapper.WxCommentMapper">
+
+    <resultMap id="ResultForQueryCommentList" type="com.cskaoyan.bean.wxBean.WxComment2">
+        <result property="content" column="content"/>
+        <result property="picList" column="pic_urls" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler2"/>
+        <result property="addTime" column="add_time"/>
+        <association property="userInfo" select="com.cskaoyan.mapper.wxcommentmapper.WxCommentMapper.queryUserInfo"  column="user_id"/>
+    </resultMap>
+
+    <select id="queryAllCommentList" resultMap="ResultForQueryCommentList">
+        select
+        user_id,
+        content,
+        pic_urls,
+        add_time
+        from
+        cskaoyan_mall_comment
+        limit #{size}
+        offset #{type}
+    </select>
+
+    <select id="queryCommentListHasPic" resultMap="ResultForQueryCommentList">
+        select
+        user_id,
+        content,
+        pic_urls,
+        add_time
+        from
+        cskaoyan_mall_comment
+        limit #{size}
+        offset #{type}
+    </select>
+
+    <select id="queryUserInfo" resultType="com.cskaoyan.bean.wxBean.WxUserInfo">
+        select
+        nickname,
+        avatar
+        from
+        cskaoyan_mall_user
+        <where>
+            id = #{abc}
+        </where>
+    </select>
+
+    <select id="queryCommentAllCount" resultType="_int">
+        select
+        count(*)
+        from
+        cskaoyan_mall_comment
+    </select>
+
+    <select id="queryCommentCountHasPic" resultType="_int">
+        select
+        count(*)
+        from
+        cskaoyan_mall_comment
+    </select>
+
+</mapper>

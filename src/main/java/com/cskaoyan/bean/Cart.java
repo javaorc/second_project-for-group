@@ -4,41 +4,41 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Cart {
-    private Integer id;
+    private Integer     id;
 
-    private Integer userId;
+    private Integer     userId;
 
-    private User user;
+    private User        user;
 
-    private Integer goodsId;
+    private Integer     goodsId;
 
-    private Goods goods;
+    private Goods       goods;
 
-    private String goodsSn;
+    private String      goodsSn;
 
-    private String goodsName;
+    private String      goodsName;
 
-    private Integer productId;
+    private Integer     productId;
 
     private GoodsProduct goodsProduct;
 
-    private BigDecimal price;
+    private BigDecimal  price;
 
-    private Short number;
+    private Short       number;
 
-    private String[] specifications;
+    private String[]    specifications;
 
-    private boolean checked;
+    private boolean     checked;
 
-    private String picUrl;
+    private String      picUrl;
 
-    private Date addTime;
+    private Date        addTime;
 
-    private Date updateTime;
+    private Date        updateTime;
 
-    private boolean deleted;
+    private boolean     deleted;
 
-    private String specification;
+    private String      specification;
 
     public Integer getId() {
         return id;

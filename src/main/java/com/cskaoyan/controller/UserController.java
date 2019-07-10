@@ -1,7 +1,9 @@
 package com.cskaoyan.controller;
 
 
+import com.cskaoyan.bean.Footprint;
 import com.cskaoyan.bean.History;
+import com.cskaoyan.service.userManegeService.FootprintServiceImpl;
 import com.cskaoyan.service.userManegeService.HistoryServiceImpl;
 import com.cskaoyan.service.userManegeService.UserServiceImpl;
 import com.cskaoyan.bean.User;
@@ -25,6 +27,8 @@ public class UserController {
     UserServiceImpl userService;
     @Autowired
     HistoryServiceImpl historyService;
+    @Autowired
+    FootprintServiceImpl footprintService;
 
     @RequestMapping("admin/user/list")
     @ResponseBody
@@ -66,6 +70,26 @@ public class UserController {
         mapResponseVO.setData(map);
         mapResponseVO.setErrmsg("成功");
         mapResponseVO.setErrno(0);
+        return mapResponseVO;
+    }
+
+
+
+    @RequestMapping("admin/footprint/list")
+    @ResponseBody
+    public ResponseVO<Map> queryFootprint(Integer page,Integer limit){
+        ResponseVO<Map> mapResponseVO = new ResponseVO<>();
+        List<Footprint> footprints = footprintService.queryFootprint();
+        PageHelper.startPage(page,limit);
+        PageInfo<Footprint> footprintPageInfo = new PageInfo<>(footprints);
+        Map<Object, Object> map = new HashMap<>();
+        map.put("items",footprints);
+        map.put("total",footprintPageInfo.getTotal());
+        mapResponseVO.setErrno(0);
+        mapResponseVO.setErrmsg("成功");
+        mapResponseVO.setData(map);
+
+
         return mapResponseVO;
     }
 

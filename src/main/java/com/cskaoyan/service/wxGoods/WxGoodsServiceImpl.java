@@ -24,20 +24,8 @@ public class WxGoodsServiceImpl implements WxGoodsService {
     }
 
     @Override
-    public List<Goods> queryGoodsByCategoryId(int categoryId) {
-        List<Goods> goods = wxGoodsMapper.queryGoodsByCategoryId(categoryId);
-        return goods;
-    }
-
-    @Override
     public List<Goods> queryGoodsByBrandId(int brandId) {
         List<Goods> goods = wxGoodsMapper.queryGoodsByBrandId(brandId);
-        return goods;
-    }
-
-    @Override
-    public List<Goods> queryGoodsByName(String name) {
-        List<Goods> goods = wxGoodsMapper.queryGoodsByName(name);
         return goods;
     }
 
@@ -45,5 +33,10 @@ public class WxGoodsServiceImpl implements WxGoodsService {
     public Goods queryGoodsById(int id) {
         Goods goods = wxGoodsMapper.queryGoodsById(id);
         return goods;
+   }
+
+    @Override
+    public List<Goods> queryGoodsByCategoryIdAndName(Integer categoryId, String keyword, String sort, String order) {
+        return wxGoodsMapper.queryGoodsByCategoryIdAndName(categoryId, keyword, sort, order);
     }
 }
