@@ -7,10 +7,13 @@ import com.cskaoyan.service.wxGoods.WxCategoryGoodsService;
 import com.cskaoyan.service.wxGoods.WxCategoryGoodsServiceImpl;
 import com.cskaoyan.service.wxGoods.WxGoodsService;
 import com.cskaoyan.service.wxGoods.WxGoodsServiceImpl;
+
+import com.cskaoyan.service.wxGoods.WxSearchHistoryServiceImpl;
+
 import com.cskaoyan.service.wxSearch.WxSearchService;
+
 import com.cskaoyan.tokenManager.UserTokenManager;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +33,11 @@ public class WxGoodsController {
     WxCategoryGoodsService categoryGoodsService;
 
     @Autowired
+
+    WxSearchHistoryServiceImpl searchHistoryService;
+    @Autowired
     WxSearchService searchService;
+
 
     @RequestMapping("wx/goods/category")
     @ResponseBody
@@ -77,7 +84,6 @@ public class WxGoodsController {
                 categories = categoryGoodsService.queryBrotherCategory(goods.get(0).getCategoryId());
             }
         }
-
         else {
             /*添加搜索关键字*/
             if (keyword != null && !"".equals(keyword)) {

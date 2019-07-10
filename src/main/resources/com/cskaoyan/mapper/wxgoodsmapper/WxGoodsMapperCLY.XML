@@ -237,38 +237,33 @@
         </where>
     </select>
 
-    <resultMap id="ResultForQueryCommentDate" type="com.cskaoyan.bean.Comment">
+    <resultMap id="ResultForQueryCommentDate" type="com.cskaoyan.bean.wxBean.WxComment3">
         <id property="id" column="id"/>
-        <result property="valueId" column="value_id"/>
-        <result property="type" column="type"/>
         <result property="content" column="content"/>
-        <result property="userId" column="user_id"/>
-        <result property="hasPicture" column="has_picture"/>
-        <result property="picUrls" column="pic_urls" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler2"/>
-        <result property="star" column="star"/>
+        <result property="picList" column="pic_urls" typeHandler="com.cskaoyan.typeHandler.StringToListTypeHandler2"/>
         <result property="addTime" column="add_time"/>
-        <result property="updateTime" column="update_time"/>
-        <result property="deleted" column="deleted"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar"  column="avatar"/>
     </resultMap>
 
     <select id="queryCommentDate" resultMap="ResultForQueryCommentDate">
         select
-        id,
-        value_id,
-        type,
-        content,
-        user_id,
-        has_picture,
-        pic_urls,
-        star,
-        add_time,
-        update_time,
-        deleted
+        comment.id,
+        comment.content,
+        comment.pic_urls,
+        comment.add_time,
+        userm.nickname,
+        userm.avatar
         from
-        cskaoyan_mall_comment
+        cskaoyan_mall_comment comment
+        left join
+        cskaoyan_mall_user userm
+        on
+        userm.id = comment.user_id
         <where>
-            value_id = #{id}
+        comment.value_id = #{id}
         </where>
+        limit 1,2
     </select>
 
     <select id="queryCommentCount" resultType="_int">
@@ -280,5 +275,76 @@
             value_id = #{id}
         </where>
     </select>
+
+    <resultMap id="goodsById" type="com.cskaoyan.bean.Goods">
+        <result column="id" property="id"/>
+        <result column="brief" property="brief"/>
+        <result column="name" property="name"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="retail_price" property="retailPrice"/>
+    </resultMap>
+    <select id="queryGoodsById" resultMap="goodsById">
+        SELECT
+goods.id,
+goods.brief,
+goods.`name`,
+goods.pic_url,
+goods.retail_price
+from cskaoyan_mall_goods goods
+<where>
+    id = #{id}
+</where>
+    </select>
+
+    <insert id="insertFootprint">
+        insert into cskaoyan_mall_footprint
+        (
+        user_id,
+        goods_id,
+        add_time,
+        update_time,
+        deleted
+        )
+        values
+        (
+        #{foot.userId},
+        #{foot.goodsId},
+        #{foot.addTime},
+        #{foot.updateTime},
+        #{foot.deleted}
+        )
+    </insert>
+    <resultMap id="ResultForQueryGroupon" type="com.cskaoyan.bean.wxBean.WxGrouponRules">
+        <id property="id" column="id"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="discount" column="discount"/>
+        <result property="discountMember" column="discount_member"/>
+        <result property="addTime" column="add_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="queryGroupon" resultMap="ResultForQueryGroupon">
+        select
+        id,
+        goods_id,
+        goods_name,
+        pic_url,
+        discount,
+        discount_member,
+        add_time,
+        update_time,
+        expire_time,
+        deleted
+        from
+        cskaoyan_mall_groupon_rules
+        <where>
+        goods_id = #{id}
+        </where>
+    </select>
+
 
 </mapper>
