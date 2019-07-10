@@ -68,4 +68,14 @@ ShoppingCarMapper shoppingCarMapper;
         shoppingCarMapper.cartAdd1(cart1);
     }
 
+    @Override
+    public double couponPriceGet(Integer uid, int couponId) {
+        return shoppingCarMapper.couponPriceGet(uid,couponId);
+    }
+
+    @Override
+    public int couponNumber(Integer uid) {
+        return 0;
+    }
+
 }
