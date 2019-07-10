@@ -3,6 +3,7 @@ package com.cskaoyan.controller.wxLoginAndRegister;
 import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.vo.ResponseVO;
 import com.cskaoyan.mapper.wxLoginAndRegister.WxLoginMapper;
+import com.cskaoyan.service.wxLoginAndRegister.WxLoginService;
 import com.cskaoyan.tokenManager.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,12 @@ import java.util.Map;
 @Controller
 public class WxLoginController {
     @Autowired(required = false)
-    WxLoginMapper wxLoginMapper;
+    WxLoginService wxLoginService;
     @RequestMapping("wx/auth/login")
     @ResponseBody
     public ResponseVO<Map<Object,Object>> login(@RequestBody User user1, HttpServletRequest request) {
         user1.setLastLoginTime(new Date());
-        User user = wxLoginMapper.isUser(user1);
+        User user = wxLoginService.isUser(user1);
         String NickName=user.getNickname();
             if(NickName==null){
                 NickName=user.getUsername();
@@ -52,7 +53,7 @@ public class WxLoginController {
         if (userId == null) {
             return null;
         }
-        List<Order> orders = wxLoginMapper.queryOrderByUid(userId);
+        List<Order> orders = wxLoginService.queryOrderByUid(userId);
         Map<Object, Object> data = new HashMap<Object, Object>();
         //***********************************
         //根据userId查询订单信息
@@ -64,8 +65,7 @@ public class WxLoginController {
             orderType.setUnship(orderType.getUnship()+1);
         } else if(order.getOrderStatus()==301){
             orderType.setUnrecv(orderType.getUnrecv()+1);
-        }
-            if(order.getComments()==null){
+        }else if(order.getOrderStatus()==401){
                 orderType.setUncomment(orderType.getUncomment()+1);
             }
         }

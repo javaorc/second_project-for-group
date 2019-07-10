@@ -32,7 +32,6 @@ public class AdminRealm extends AuthorizingRealm {
         }
         return info;
     }
-
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String principal = (String) authenticationToken.getPrincipal();
@@ -40,10 +39,8 @@ public class AdminRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal,passwordFromDb, "realm");
         return info;
     }
-
     private String queryPasswordFromDb(String principal) {
         Admin admin=systemMapper.queryPasswordFromDb(principal);
-
         return admin.getPassword();
     }
 }

@@ -17,5 +17,18 @@ public class IntArrayToString {
         String roleIds=substring+"]";
         return roleIds;
     }
+    public static String stringArrayToString(String[] strings){
 
+        StringBuffer sb = new StringBuffer();
+        String substring = null;
+        sb.append("[");
+        for (String id : strings) {
+            sb.append(id).append(",");
+        }
+        if (sb.length() > 1) {
+            substring = sb.substring(0, sb.length() - 1);
+        }
+        String roleIds=substring+"]";
+        return roleIds;
+    }
 }
