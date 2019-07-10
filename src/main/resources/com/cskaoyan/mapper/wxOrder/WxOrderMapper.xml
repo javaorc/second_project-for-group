@@ -510,7 +510,6 @@
     <insert id="insertOrderGoods">
         insert into cskaoyan_mall_order_goods
         (
-        id,
         order_id,
         goods_id,
         goods_name,
@@ -524,7 +523,6 @@
         add_time,
         update_time,
         deleted)  values (
-                            #{og.id},
                             #{og.orderId},
                             #{og.goodsId},
                             #{og.goodsName},

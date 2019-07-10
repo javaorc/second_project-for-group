@@ -138,7 +138,8 @@ public class ShoppingCarController {
         int checkedGoodsCount=(int)map3.get("checkedGoodsCount");
         int goodsAmount=(int)map3.get("goodsAmount");
         int goodsCount=(int)map3.get("goodsCount");
-       LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
+      // LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
+        LzgOrder order=new LzgOrder();
        order.setGrouponRulesId(0);
        order.setOrderTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
        order.setCouponPrice(BigDecimal.valueOf(0));
@@ -171,7 +172,8 @@ public class ShoppingCarController {
         int checkedGoodsCount=(int)map3.get("checkedGoodsCount");
         int goodsAmount=(int)map3.get("goodsAmount");
         int goodsCount=(int)map3.get("goodsCount");
-        LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
+        //LzgOrder order= shoppingCarService.cartCheckout(uid,addressId,couponId,grouponRulesId);
+        LzgOrder order=new LzgOrder();
         order.setGrouponRulesId(0);
         order.setOrderTotalPrice(BigDecimal.valueOf(checkedGoodsAmount));
         order.setCouponPrice(BigDecimal.valueOf(couponPrice));

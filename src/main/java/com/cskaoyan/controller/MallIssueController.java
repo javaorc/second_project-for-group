@@ -62,7 +62,6 @@ public class MallIssueController {
 
     @RequestMapping("issue/create")
     @ResponseBody
-    @RequiresPermissions(value = "admin:storage:insert")
     public ResponseVO<Issue> createIssue(@RequestBody Issue issue) {
         Date date = new Date(System.currentTimeMillis());
         issue.setAddTime(date);

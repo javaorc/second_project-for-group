@@ -76,7 +76,6 @@ public class MallCategoryController {
 
     @RequestMapping("category/delete")
     @ResponseBody
-    @RequiresPermissions(value = "admin:storage:delete")
     @ApiOperation(value = "deleteKindCategory",notes = "删除部分商品品牌功能")
     public ResponseVO<Object> deleteKindCategory(@RequestBody Category category){
         int i = mallCategoryMapper.deleteCategory(category);
@@ -95,7 +94,6 @@ public class MallCategoryController {
 
     @RequestMapping("category/create")
     @ResponseBody
-    @RequiresPermissions(value = "admin:storage:insert")
     @ApiOperation(value = "createCategory",notes = "创建商品品牌功能")
     public ResponseVO<Object> createCategory(@RequestBody Category category){
         Date date = new Date(System.currentTimeMillis());

@@ -106,7 +106,6 @@ public class MallBrandController {
 
     @RequestMapping("brand/create")
     @ResponseBody
-    @RequiresPermissions(value = "admin:storage:insert")
     @ApiOperation(value = "createBrand",notes = "新增品牌功能")
     public ResponseVO<Object> createBrand(@RequestBody Brand brand){
         Date date = new Date(System.currentTimeMillis());
