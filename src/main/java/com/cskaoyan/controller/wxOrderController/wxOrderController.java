@@ -133,7 +133,13 @@ public class wxOrderController {
 
     @RequestMapping("wx/order/prepay")
     @ResponseBody
-    public ResponseVO<Object> orderPrepay(){
+    public ResponseVO<Object> orderPrepay(@RequestBody Map Orders){
+
+
+        String s = (String) Orders.get("orderId");
+        s.replaceAll("\"","");
+        Integer OrderId = Integer.parseInt(s);
+        int i = wxOrderService.changeOrderStatus(201, OrderId);
         ResponseVO<Object> responseVO = new ResponseVO<>();
         responseVO.setErrmsg("订单不能支付");
         responseVO.setErrno(724);

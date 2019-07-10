@@ -274,6 +274,19 @@
         <result column="update_time" property="updateTime"/>
         <result column="deleted" property="deleted"/>
 
+        <association property="goodsProduct" javaType="com.cskaoyan.bean.GoodsProduct">
+            <result column="pid" property="id"/>
+            <result column="gpid" property="goodsId"/>
+            <result column="gp" property="price"/>
+            <result column="gn" property="number"/>
+            <result column="url" property="url"/>
+            <result column="pa" property="addTime"/>
+            <result column="pu" property="updateTime"/>
+            <result column="pd" property="deleted"/>
+            <collection property="specifications" ofType="java.util.List">
+            <result column="gsp"/>
+            </collection>
+        </association>
 
         <association property="goods" javaType="com.cskaoyan.bean.Goods">
             <result column="gid" property="id"/>
@@ -300,19 +313,7 @@
                 <result column="gallery"/>
             </collection>
         </association>
-        <association property="goodsProduct" javaType="com.cskaoyan.bean.GoodsProduct">
-            <result column="pid" property="id"/>
-            <result column="gpid" property="goodsId"/>
-            <result column="gp" property="price"/>
-            <result column="gn" property="number"/>
-            <result column="url" property="url"/>
-            <result column="pa" property="addTime"/>
-            <result column="pu" property="updateTime"/>
-            <result column="pd" property="deleted"/>
-            <collection property="specifications" ofType="java.util.List">
-                <result column="gsp"/>
-            </collection>
-        </association>
+
     </resultMap>
     <select id="queryCartByCid" resultMap="orderCartMap">
         select
@@ -387,6 +388,16 @@
         cskaoyan_mall_cart.update_time,
         cskaoyan_mall_cart.deleted,
 
+        cskaoyan_mall_goods_product.id as pid,
+        cskaoyan_mall_goods_product.goods_id as gpid,
+        cskaoyan_mall_goods_product.specifications as gsp,
+        cskaoyan_mall_goods_product.price as gp,
+        cskaoyan_mall_goods_product.number as gn,
+        cskaoyan_mall_goods_product.url,
+        cskaoyan_mall_goods_product.add_time as pa,
+        cskaoyan_mall_goods_product.update_time as pu,
+        cskaoyan_mall_goods_product.deleted as pd,
+
         cskaoyan_mall_goods.id as gid,
         cskaoyan_mall_goods.goods_sn as gsn,
         cskaoyan_mall_goods.name,
@@ -411,6 +422,8 @@
         from cskaoyan_mall_cart
         left join cskaoyan_mall_goods
         on  cskaoyan_mall_cart.goods_id=cskaoyan_mall_goods.id
+        left join cskaoyan_mall_goods_product
+        on cskaoyan_mall_goods_product.goods_id=cskaoyan_mall_goods.id
         where cskaoyan_mall_cart.checked=1
     </select>
 
